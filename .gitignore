@@ -1,0 +1,31 @@
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Django local files
+db.sqlite3
+*.log
+
+# Environment variables and secrets
+.env
+.env.*
+
+# Uploaded files
+media/
+
+# Static files generated during deployment
+staticfiles/
+
+# macOS
+.DS_Store
+
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/

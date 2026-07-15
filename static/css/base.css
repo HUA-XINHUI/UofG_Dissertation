@@ -1,0 +1,67 @@
+/* ---------- Reset ---------- */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+/* ---------- Body ---------- */
+body{
+    background: red;
+    display:flex;
+    justify-content:center;
+    min-height:100vh;
+    background:#e5e5e5;
+    font-family:Arial, Helvetica, sans-serif;
+}
+/* ---------- 整个网页 ---------- */
+.mobile-app{
+    width:100%;
+    max-width:430px;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    background:white;
+    box-shadow:0 0 12px rgba(0,0,0,.2);
+}
+/* ---------- 用户信息栏 ---------- */
+header {
+    height: 100px;
+    padding: 20px;
+    border-bottom: 3px solid black;
+}
+/* ---------- 战斗显示 ---------- */
+.battlefield {
+    height: 130px;
+    padding: 20px;
+
+    border-bottom: 3px solid black;
+}
+/* ---------- 中间main区 ---------- */
+main {
+    flex: 1;
+    padding: 20px;
+
+    border-bottom: 3px solid black;
+}
+/* ---------- 底部按钮 ---------- */
+footer {
+    height: 50px;
+}
+footer nav {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+footer nav a {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 2px solid black;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+}
+footer nav a:last-child {
+    border-right: none;
+}

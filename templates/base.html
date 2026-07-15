@@ -1,0 +1,87 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        {% block title %}
+            RPG Learning
+        {% endblock %}
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/base.css' %}"
+    >
+
+    {% block extra_css %}
+    {% endblock %}
+</head>
+
+<body>
+    <div class="mobile-app">
+
+        <header>
+            <!-- 用户头像、等级、金币 -->
+            <div>
+                头像区
+                <div>
+                    文字区
+                    <div>
+                        上面写名字
+                    </div>
+                    <div>
+                        下面写等级和金币
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="battlefield">
+            <!-- 当前角色 -->
+            这里是角色
+        </section>
+
+        <main>
+            {% block content %}
+            这里是内容
+            {% endblock %}
+        </main>
+
+        <footer>
+            <!-- 底部导航 -->
+            <nav>
+                <a href="{% url 'mainquest:home' %}">
+                    Main <br>
+                    Quest
+                </a>
+
+                <a href="{% url 'dailyquest:home' %}">
+                    Daily <br>
+                    Quest
+                </a>
+
+                <a href="{% url 'accounts:home' %}">
+                    Character
+                </a>
+
+                <a href="{% url 'store:home' %}">
+                    Store
+                </a>
+
+                <a href="{% url 'accounts:home' %}">
+                    Setting
+                </a>
+            </nav>
+        </footer>
+
+    </div>
+</body>
+
+</html>

@@ -37,6 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Project apps
+    "accounts.apps.AccountsConfig",
+    "mainquest.apps.MainquestConfig",
+    "dailyquest.apps.DailyquestConfig",
+    "challenge.apps.ChallengeConfig",
+    "store.apps.StoreConfig",
 ]
 
 MIDDLEWARE = [

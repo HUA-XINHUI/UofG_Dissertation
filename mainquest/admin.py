@@ -1,3 +1,13 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import (
+    Question,
+    QuestionOption,
+    Section,
+    Unit,
+)
+
+admin.site.register(Section)
+admin.site.register(Unit)
+admin.site.register(Question)
+admin.site.register(QuestionOption)

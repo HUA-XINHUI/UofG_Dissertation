@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,18 +27,21 @@
     <div class="mobile-app">
 
         <header>
-            <!-- 用户头像、等级、金币 -->
-            <div>
-                头像区
-                <div>
-                    文字区
-                    <div>
-                        上面写名字
-                    </div>
-                    <div>
-                        下面写等级和金币
-                    </div>
+            <div class="user-icon">
+                Icon
+            </div>
+            
+            <div class="user-information">
+
+                <div class="user-id">
+                    User ID
                 </div>
+
+                <div class="user-assets">
+                    <span>Level : 99</span>
+                    <span>Gold : 99</span>
+                </div>
+
             </div>
         </header>
 
@@ -49,33 +51,42 @@
         </section>
 
         <main>
-            {% block content %}
+            {% block main %}
             这里是内容
             {% endblock %}
         </main>
 
         <footer>
-            <!-- 底部导航 -->
             <nav>
-                <a href="{% url 'mainquest:home' %}">
+                <a href="{% url 'mainquest:home' %}"
+                   class="{% if request.resolver_match.namespace == 'mainquest' %}active{% endif %}"
+                >
                     Main <br>
                     Quest
                 </a>
 
-                <a href="{% url 'dailyquest:home' %}">
+                <a href="{% url 'dailyquest:home' %}"
+                   class="{% if request.resolver_match.namespace == 'dailyquest' %}active{% endif %}"
+                >
                     Daily <br>
                     Quest
                 </a>
 
-                <a href="{% url 'accounts:home' %}">
+                <a href="{% url 'challenge:home' %}"
+                   class="{% if request.resolver_match.namespace == 'challenge' %}active{% endif %}"
+                >
                     Character
                 </a>
 
-                <a href="{% url 'store:home' %}">
+                <a href="{% url 'store:home' %}"
+                   class="{% if request.resolver_match.namespace == 'store' %}active{% endif %}"
+                >
                     Store
                 </a>
 
-                <a href="{% url 'accounts:home' %}">
+                <a href="{% url 'accounts:home' %}"
+                   class="{% if request.resolver_match.namespace == 'accounts' %}active{% endif %}"
+                >
                     Setting
                 </a>
             </nav>

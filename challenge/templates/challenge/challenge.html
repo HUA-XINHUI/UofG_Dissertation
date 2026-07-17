@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        {% block title %}
+            RPG Learning
+        {% endblock %}
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'challenge/css/challenge.css' %}"
+    >
+
+    {% block extra_css %}
+    {% endblock %}
+</head>
+
+<body>
+    <div class="mobile-app">
+
+        <header>
+            <div class="user-hp">
+                User HP
+            </div>
+            <div class="user-mp">
+                User MP
+            </div>
+        </header>
+
+        <section class="battlefield">
+            这里是角色
+        </section>
+
+        <main>
+            <h1 class="question-location">
+                Section 1 · Unit 1
+            </h1>
+            <h2 class="question-type">
+                Multiple Choice Task
+            </h2>
+            <h3 class="question-text">
+                Which code will cause a bug?
+            </h3>
+            <h4 class="question-text">
+                A : wrong
+                B : right
+            </h4>
+        </main>
+
+        <footer>
+            <div>
+                <form method="post">
+                    {% csrf_token %}
+
+            <div class="answer-options">
+                <button
+                    type="button"
+                    class="answer-option"
+                    data-value="A"
+                >
+                    A. Python
+                </button>
+
+                <button
+                    type="button"
+                    class="answer-option"
+                    data-value="B"
+                >
+                    B. Java
+                </button>
+
+                <button
+                    type="button"
+                    class="answer-option"
+                    data-value="C"
+                >
+                    C. HTML
+                </button>
+            </div>
+
+            <div class="check-options">
+                    <button type="submit">Skill</button>
+                    <button type="submit">Check</button>
+                    <a href="{% url 'accounts:home' %}"
+                        class="{% if request.resolver_match.namespace == 'accounts' %}active{% endif %}"
+                        >
+                    Setting
+                    </a>
+                    </div>
+                </form>
+            </div>
+        </footer>
+
+    </div>
+</body>
+
+</html>

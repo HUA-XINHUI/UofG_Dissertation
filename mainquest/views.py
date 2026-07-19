@@ -1,4 +1,12 @@
 from django.shortcuts import render
+from mainquest.models import Section, Unit
 
 def home(request):
-    return render(request, "mainquest/home.html")
+    section = Section.objects.first()
+    unit = Unit.objects.first()
+    context = {
+        "section": section,
+        "unit": unit,
+    }
+
+    return render(request, "mainquest/home.html", context)

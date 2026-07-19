@@ -1,5 +1,24 @@
 {% extends "base.html" %}
 
 {% block main %}
-<h1>Main Quest Page</h1>
+
+<div class="section-text">
+    <h1>{{ section.id}}</h1>
+    <h2>{{ unit.id}}</h2>
+</div>
+
+<div class="unit-button">
+        <button class="left">
+            left
+        </button>
+    {% for unit in section.units.all %}
+        <button>
+            {{ unit.id }}
+        </button>
+    {% endfor %}
+        <button class="right">
+            right
+        </button>
+</div>
+
 {% endblock %}

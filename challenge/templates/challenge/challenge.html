@@ -44,62 +44,77 @@
                 Section 1 · Unit 1
             </h1>
             <h2 class="question-type">
-                Multiple Choice Task
+                {{ question.titel }}
             </h2>
             <h3 class="question-text">
-                Which code will cause a bug?
+                {{ question.description }}
             </h3>
             <h4 class="question-text">
-                A : wrong
-                B : right
+                {% for option in question.options.all %}
+                        <span>{{ option.title }}</span>
+                        <span>{{ option.description }}</span>
+                {% endfor %}
             </h4>
+            <h5>
+                {% if result %}
+                    <p class="answer-result">
+                {{ result }}
+                    </p>
+                {% endif %}
+            </h5>
         </main>
 
         <footer>
-            <div>
-                <form method="post">
-                    {% csrf_token %}
+            <form method="post">
+                {% csrf_token %}
+                <div class="answer-options">
 
-            <div class="answer-options">
-                <button
-                    type="button"
-                    class="answer-option"
-                    data-value="A"
-                >
-                    A. Python
-                </button>
+                    {% for option in question.options.all %}
+                        <button
+                            type="button"
+                            class="answer-option"
+                            data-option-id="{{ option.id }}"
+                        >
+                        {{ option.title }}
+                        </button>
+                    {% endfor %}
 
-                <button
-                    type="button"
-                    class="answer-option"
-                    data-value="B"
-                >
-                    B. Java
-                </button>
+                    <input
+                        type="hidden"
+                        name="selected_option"
+                        id="selected-option"
+                    >
 
-                <button
-                    type="button"
-                    class="answer-option"
-                    data-value="C"
-                >
-                    C. HTML
-                </button>
-            </div>
+                </div>
 
-            <div class="check-options">
+                <div class="check-options">
                     <button type="submit">Skill</button>
                     <button type="submit">Check</button>
                     <a href="{% url 'accounts:home' %}"
                         class="{% if request.resolver_match.namespace == 'accounts' %}active{% endif %}"
                         >
-                    Setting
+                    Quit
                     </a>
-                    </div>
-                </form>
-            </div>
+                </div>
+
+            </form>
         </footer>
 
-    </div>
+<script>
+    const optionButtons = document.querySelectorAll(".answer-option");
+    const selectedOptionInput = document.querySelector("#selected-option");
+
+    optionButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            optionButtons.forEach((item) => {
+                item.classList.remove("selected");
+            });
+            button.classList.add("selected");
+            selectedOptionInput.value = button.dataset.optionId;
+        });
+    });
+</script>
+
 </body>
 
 </html>

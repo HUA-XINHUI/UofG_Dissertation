@@ -51,18 +51,12 @@ footer {
 }
 
 .answer-options {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    display: flex;
     gap: 8px;
+    width: 100%;
 }
-
-.answer-options {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-}
-
 .answer-option {
+    flex: 1;
     height: 50px;
     padding: 8px;
     border: 3px solid black;
@@ -70,22 +64,34 @@ footer {
     font-size: 20px;
     cursor: pointer;
 }
-
-/* 被选中的选项 */
 .answer-option.selected {
-    background-color: #d9d9d9;
+    transform: translateY(5px);
+    box-shadow: none;
+    background-color: #e5e5e5;
 }
 
 .check-options {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: 1fr 2fr 1fr;
     gap: 8px;
+    width: 100%;
 }
-.check-option {
+
+.check-options button,
+.check-options a {
+    min-width: 0;
     height: 50px;
     padding: 8px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     border: 3px solid black;
     background-color: white;
-    font-size: 20px;
+
+    color: black;
+    font-size: 18px;
+    text-decoration: none;
     cursor: pointer;
 }

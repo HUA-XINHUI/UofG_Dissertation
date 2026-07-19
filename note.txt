@@ -1,2 +1,8 @@
 我认为或许需要把character改为用户profile，并且还是需要给profile做一个app的。
 setting或许也需要做一个app。
+
+缺正确错误界面
+
+完全忘记统计玩家通关进度了，需要补充一个table
+
+challege界面如果点击返回，需要记录来处呀

@@ -7,18 +7,55 @@
     <h2>{{ unit.id}}</h2>
 </div>
 
-<div class="unit-button">
-        <button class="left">
-            left
-        </button>
-    {% for unit in section.units.all %}
-        <button>
-            {{ unit.id }}
-        </button>
-    {% endfor %}
-        <button class="right">
-            right
-        </button>
-</div>
+<form method="post">
+    {% csrf_token %}
+
+    <div class="unit-button">
+            <button class="left">
+                left
+            </button>
+        {% for unit in section.units.all %}
+            <button>
+                {{ unit.id }}
+            </button>
+        {% endfor %}
+            <button class="right">
+                right
+            </button>
+
+            <input
+                type="hidden"
+                name="mainquest-request"
+                id="mainquest-selected"
+            >
+
+    </div>
+
+    <button type="button" id="open-button">
+    Unit 1
+</button>
+
+<dialog id="unit-dialog">
+    <h2>Unit 1</h2>
+    <p>This unit contains 10 questions.</p>
+
+    <button type="button" id="close-button">
+        Close
+    </button>
+</dialog>
+
+<script>
+    const dialog = document.querySelector("#unit-dialog");
+    const openButton = document.querySelector("#open-button");
+    const closeButton = document.querySelector("#close-button");
+
+    openButton.addEventListener("click", function () {
+        dialog.showModal();
+    });
+
+    closeButton.addEventListener("click", function () {
+        dialog.close();
+    });
+</script>
 
 {% endblock %}

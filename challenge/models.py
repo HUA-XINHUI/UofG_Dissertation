@@ -1,87 +1,78 @@
-from django.core.exceptions import ValidationError
 from django.db import models
+from django.conf import settings
 
-# class Boss(models.Model):
-#     name = models.CharField(
-#         max_length=30,
-#     )
+"""
+table 6 : Question
+ID : Primary Key
+Unit : Foreign key, references to unit id in table 4
+Title/Description : The textual information about question
+QuestionType : indicating multiple choice, matching, etc.
+Explanation : The textual information popping up when user answer is incorrect.
+Order no : Sequence of questions within a section
+Available for daily : True/False for randomly draw into daily quest challenge
+Created by : The lecturer ID of the question who upload it
+Category :  Category of this question.
+"""
+class Question(models.Model):
 
-#     description = models.TextField(
-#         blank=True,
-#     )
+    id = models.BigAutoField(primary_key=True)
+    unit = models.ForeignKey(
+        "mainquest.Unit",
+        to_field="id",
+        on_delete=models.CASCADE,
+        related_name="questions"
+    )
+    title = models.CharField(max_length=30)
+    description = models.TextField(blank=True)
 
-#     asset_key = models.CharField(
-#         max_length=100,
-#     )
+    class QuestionType(models.TextChoices):
+        MULTIPLE_CHOICE = "multiple_choice"
+        MATCHING = "matching"
+    question_type = models.CharField(
+        max_length=30,
+        choices=QuestionType.choices,
+        default=QuestionType.MULTIPLE_CHOICE,
+    )
 
-#     def __str__(self):
-#         return self.name
+    explanation = models.TextField(blank=True)
+    order_no = models.PositiveIntegerField()
+    available_for_daily = models.BooleanField(default=False)
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        to_field="id",
+        on_delete=models.SET_NULL,
+        related_name="created_questions",
+        null=True,
+        blank=True
+    )
+    category = models.CharField(max_length=30)
 
-# class Section(models.Model):
+    class Meta:
+        ordering = ["order_no"]
+    def __str__(self):
+        return self.title
 
-#     id = models.BigAutoField(primary_key=True)
-#     title = models.CharField(max_length=100)
-#     description = models.TextField(blank=True)
-#     order_no = models.PositiveIntegerField(unique=True,)
+"""
+table 7 : Question Option
+ID : Primary Key
+Question : Foreign key, references to question id in table 5
+Title/Description : The textual information about each options
+Is correct : Ture/False about this option
+Order no : Sequence of these options
+"""
+class QuestionOption(models.Model):
 
-#     class Meta:
-#         ordering = ["order_no"]
-#     def __str__(self):
-#         return self.title
+    id = models.BigAutoField(primary_key=True)
+    question = models.ForeignKey(
+        Question,
+        to_field="id",
+        on_delete=models.CASCADE,
+        related_name="options")
+    title = models.CharField(max_length=30)
+    description = models.TextField(blank=True)
+    is_correct = models.BooleanField(default=False)
+    order_no = models.PositiveIntegerField()
 
-# class Unit(models.Model):
-
-#     id = models.BigAutoField(primary_key=True)
-#     section = models.ForeignKey(
-#         Section,
-#         to_field="id",
-#         on_delete=models.CASCADE,
-#         related_name="units",
-#     )
-
-#     title = models.CharField(max_length=100)
-#     description = models.TextField(blank=True)
-#     order_no = models.PositiveIntegerField()
-
-#     class UnitType(models.TextChoices):
-#         COMMON = "common"
-#         BOSS = "boss"
-#     unit_type = models.CharField(
-#         max_length=10,
-#         choices=UnitType.choices,
-#         default=UnitType.COMMON,
-#     )
-
-#     boss = models.ForeignKey(
-#         Boss,
-#         on_delete=models.SET_NULL,
-#         related_name="units",
-#         null=True,
-#         blank=True,
-#     )
-
-#     class Meta:
-#         ordering = ["section", "order_no", "id"]
-
-#         constraints = [
-#             models.UniqueConstraint(
-#                 fields=["section", "order_no"],
-#                 name="unique_unit_order_in_section",
-#             )
-#         ]
-
-#     def clean(self):
-#         """检查 Unit 类型与 Boss 是否匹配。"""
-
-#         if self.unit_type == self.UnitType.BOSS and self.boss is None:
-#             raise ValidationError({
-#                 "boss": "Boss unit must select a boss."
-#             })
-
-#         if self.unit_type == self.UnitType.COMMON and self.boss is not None:
-#             raise ValidationError({
-#                 "boss": "Common unit should not have a boss."
-#             })
-
-#     def __str__(self):
-#         return f"{self.section.title} - {self.title}"
+    def __str__(self):
+        return self.title
+    

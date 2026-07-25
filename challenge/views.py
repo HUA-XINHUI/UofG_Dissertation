@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render
-from mainquest.models import Question, QuestionOption
+from challenge.models import Question, QuestionOption
 
 def home(request):
 

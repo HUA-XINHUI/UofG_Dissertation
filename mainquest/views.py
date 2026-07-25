@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from mainquest.models import Section, Unit
+from .models import Section, Unit
 
 def home(request):
     section = Section.objects.first()

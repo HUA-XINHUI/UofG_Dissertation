@@ -9,4 +9,4 @@ def home(request):
         "unit": unit,
     }
 
-    return render(request, "mainquest/home.html", context)
+    return render(request, "mainquest/mainquest.html", context)

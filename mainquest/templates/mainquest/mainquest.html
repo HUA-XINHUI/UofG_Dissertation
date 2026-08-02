@@ -1,4 +1,12 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link
+        rel="stylesheet"
+        href="{% static 'mainquest/css/mainquest.css' %}"
+    >
+{% endblock %}
 
 {% block main %}
 
@@ -15,7 +23,7 @@
                 left
             </button>
         {% for unit in section.units.all %}
-            <button>
+            <button type="button" class="open-button">
                 {{ unit.id }}
             </button>
         {% endfor %}
@@ -31,26 +39,26 @@
 
     </div>
 
-    <button type="button" id="open-button">
-    Unit 1
-</button>
+    <dialog id="unit-dialog">
+        <h2>Unit 1</h2>
+        <p>This unit contains 10 questions.</p>
 
-<dialog id="unit-dialog">
-    <h2>Unit 1</h2>
-    <p>This unit contains 10 questions.</p>
+        <button type="button" id="close-button">
+            Close
+        </button>
+    </dialog>
 
-    <button type="button" id="close-button">
-        Close
-    </button>
-</dialog>
+</form>
 
 <script>
     const dialog = document.querySelector("#unit-dialog");
-    const openButton = document.querySelector("#open-button");
+    const openButton = document.querySelectorAll(".open-button");
     const closeButton = document.querySelector("#close-button");
 
-    openButton.addEventListener("click", function () {
-        dialog.showModal();
+    openButton.forEach(function (button) {
+        button.addEventListener("click", function () {
+            dialog.showModal();
+        });
     });
 
     closeButton.addEventListener("click", function () {

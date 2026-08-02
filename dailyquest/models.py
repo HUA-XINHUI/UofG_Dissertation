@@ -2,7 +2,7 @@ from django.db import models
 
 """
 table 8 : DailyChallengeRecord
-ID : Super key
+ID : Primary Key
 Challenge date : the date of this tuple 
 Title/Description : the textual information about this daily challenge
 """
@@ -17,7 +17,7 @@ class DailyChallengeRecord(models.Model):
 
 """
 table 9 : DailyChallengeQuestion
-ID : Super key
+ID : Primary Key
 Daily challenge id : Foreign key, references to Daily challenge id in table 8.
 Question id : Foreign key, references to question id in table 6
 Order no : Sequence of this question.

@@ -3,7 +3,7 @@ from django.conf import settings
 
 """
 table 12 : User Profile
-ID : Super key
+ID : Primary Key
 User id : Foreign key, references to user id in table 1
 Experience : the experience of user having
 Gold : the golds of user having
@@ -43,10 +43,9 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return f"user{self.user}"
-
 """
 table 13 : User Task Data
-ID : Super key
+ID : Primary Key
 User id : Foreign key, references to user id in table 1
 Total login days : the number of user login days
 Last login date : the last login date of user to calculate the total login days
@@ -71,10 +70,9 @@ class UserTaskData(models.Model):
 
     def __str__(self):
         return f"{self.user} - Task Data"
-
 """
 table 14 : User Asset
-ID : Super key
+ID : Primary Key
 User id : Foreign key, references to user id in table 1
 Character unlocked id : the id of characters user have unlocked
 """

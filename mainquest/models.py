@@ -1,6 +1,12 @@
 from django.conf import settings
 from django.db import models
-
+"""
+Table 3 : Section
+ID : Primary key
+Title : The title of section
+Description : The description of section
+Order no : Sequence of section
+"""
 class Section(models.Model):
 
     id = models.BigAutoField(primary_key=True)
@@ -12,7 +18,15 @@ class Section(models.Model):
         ordering = ["order_no"]
     def __str__(self):
         return self.title
-
+"""
+Table 4 : Unit
+ID : Primary key
+Section : Foreign key, references to section id in table 3
+Title/Description : textual information of unit
+Type : common or Boss unit
+Order no : Sequence of units within a section
+Boss id : Foreign key, references to boss id in table 5
+"""
 class Unit(models.Model):
 
     id = models.BigAutoField(primary_key=True)
@@ -57,7 +71,13 @@ class Unit(models.Model):
 
     def __str__(self):
         return f"{self.section.title} - {self.title}"
-
+"""
+Table 5 : Boss
+ID : Primary key
+Name : Name of the Boss
+Description : Description of Boss
+Asset key : a key references to boss animation assets
+"""
 class Boss(models.Model):
 
     id = models.BigAutoField(primary_key=True)

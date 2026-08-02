@@ -2,7 +2,7 @@ from django.db import models
 
 """
 table 10 : Character
-ID : Super key
+ID : Primary Key
 Character class : the class of this character
 Name/Description : the textual information about this character
 Max hp : max health point of this character
@@ -51,10 +51,9 @@ class Character(models.Model):
 
     def __str__(self):
         return f"No{self.id} : {self.name}"
-
 """
 table 11 : Skill
-ID : Super key
+ID : Primary Key
 Name/Description : the textual information about this skill
 TriggerTime : active skill or passive skill
 Effect value : The value of this effect

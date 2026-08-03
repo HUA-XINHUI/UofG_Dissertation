@@ -22,11 +22,17 @@
             <button class="left">
                 left
             </button>
+
         {% for unit in section.units.all %}
-            <button type="button" class="open-button">
-                {{ unit.id }}
+            <button 
+                type="button" 
+                class="open-button"
+                data-unit-id="{{ unit.id }}"
+            >
+            {{ unit.id }}
             </button>
         {% endfor %}
+
             <button class="right">
                 right
             </button>
@@ -40,12 +46,14 @@
     </div>
 
     <dialog id="unit-dialog">
-        <h2>Unit {{ unit.id }}</h2>
-        <p>This unit contains 10 questions.</p>
+
+        <h1 id="dialog-unit-title"></h1>
+        <h2 id="dialog-unit-description"></h2>
 
         <button type="button" id="close-button">
             Close
         </button>
+
     </dialog>
 
 </form>
@@ -54,9 +62,16 @@
     const dialog = document.querySelector("#unit-dialog");
     const openButton = document.querySelectorAll(".open-button");
     const closeButton = document.querySelector("#close-button");
+    const dialogTitle = document.querySelector("#dialog-unit-title")
+    const selectedUnitInput = document.querySelector("#mainquest-selected");
 
     openButton.forEach(function (button) {
         button.addEventListener("click", function () {
+            const unitId = button.dataset.unitId;
+
+            dialogTitle.textContent = `Unit ${unitId}`;
+            selectedUnitInput.value = unitId;
+
             dialog.showModal();
         });
     });

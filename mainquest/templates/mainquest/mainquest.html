@@ -11,8 +11,8 @@
 {% block main %}
 
 <div class="section-text">
-    <h1>{{ section.id}}</h1>
-    <h2>{{ unit.id}}</h2>
+    <h1>{{ section.id }}</h1>
+    <h2>{{ unit.id }}</h2>
 </div>
 
 <form method="post">
@@ -40,7 +40,7 @@
     </div>
 
     <dialog id="unit-dialog">
-        <h2>Unit 1</h2>
+        <h2>Unit {{ unit.id }}</h2>
         <p>This unit contains 10 questions.</p>
 
         <button type="button" id="close-button">

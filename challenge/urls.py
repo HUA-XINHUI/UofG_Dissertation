@@ -4,5 +4,8 @@ from . import views
 app_name = "challenge"
 
 urlpatterns = [
-    path("", views.home, name="home"),
+    path(
+        "unit/<int:unit_id>/",
+        views.home,
+        name="home"),
 ]

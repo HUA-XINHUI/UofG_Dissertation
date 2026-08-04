@@ -40,11 +40,12 @@
         </section>
 
         <main>
+
             <h1 class="question-location">
-                Section 1 · Unit 1
+                Section {{ question.unit.section.id }} · Unit {{ question.unit.id }}
             </h1>
             <h2 class="question-type">
-                {{ question.titel }}
+                {{ question.title }}
             </h2>
             <h3 class="question-text">
                 {{ question.description }}
@@ -55,13 +56,14 @@
                         <span>{{ option.description }}</span>
                 {% endfor %}
             </h4>
-            <h5>
+            <!-- <h5>
                 {% if result %}
                     <p class="answer-result">
                 {{ result }}
                     </p>
                 {% endif %}
-            </h5>
+            </h5> -->
+
         </main>
 
         <footer>
@@ -88,17 +90,47 @@
                 </div>
 
                 <div class="check-options">
-                    <button type="submit">Skill</button>
-                    <button type="submit">Check</button>
-                    <a href="{% url 'accounts:home' %}"
-                        class="{% if request.resolver_match.namespace == 'accounts' %}active{% endif %}"
-                        >
-                    Quit
-                    </a>
-                </div>
+                    <button 
+                        type="submit"
+                        name="action"
+                        value="skill"
+                    >
+                    Skill
+                    </button>
 
+                    <button 
+                        type="submit"
+                        id="check"
+                        name="action"
+                        value="check"
+                        data-result="result"
+                        data-explanation="question.explanation"
+                    >
+                    Check
+                    </button>
+
+                    <button
+                        type="submit"
+                        name="action"
+                        value="quit"
+                    >
+                    Quit
+                    </button>
+                </div>
             </form>
+
+            <dialog id="explanation-dialog">
+                <h1 id="dialog-result"></h1>
+                <h2 id="dialog-explanation"></h2>
+                <button type="button" id="continue-confirm">
+                    <h3>Continue</h3>
+                </button>
+                <button type="button" id="close-dialog-button">
+                    Close
+                </button>
+            </dialog>
         </footer>
+</body>
 
 <script>
     const optionButtons = document.querySelectorAll(".answer-option");
@@ -113,8 +145,38 @@
             selectedOptionInput.value = button.dataset.optionId;
         });
     });
+
+    const dialog = document.querySelector("#explanation-dialog");
+    const openButton = document.querySelector("#check");
+    const closeButton = document.querySelector("#close-dialog-button");
+    const dialogResult = document.querySelector("#dialog-result");
+    const dialogExplanation = document.querySelector("#dialog-explanation");
+
+    openButton.addEventListener("click", function () {
+            const result = openButton.dataset.result;
+            const explanation = openButton.dataset.explanation;
+
+            dialogResult.textContent = result;
+            dialogExplanation.textContent = explanation;
+
+            dialog.showModal();
+        });
+
+    closeButton.addEventListener("click", function () {
+        dialog.close();
+    });
+
+
+    const resultDialog = document.querySelector("#result-dialog");
+    const continueButton = document.querySelector("#continue-button");
+
+    if (resultDialog) {
+        resultDialog.showModal();
+
+        continueButton.addEventListener("click", function () {
+            resultDialog.close();
+        });
+    }
+
 </script>
-
-</body>
-
 </html>

@@ -39,9 +39,17 @@ def home(request, unit_id):
 
                 else:
                     result = "Wrong!"
+        #when pressing continue
+        elif action == "continue":
                 current_index += 1
-                request.session["current_index"] = current_index
-                current_question = questions[current_index]
+                if current_index == total_questions:
+                    current_index == 0
+                    request.session["current_index"] = 0
+                    return redirect("mainquest:home")
+
+                else:
+                    request.session["current_index"] = current_index
+                    current_question = questions[current_index]
         #when pressing skill
         elif action == "skill":
             print("yes")

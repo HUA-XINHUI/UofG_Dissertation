@@ -53,16 +53,9 @@
             <h4 class="question-text">
                 {% for option in question.options.all %}
                         <span>{{ option.title }}</span>
-                        <span>{{ option.description }}</span>
+                        <span>{{ option.description }}</span><br>
                 {% endfor %}
             </h4>
-            <!-- <h5>
-                {% if result %}
-                    <p class="answer-result">
-                {{ result }}
-                    </p>
-                {% endif %}
-            </h5> -->
 
         </main>
 
@@ -105,6 +98,7 @@
                         value="check"
                         data-result="result"
                         data-explanation="question.explanation"
+                        disabled
                     >
                     Check
                     </button>
@@ -119,63 +113,50 @@
                 </div>
             </form>
 
-            <dialog id="explanation-dialog">
-                <h1 id="dialog-result"></h1>
-                <h2 id="dialog-explanation"></h2>
-                <button type="button" id="continue-confirm">
-                    <h3>Continue</h3>
-                </button>
-                <button type="button" id="close-dialog-button">
-                    Close
-                </button>
-            </dialog>
+            <form method="post">
+                {% csrf_token %}
+                    {% if result %}
+                    <dialog id="explanation-dialog">
+                        <h1 id="dialog-result">{{ result }}</h1>
+                        <h2 id="dialog-explanation">{{ question.explanation }}</h2>
+                        <button 
+                            type="submit" 
+                            id="continue"
+                            name="action"
+                            value="continue"
+                        >
+                            <h3>Continue</h3>
+                        </button>
+                    {% endif %}
+                    </dialog>
+            </form>
+
         </footer>
 </body>
 
 <script>
     const optionButtons = document.querySelectorAll(".answer-option");
     const selectedOptionInput = document.querySelector("#selected-option");
+    const checkButton = document.querySelector("#check");
 
-    optionButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-            optionButtons.forEach((item) => {
+    optionButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+            optionButtons.forEach(function (item) {
                 item.classList.remove("selected");
             });
+
             button.classList.add("selected");
             selectedOptionInput.value = button.dataset.optionId;
+            checkButton.disabled = false;
         });
     });
 
     const dialog = document.querySelector("#explanation-dialog");
-    const openButton = document.querySelector("#check");
-    const closeButton = document.querySelector("#close-dialog-button");
     const dialogResult = document.querySelector("#dialog-result");
     const dialogExplanation = document.querySelector("#dialog-explanation");
 
-    openButton.addEventListener("click", function () {
-            const result = openButton.dataset.result;
-            const explanation = openButton.dataset.explanation;
-
-            dialogResult.textContent = result;
-            dialogExplanation.textContent = explanation;
-
-            dialog.showModal();
-        });
-
-    closeButton.addEventListener("click", function () {
-        dialog.close();
-    });
-
-
-    const resultDialog = document.querySelector("#result-dialog");
-    const continueButton = document.querySelector("#continue-button");
-
-    if (resultDialog) {
-        resultDialog.showModal();
-
-        continueButton.addEventListener("click", function () {
-            resultDialog.close();
-        });
+    if (dialog) {
+        dialog.showModal();
     }
 
 </script>

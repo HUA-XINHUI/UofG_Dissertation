@@ -22,6 +22,7 @@ urlpatterns = [
     path("", include("mainquest.urls")),
     path("challenge/", include("challenge.urls")),
     path("dailyquest/", include("dailyquest.urls")),
+    path("userprofile", include("userprofile.urls")),
     path("store/", include("store.urls")),
     path("accounts/", include("accounts.urls")),
 ]

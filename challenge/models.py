@@ -49,6 +49,13 @@ class Question(models.Model):
 
     class Meta:
         ordering = ["order_no"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["unit", "order_no"],
+                name="unique_question_order_in_unit",
+            ),
+        ]
+
     def __str__(self):
         return self.title
 
@@ -72,6 +79,15 @@ class QuestionOption(models.Model):
     description = models.TextField(blank=True)
     is_correct = models.BooleanField(default=False)
     order_no = models.PositiveIntegerField()
+
+    class Meta:
+        ordering = ["order_no"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["question", "order_no"],
+                name="unique_option_order_in_question",
+            ),
+        ]
 
     def __str__(self):
         return self.title

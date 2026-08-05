@@ -71,8 +71,8 @@
                     Quest
                 </a>
 
-                <a href=""
-                   class="{% if request.resolver_match.namespace == 'challenge' %}active{% endif %}"
+                <a href="{% url 'userprofile:home' %}"
+                   class="{% if request.resolver_match.namespace == 'userprofile' %}active{% endif %}"
                 >
                     Profile
                 </a>

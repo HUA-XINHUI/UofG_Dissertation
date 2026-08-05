@@ -95,3 +95,14 @@ footer {
     text-decoration: none;
     cursor: pointer;
 }
+
+#explanation-dialog {
+    position: fixed;
+    inset: 0;
+    width: min(320px, 80%);
+    height: fit-content;
+    margin: auto;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+}

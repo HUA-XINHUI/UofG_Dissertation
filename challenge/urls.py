@@ -8,4 +8,9 @@ urlpatterns = [
         "unit/<int:unit_id>/",
         views.home,
         name="home"),
+    path(
+        "finish/",
+        views.finish,
+        name="finish"
+    )
 ]

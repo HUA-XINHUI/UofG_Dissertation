@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+<div>
+    <h1>
+        {{ challenge_result }}
+    </h1>
+    <h2>
+        you finish total {{ total_correct }} / {{ total_correct|add:total_wrong }} questions<br>
+        {{ total_correct }} of questions are correct<br>
+        {{ total_wrong }} of questions are wrong<br>
+        the accuracy is {{ accuracy }}
+    </h2>
+</div>
+
+<div>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">
+        back
+        </button>
+    </form>
+</div>
+{% endblock %}

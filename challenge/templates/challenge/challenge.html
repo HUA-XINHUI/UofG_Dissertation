@@ -28,7 +28,7 @@
 
         <header>
             <div class="user-hp">
-                User HP
+                {{ current_hp }}
             </div>
             <div class="user-mp">
                 User MP
@@ -56,6 +56,7 @@
                         <span>{{ option.description }}</span><br>
                 {% endfor %}
             </h4>
+            <p> {{ current_index }} </p>
 
         </main>
 

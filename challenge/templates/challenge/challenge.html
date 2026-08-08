@@ -27,8 +27,9 @@
     <div class="mobile-app">
 
         <header>
+            <h1> {{character.name}} </h1>
             <div class="user-hp">
-                {{ current_hp }}
+                {{ current_hp }}/{{ character.max_hp }}
             </div>
             <div class="user-mp">
                 User MP
@@ -88,6 +89,9 @@
                         type="submit"
                         name="action"
                         value="skill"
+                        {% if not skill_available  %}
+                            disabled
+                        {% endif %}
                     >
                     Skill
                     </button>

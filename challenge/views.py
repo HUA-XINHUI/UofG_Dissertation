@@ -2,6 +2,11 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.utils import timezone
 from challenge.models import Question, QuestionOption
 from mainquest.models import Unit
+from dailyquest.models import UserDailyData
+from store.models import Skill
+from .skills import (
+    process_after_correct_skill,
+)
 
 def home(request, unit_id):
 
@@ -18,12 +23,13 @@ def home(request, unit_id):
 
     result = None
     selected_option_id = None
-    total_correct = request.session.get("total_correct", 0)
-    total_wrong = request.session.get("total_wrong", 0)
 
     #HP testing
-    MAX_HP = 3
-    current_hp = request.session.get("current_hp",MAX_HP)
+    character = request.user.user_profile.selected_character
+    max_hp = request.session.setdefault("MAX_HP", character.max_hp)
+    current_hp = request.session.setdefault("current_hp", max_hp,)
+    total_correct = request.session.get("total_correct", 0)
+    total_wrong = request.session.get("total_wrong", 0)
     #HP testing ended
 
     if request.method == "POST":
@@ -39,6 +45,8 @@ def home(request, unit_id):
                 result = "Correct!"
                 total_correct += 1
                 request.session["total_correct"] = total_correct
+                process_after_correct_skill(request.session, character)
+                current_hp = request.session["current_hp"]
             else:
                 result = "Wrong!"
                 current_hp -= 1
@@ -48,10 +56,11 @@ def home(request, unit_id):
 
         elif action == "continue":#when pressing continue
                 current_index += 1
-                if current_hp == 0:
+                if current_hp <= 0:
+                    ending_process(request, False, current_hp, total_correct)
                     return redirect("challenge:finish")
                 if current_index == total_questions:
-                    current_index == 0
+                    ending_process(request, True, current_hp, total_correct)
                     return redirect("challenge:finish")
                 else:
                     request.session["current_index"] = current_index
@@ -65,6 +74,8 @@ def home(request, unit_id):
             request.session.pop("current_hp", None)
             return redirect("mainquest:home")
 
+    skill_available = (character.skill.trigger_time == Skill.TriggerTime.MANUAL)
+
     context = {
         "unit": unit,
         "question": current_question,
@@ -72,6 +83,8 @@ def home(request, unit_id):
         "selected_option_id": selected_option_id,
         "current_hp": current_hp,
         "current_index": current_index,
+        "character": character,
+        "skill_available": skill_available,
     }
 
     return render(
@@ -80,20 +93,31 @@ def home(request, unit_id):
         context,
     )
 
+def ending_process(request, is_win, current_hp, total_correct):
+    today = timezone.localdate()
+    daily_data, created = UserDailyData.objects.get_or_create(user=request.user,)
+    if daily_data.progress_date != today:
+        daily_data.progress_date = today
+        daily_data.daily_challenge_rewarded = False
+        daily_data.daily_quest1_rewarded = False
+        daily_data.daily_quest2_rewarded = False
+        daily_data.daily_quest3_rewarded = False
+        daily_data.full_hp_units_passed_today = 0
+        daily_data.questions_correct_today = 0
+        daily_data.units_passed_today = 0
+
+    if is_win:
+        if current_hp == 3:
+            daily_data.full_hp_units_passed_today += 1
+        daily_data.units_passed_today += 1
+    daily_data.questions_correct_today += total_correct
+    daily_data.save()
+
 def finish(request):
 
     if request.method == "POST":
         return redirect("dailyquest:home")
 
-    today = str(timezone.localdate())
-    if str(request.session.get("progress_date")) != today:
-        request.session["last_dailyquest1_complete_date"] = None
-        request.session["last_dailyquest2_complete_date"] = None
-        request.session["last_dailyquest3_complete_date"] = None
-        request.session["progress_date"] = today
-        request.session["total_questions_finished_today"] = 0
-        request.session["total_units_finished_today"] = 0
-    
     total_correct = request.session.get("total_correct", 0)
     total_wrong = request.session.get("total_wrong", 0)
     accuracy = total_correct/(total_correct + total_wrong)
@@ -103,12 +127,8 @@ def finish(request):
 
     if is_win:
         challenge_result = "YOU WIN!!!!!"
-        if current_hp == 3:
-            request.session["last_dailyquest1_complete_date"] = today
-        request.session["total_units_finished_today"] += 1
     else:
         challenge_result = "YOU LOSE!!!!!"
-    request.session["total_questions_finished_today"] += total_correct
 
     request.session.pop("total_correct", None)
     request.session.pop("total_wrong", None)

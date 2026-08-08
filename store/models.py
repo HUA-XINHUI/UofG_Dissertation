@@ -16,11 +16,20 @@ Asset key : a key references to character animation assets
 class Character(models.Model):
 
     id = models.BigAutoField(primary_key=True)
-    character_class = models.CharField(max_length=20)
+    class CharacterClass(models.TextChoices):
+        WARRIOR = "warrior"
+        ARCHER = "archer"
+        ROGUE = "rogue"
+        MAGE = "mage"
+        ALCHEMIST = "alchemist"
+    character_class = models.CharField(
+        max_length=30,
+        choices=CharacterClass.choices,
+    )
     name = models.CharField(max_length=30)
     description = models.TextField(blank=True)
     max_hp = models.PositiveIntegerField()
-    max_mp = models.PositiveIntegerField()
+    max_mp = models.PositiveIntegerField(blank=True, null=True)
 
     class AttackType(models.TextChoices):
         MELEE = "melee"
@@ -33,12 +42,13 @@ class Character(models.Model):
         "store.Skill",
         to_field="id",
         on_delete=models.PROTECT,
-        related_name="characters"
+        related_name="characters",
+        blank=True,
     )
 
     unlock_price = models.PositiveIntegerField()
     is_default = models.BooleanField(default=False)
-    asset_key = models.CharField(max_length=30)
+    asset_key = models.CharField(max_length=30, blank=True,)
 
     class Meta:
         constraints = [
@@ -88,8 +98,8 @@ class Skill(models.Model):
         choices=ResourceType.choices,
     )
 
-    max_uses_count = models.PositiveIntegerField()
-    resource_cost = models.PositiveIntegerField()
+    max_uses_count = models.PositiveIntegerField(blank=True, null=True)
+    resource_cost = models.PositiveIntegerField(blank=True, null=True)
 
     def __str__(self):
         return f"{self.id} : {self.name}"

@@ -1,5 +1,6 @@
 from django.db import models
-
+from django.conf import settings
+from django.utils import timezone
 """
 table 8 : DailyChallengeRecord
 ID : Primary Key
@@ -59,3 +60,32 @@ class DailyChallengeQuestion(models.Model):
             f"{self.challenge.challenge_date} - "
             f"Question {self.order_no}"
         )
+"""Table 15 : User Daily Data
+ID : Primary Key
+User id : Foreign key, references to user id in table 1
+Daily challenge rewarded: True if the daily challenge rewards have been claimed
+Dailyquest1/2/3 rewarded: True if the daily quest rewards have been claimed
+Progress date: the date of these recorded updated
+Full hp units passed today: total units finished with full hp today
+Questions correct today: total questions corrected today
+Units passed today : total units passed today
+"""
+class UserDailyData(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="daily_data",
+    )
+    daily_challenge_rewarded = models.BooleanField(default=False)
+    daily_quest1_rewarded = models.BooleanField(default=False)
+    daily_quest2_rewarded = models.BooleanField(default=False)
+    daily_quest3_rewarded = models.BooleanField(default=False)
+    progress_date = models.DateField(default=timezone.localdate)
+    full_hp_units_passed_today = models.PositiveIntegerField(default=0)
+    questions_correct_today = models.PositiveIntegerField(default=0)
+    units_passed_today = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return f"Daily data - {self.user}"
+

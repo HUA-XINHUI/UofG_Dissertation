@@ -11,9 +11,57 @@
 <div>
     <h2>Daily Quest</h2>
     <h3>
-    Answer 5 questions correctly  {{ daily_data.questions_correct_today }}/5 <br>
-    Passed 1 units with full HP {{ daily_data.full_hp_units_passed_today }}/1 <br>
-    Passed 2 units {{ daily_data.units_passed_today }}/2 <br>
+        <form method="post">
+        {% csrf_token %}
+            Answer 5 questions correctly  {{ quest1_progress }}/5 
+            <button
+                type="submit"
+                name="action"
+                value="1"
+                {% if not quest1_completed %}
+                    style= "visibility: hidden";
+                {% endif %}
+                {% if user_daily_data.daily_quest1_rewarded %}
+                    disabled
+                {% endif %}
+            >
+                reward
+            </button>
+
+            <br>
+
+            Passed 1 units with full HP {{ quest2_progress }}/1 
+            <button
+                type="submit"
+                name="action"
+                value="2"
+                {% if not quest2_completed %}
+                    style= "visibility: hidden";
+                {% endif %}
+                {% if user_daily_data.daily_quest2_rewarded %}
+                    disabled
+                {% endif %}
+            >
+                reward
+            </button>
+
+            <br>
+
+            Passed 2 units {{ quest3_progress }}/2 
+            <button
+                type="submit"
+                name="action"
+                value="3"
+                {% if not quest3_completed %}
+                    style= "visibility: hidden";
+                {% endif %}
+                {% if user_daily_data.daily_quest3_rewarded %}
+                    disabled
+                {% endif %}
+            >
+                reward
+            </button>
+        </form>
     </h3>
     <p> {{daily_correct_count }} </p>
 </div>

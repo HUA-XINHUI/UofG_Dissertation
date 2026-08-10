@@ -43,7 +43,6 @@ header {
 main {
     flex: 1;
     padding: 20px;
-    border-bottom: 3px solid black;
 }
 /* ---------- 底部按钮 ---------- */
 footer {

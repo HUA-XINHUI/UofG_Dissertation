@@ -1,6 +1,6 @@
 from django.db import models
 from django.conf import settings
-from .utils import get_level
+from .utils import get_level, get_exp_to_next_level
 
 """
 table 12 : User Profile
@@ -20,7 +20,15 @@ class UserProfile(models.Model):
         on_delete=models.CASCADE,
         related_name="user_profile",
     )
-    #这里记得加一个用户名
+    alias = models.CharField(max_length=10, blank=True, default="")
+
+    @property
+    def display_alias(self):
+        if self.alias:
+            return self.alias
+        else:
+            return f"User{self.id}"
+
     experience = models.PositiveIntegerField(default=0)
     gold = models.PositiveIntegerField(default=0)
     selected_character = models.ForeignKey(
@@ -47,12 +55,17 @@ class UserProfile(models.Model):
     def level(self):
         return get_level(self.experience)
 
+    @property
+    def exp_to_next_level(self):
+        return get_exp_to_next_level(self.experience)
+
     def __str__(self):
         return f"user{self.user}"
 """
 table 13 : User Task Data
 ID : Primary Key
 User id : Foreign key, references to user id in table 1
+Alias : 
 Total login days : the number of user login days
 Last login date : the last login date of user to calculate the total login days
 Total questions answered : the number of questions answered by user
@@ -64,7 +77,7 @@ class UserTaskData(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name="task_data",
+        related_name="user_task_data",
     )
     total_login_days = models.PositiveIntegerField(default=0)
     last_login_date = models.DateField(

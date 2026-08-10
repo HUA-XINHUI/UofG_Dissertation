@@ -6,12 +6,18 @@
     <h1>
         {{ challenge_result }}
     </h1>
+
     <h2>
-        you finish total {{ total_correct }} / {{ total_correct|add:total_wrong }} questions<br>
+        You get 20 gold! now you have {{ user_gold }} golds!<br>
+        You get 20 EXP! now you have {{ user_exp }}/{{ exp_to_next_level }} experience!
+    </h2>
+
+    <h3>
+        you finish total {{ total_questions }} questions<br>
         {{ total_correct }} of questions are correct<br>
         {{ total_wrong }} of questions are wrong<br>
         the accuracy is {{ accuracy }}
-    </h2>
+    </h3>
 </div>
 
 <div>

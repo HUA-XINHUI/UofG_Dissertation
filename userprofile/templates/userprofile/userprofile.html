@@ -4,13 +4,14 @@
 
 <div>
     <h1> User Profile </h1>
-    <p> Student ID : edit </p>
-    <p> level : 99 </p>
-    <p> Exp : 360/780 </p>
-    <p> Gold : 99 </p>
-    <p> has learn for : 76 days </p>
-    <p> total tasks finished : 300 </p>
-    <p> accuracy : 67% </p>
+    <p> Alias : {{ user.user_profile.display_alias }}               edit </p>
+    <p> level : {{ user.user_profile.level}} </p>
+    <p> Exp : {{ user.user_profile.experience }}/{{ user.user_profile.exp_to_next_level }} </p>
+    <p> Gold : {{ user.user_profile.gold }} </p>
+    <p> has learn for : {{ user.user_task_data.total_login_days }} </p>
+    <p> total tasks correct : {{ user.user_task_data.total_correct_answered }} </p>
+    <p> total tasks finished : {{ user.user_task_data.total_questions_answered }} </p>
+    <p> accuracy : {{ accuracy}}% </p>
 </div>
 
 <div>

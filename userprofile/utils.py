@@ -12,3 +12,7 @@ def get_level(experience):
     ):
         if experience >= required_exp:
             return level
+
+def get_exp_to_next_level(experience):
+    level = get_level(experience)
+    return LEVEL_REQUIREMENTS[level]

@@ -4,7 +4,7 @@ from challenge.models import Question, QuestionOption
 from mainquest.models import Unit
 from dailyquest.models import UserDailyData
 from store.models import Skill, Character
-from userprofile.models import UserProfile
+from userprofile.models import UserProfile, UserTaskData
 from . import skills
 from . import process_session
 
@@ -92,6 +92,7 @@ def ending_process(request, is_win):
 
     daily_data, created = UserDailyData.objects.get_or_create(user=request.user)
     user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+    user_task_data, created = UserTaskData.objects.get_or_create(user=request.user)
 
     today = timezone.localdate()
     if daily_data.progress_date != today:
@@ -113,17 +114,26 @@ def ending_process(request, is_win):
 
     user_profile.experience += 20
     user_profile.gold += 20
+    user_task_data.total_questions_answered += (request.session["total_correct"] + request.session["total_wrong"])
+    user_task_data.total_correct_answered += request.session["total_correct"]
 
     daily_data.save()
     user_profile.save()
+    user_task_data.save()
 
 def finish(request):
 
     if request.method == "POST":
         return redirect("dailyquest:home")
 
+    user = request.user
+    user_gold = user.user_profile.gold
+    user_exp = user.user_profile.experience
+    exp_to_next_level = user.user_profile.exp_to_next_level
+
     total_correct = request.session.get("total_correct", 0)
     total_wrong = request.session.get("total_wrong", 0)
+    total_questions = total_correct + total_wrong
     accuracy = total_correct/(total_correct + total_wrong)
 
     if request.session["is_win"]:
@@ -133,12 +143,16 @@ def finish(request):
     process_session.challenge_session_clearing(request)
 
     context = {
-        "challenge_result": challenge_result,
+        "challenge_result" : challenge_result,
+        "total_questions" : total_questions,
         "total_correct": total_correct,
         "total_wrong": total_wrong,
-        "accuracy": accuracy
+        "accuracy" : accuracy,
+        "user_gold" : user_gold,
+        "user_exp" : user_exp,
+        "exp_to_next_level" : exp_to_next_level,
     }
-    
+
     return render(
         request, 
         "challenge/finish.html",

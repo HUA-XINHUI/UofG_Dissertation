@@ -98,7 +98,6 @@ class Skill(models.Model):
         choices=ResourceType.choices,
     )
 
-    max_uses_count = models.PositiveIntegerField(blank=True, null=True)
     resource_cost = models.PositiveIntegerField(blank=True, null=True)
 
     def __str__(self):

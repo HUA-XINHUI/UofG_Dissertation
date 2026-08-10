@@ -8,18 +8,19 @@ def process_manual_skill(session, character, current_question):
 
     match character.skill.name:
         case "Precision Shot":
-            removed_options_id = session.get("removed_options_id", [])
-            wrong_options = list(
-                current_question.options
-                .filter(is_correct=False)
-                .exclude(id__in=removed_options_id)
-            )
-            if not wrong_options:
-                return
-            removed_option = random.choice(wrong_options)
-            removed_options_id.append(removed_option.id)
-            session["removed_options_id"] = removed_options_id
-
+            if session["current_mp"] > 0:
+                removed_options_id = session.get("removed_options_id", [])
+                wrong_options = list(
+                    current_question.options
+                    .filter(is_correct=False)
+                    .exclude(id__in=removed_options_id)
+                )
+                if not wrong_options:
+                    return
+                removed_option = random.choice(wrong_options)
+                removed_options_id.append(removed_option.id)
+                session["removed_options_id"] = removed_options_id
+                session["current_mp"] -= 1
 
 def process_after_correct_skill(session, character):
     if character.skill.trigger_time != Skill.TriggerTime.AFTER_CORRECT:
@@ -29,7 +30,6 @@ def process_after_correct_skill(session, character):
             if session["current_hp"] < character.max_hp:
                 session["current_hp"] += 1
             return
-
 
 # def after_wrong():
 # def challenge_end():

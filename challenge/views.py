@@ -3,11 +3,9 @@ from django.utils import timezone
 from challenge.models import Question, QuestionOption
 from mainquest.models import Unit
 from dailyquest.models import UserDailyData
-from store.models import Skill
-from .skills import (
-    process_after_correct_skill,
-    process_manual_skill,
-)
+from store.models import Skill, Character
+from . import skills
+from . import process_session
 
 def home(request, unit_id):
 
@@ -17,70 +15,58 @@ def home(request, unit_id):
         .filter(unit=unit)
         .prefetch_related("options")
     )
-    total_questions = questions.count()
-    current_index = request.session.get("current_index", 0)
-    current_question = questions[current_index]
+    character = request.user.user_profile.selected_character
 
+    if not request.session.get("challenge_activate", False):
+        process_session.challenge_session_initialising(request, character)
+    # challenge_activating = True; current_index = 0; total_correct = 0; total_wrong = 0; is_win=False
+    # character_id = character.id; current_hp = character.max_hp; current_mp = character.max_mp
+    current_question = questions[request.session["current_index"]]
     options = current_question.options.all()
-    removed_options_id = []
 
     result = None
     selected_option_id = None
-
-    #HP testing
-    character = request.user.user_profile.selected_character
-    max_hp = request.session.setdefault("MAX_HP", character.max_hp)
-    current_hp = request.session.setdefault("current_hp", max_hp,)
-    total_correct = request.session.get("total_correct", 0)
-    total_wrong = request.session.get("total_wrong", 0)
-    #HP testing ended
+    hide_options = False
 
     if request.method == "POST":
         action = request.POST.get("action")
 
-        if action == "check":#when pressing check
+        if action == "check":
+            hide_options = True
+            process_session.question_session_initialising(request)
             selected_option_id = request.POST.get("selected_option")
-            selected_option = get_object_or_404(
-                QuestionOption,
-                id=selected_option_id,
-            )
+            selected_option = get_object_or_404(QuestionOption, id=selected_option_id, )
+
             if selected_option.is_correct:
                 result = "Correct!"
-                total_correct += 1
-                request.session["total_correct"] = total_correct
-                process_after_correct_skill(request.session, character)
-                current_hp = request.session["current_hp"]
+                skills.process_after_correct_skill(request.session, character)
+                request.session["total_correct"] += 1
             else:
                 result = "Wrong!"
-                current_hp -= 1
-                request.session["current_hp"] = current_hp
-                total_wrong += 1
-                request.session["total_wrong"] = total_wrong
+                request.session["current_hp"] -= 1
+                request.session["total_wrong"] += 1
 
-        elif action == "continue":#when pressing continue
-                current_index += 1
-                if current_hp <= 0:
-                    ending_process(request, False, current_hp, total_correct)
+        elif action == "continue":
+                request.session["current_index"] += 1
+                if request.session["current_hp"] <= 0:
+                    ending_process(request, False)
                     return redirect("challenge:finish")
-                if current_index == total_questions:
-                    ending_process(request, True, current_hp, total_correct)
+                elif request.session["current_index"] == questions.count():
+                    ending_process(request, True)
                     return redirect("challenge:finish")
                 else:
-                    request.session["current_index"] = current_index
-                    current_question = questions[current_index]
-                    options = current_question.options.all()
+                    process_session.question_session_clearing(request)
+                    return redirect("challenge:home", unit_id=unit_id)
 
-        elif action == "skill":#when pressing skill
-            process_manual_skill(request.session, character, current_question)
-            removed_options_id = request.session.get("removed_options_id")
+        elif action == "skill":
+            skills.process_manual_skill(request.session, character, current_question)
+            options = options.exclude(id__in=request.session.get("removed_options_id", []))
 
-        else:#when pressing quit
-            request.session.pop("current_index", None)
-            request.session.pop("current_hp", None)
+        else: #action == "quit"
+            process_session.challenge_session_clearing(request)
+            process_session.question_session_clearing(request)
             return redirect("mainquest:home")
 
-    if removed_options_id != []:
-        options = options.exclude(id__in=removed_options_id)
     skill_available = (character.skill.trigger_time == Skill.TriggerTime.MANUAL)
 
     context = {
@@ -88,11 +74,11 @@ def home(request, unit_id):
         "question": current_question,
         "options" : options,
         "result": result,
-        "selected_option_id": selected_option_id,
-        "current_hp": current_hp,
-        "current_index": current_index,
+        "current_hp": request.session["current_hp"],
+        "current_mp": request.session["current_mp"],
         "character": character,
         "skill_available": skill_available,
+        "hide_options": hide_options
     }
 
     return render(
@@ -101,7 +87,7 @@ def home(request, unit_id):
         context,
     )
 
-def ending_process(request, is_win, current_hp, total_correct):
+def ending_process(request, is_win):
     today = timezone.localdate()
     daily_data, created = UserDailyData.objects.get_or_create(user=request.user,)
     if daily_data.progress_date != today:
@@ -115,10 +101,11 @@ def ending_process(request, is_win, current_hp, total_correct):
         daily_data.units_passed_today = 0
 
     if is_win:
-        if current_hp == request.session["MAX_HP"]:
+        request.session["is_win"] = True
+        if request.session["current_hp"] == Character.objects.get(id=request.session["character_id"]).max_hp:
             daily_data.full_hp_units_passed_today += 1
         daily_data.units_passed_today += 1
-    daily_data.questions_correct_today += total_correct
+    daily_data.questions_correct_today += request.session["total_correct"]
     daily_data.save()
 
 def finish(request):
@@ -130,21 +117,11 @@ def finish(request):
     total_wrong = request.session.get("total_wrong", 0)
     accuracy = total_correct/(total_correct + total_wrong)
 
-    current_hp = request.session.get("current_hp")
-    is_win = current_hp > 0
-
-    if is_win:
+    if request.session["is_win"]:
         challenge_result = "YOU WIN!!!!!"
     else:
         challenge_result = "YOU LOSE!!!!!"
-
-
-    request.session.pop("total_correct", None)
-    request.session.pop("total_wrong", None)
-    request.session.pop("current_index", None)
-    request.session.pop("MAX_HP", None)
-    request.session.pop("current_hp", None)
-    request.session.pop("removed_options_id", None) 
+    process_session.challenge_session_clearing(request)
 
     context = {
         "challenge_result": challenge_result,

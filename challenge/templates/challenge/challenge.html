@@ -32,7 +32,7 @@
                 {{ current_hp }}/{{ character.max_hp }}
             </div>
             <div class="user-mp">
-                User MP
+                {{ current_mp }}/{{ character.max_mp }}
             </div>
         </header>
 
@@ -66,11 +66,14 @@
                 {% csrf_token %}
                 <div class="answer-options">
 
-                    {% for option in question.options.all %}
+                    {% for option in options %}
                         <button
                             type="button"
                             class="answer-option"
                             data-option-id="{{ option.id }}"
+                            {% if hide_options %}
+                                style= "visibility: hidden";
+                            {% endif %}
                         >
                         {{ option.title }}
                         </button>

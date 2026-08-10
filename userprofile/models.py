@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from .utils import get_level
 
 """
 table 12 : User Profile
@@ -19,6 +20,7 @@ class UserProfile(models.Model):
         on_delete=models.CASCADE,
         related_name="user_profile",
     )
+    #这里记得加一个用户名
     experience = models.PositiveIntegerField(default=0)
     gold = models.PositiveIntegerField(default=0)
     selected_character = models.ForeignKey(
@@ -40,6 +42,10 @@ class UserProfile(models.Model):
         null=True,
         blank=True,
     )
+
+    @property
+    def level(self):
+        return get_level(self.experience)
 
     def __str__(self):
         return f"user{self.user}"

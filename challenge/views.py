@@ -4,6 +4,7 @@ from challenge.models import Question, QuestionOption
 from mainquest.models import Unit
 from dailyquest.models import UserDailyData
 from store.models import Skill, Character
+from userprofile.models import UserProfile
 from . import skills
 from . import process_session
 
@@ -88,8 +89,11 @@ def home(request, unit_id):
     )
 
 def ending_process(request, is_win):
+
+    daily_data, created = UserDailyData.objects.get_or_create(user=request.user)
+    user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+
     today = timezone.localdate()
-    daily_data, created = UserDailyData.objects.get_or_create(user=request.user,)
     if daily_data.progress_date != today:
         daily_data.progress_date = today
         daily_data.daily_challenge_rewarded = False
@@ -106,7 +110,12 @@ def ending_process(request, is_win):
             daily_data.full_hp_units_passed_today += 1
         daily_data.units_passed_today += 1
     daily_data.questions_correct_today += request.session["total_correct"]
+
+    user_profile.experience += 20
+    user_profile.gold += 20
+
     daily_data.save()
+    user_profile.save()
 
 def finish(request):
 

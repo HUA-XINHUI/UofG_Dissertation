@@ -6,6 +6,7 @@ from dailyquest.models import UserDailyData
 from store.models import Skill
 from .skills import (
     process_after_correct_skill,
+    process_manual_skill,
 )
 
 def home(request, unit_id):
@@ -16,10 +17,12 @@ def home(request, unit_id):
         .filter(unit=unit)
         .prefetch_related("options")
     )
-
     total_questions = questions.count()
     current_index = request.session.get("current_index", 0)
     current_question = questions[current_index]
+
+    options = current_question.options.all()
+    removed_options_id = []
 
     result = None
     selected_option_id = None
@@ -65,20 +68,25 @@ def home(request, unit_id):
                 else:
                     request.session["current_index"] = current_index
                     current_question = questions[current_index]
+                    options = current_question.options.all()
 
         elif action == "skill":#when pressing skill
-            print("yes")
+            process_manual_skill(request.session, character, current_question)
+            removed_options_id = request.session.get("removed_options_id")
 
         else:#when pressing quit
             request.session.pop("current_index", None)
             request.session.pop("current_hp", None)
             return redirect("mainquest:home")
 
+    if removed_options_id != []:
+        options = options.exclude(id__in=removed_options_id)
     skill_available = (character.skill.trigger_time == Skill.TriggerTime.MANUAL)
 
     context = {
         "unit": unit,
         "question": current_question,
+        "options" : options,
         "result": result,
         "selected_option_id": selected_option_id,
         "current_hp": current_hp,
@@ -107,7 +115,7 @@ def ending_process(request, is_win, current_hp, total_correct):
         daily_data.units_passed_today = 0
 
     if is_win:
-        if current_hp == 3:
+        if current_hp == request.session["MAX_HP"]:
             daily_data.full_hp_units_passed_today += 1
         daily_data.units_passed_today += 1
     daily_data.questions_correct_today += total_correct
@@ -130,10 +138,13 @@ def finish(request):
     else:
         challenge_result = "YOU LOSE!!!!!"
 
+
     request.session.pop("total_correct", None)
     request.session.pop("total_wrong", None)
     request.session.pop("current_index", None)
+    request.session.pop("MAX_HP", None)
     request.session.pop("current_hp", None)
+    request.session.pop("removed_options_id", None) 
 
     context = {
         "challenge_result": challenge_result,

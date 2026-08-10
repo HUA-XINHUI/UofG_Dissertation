@@ -52,7 +52,7 @@
                 {{ question.description }}
             </h3>
             <h4 class="question-text">
-                {% for option in question.options.all %}
+                {% for option in options %}
                         <span>{{ option.title }}</span>
                         <span>{{ option.description }}</span><br>
                 {% endfor %}

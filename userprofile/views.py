@@ -5,7 +5,11 @@ def home(request):
     user_profile = user.user_profile
     user_task_data = user.user_task_data
 
-    accuracy = round( user_task_data.total_correct_answered / user_task_data.total_questions_answered * 100, 2)
+    if user_task_data.total_questions_answered != 0:
+        accuracy = round( 
+            user_task_data.total_correct_answered / user_task_data.total_questions_answered * 100, 2)
+    else:
+        accuracy = 0
     
     context={
         "user_profile" : user_profile,

@@ -1,21 +1,131 @@
 {% extends "base.html" %}
 
+{% load static %}
+{% block extra_css %}
+    <link
+        rel="stylesheet"
+        href="{% static 'store/css/store.css' %}"
+    >
+{% endblock %}
+
 {% block main %}
-<h1>Character Store</h1>
-<p>Swardman</p>
-<p>HP : 5 MP : None</p>
-<p>Skill : Recovers 1 HP after each correct answer.</p>
 
-<button>
-    left
-</button>
+    <h1 
+        id="character-store"
+        data-selected-character-id = "{{ current_character_id }}"
+    >
+    Character Store
+    </h1>
 
-<button>
-    Unlock  
-</button>
+    <button 
+        class="switch-buttons"
+        id="left-button"
+    >
+        left
+    </button>
 
-<button>
-    right
-</button>
+
+    {% for character in characters %}
+
+        <form method="post">
+        {% csrf_token %}
+        <input
+            type="hidden"
+            name="character_id"
+            value="{{ character.id }}"
+        >
+            <div 
+                class="character-cards"
+                data-character-id="{{ character.id }}"
+            >
+                <h2>Name : {{ character.name }}</h2>
+                <h2>Max Hp : {{ character.max_hp }}</h2>
+                <h2>Max Mp : {{ character.max_mp }}</h2>
+                <h2>{{ character.description }}</h2>
+                <h1>picture here : {{ character.name }}</h1>
+                <h2>Skill : {{ character.skill.name }}</h2>
+                <h2>{{ character.skill.description }}</h2>
+                {% if not character.id in unlocked_characters_id %}
+                <h2>Unlock Price : {{ character.unlock_price }}</h2>
+                {% endif %}
+
+                {% if character.id == user.user_profile.selected_character.id %}
+                <button
+                    class="status-buttons"
+                    type="button"
+                    disabled
+                >
+                    Selected
+                </button>
+                {% elif character.id in unlocked_characters_id %}
+                <button
+                    class="status-buttons"
+                    type="submit"
+                    name="action"
+                    value="select"
+                >
+                    Select
+                </button>
+                {% else %}
+                <button
+                    class="status-buttons"
+                    type="submit"
+                    name="action"
+                    value="buy"
+                >
+                    Buy
+                </button>
+                {% endif %}
+            </div>
+        </form>
+    {% endfor %}
+
+
+    <button 
+        id="right-button"
+        class="switch-buttons"
+    >
+        right
+    </button>
+
+    <script>
+
+        const characterCards = document.querySelectorAll(".character-cards");
+        const statusButtons = document.querySelectorAll(".status-buttons");
+
+        const characterStore = document.querySelector("#character-store")
+        const selectedCharacterId = Number(characterStore.dataset.selectedCharacterId)
+        let currentIndex = selectedCharacterId
+
+        const leftSwitchButton = document.querySelector("#left-button");
+        const rightSwitchButton = document.querySelector("#right-button");
+
+        function showCard() {
+            characterCards.forEach((card) => {
+                if (currentIndex == card.dataset.characterId) {
+                    card.classList.remove("hidden");
+                } else {
+                    card.classList.add("hidden");
+                }
+            });
+        }
+
+        showCard()
+        leftSwitchButton.addEventListener("click", () =>{
+            currentIndex -= 1;
+            if (currentIndex < 1){
+                currentIndex = characterCards.length
+            }
+            showCard();
+        })
+        rightSwitchButton.addEventListener("click", () =>{
+            currentIndex += 1;
+            if (currentIndex > characterCards.length){
+                currentIndex = 1
+            }
+            showCard();
+        })
+
+    </script>
 
 {% endblock %}

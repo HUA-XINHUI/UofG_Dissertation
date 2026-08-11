@@ -9,6 +9,7 @@ def challenge_session_initialising(request, character):
     request.session["character_id"] = character.id
     request.session["current_hp"] = character.max_hp
     request.session["current_mp"] = character.max_mp
+    request.session["current_buff"] = []
 
 
 def challenge_session_clearing(request):
@@ -22,6 +23,7 @@ def challenge_session_clearing(request):
     request.session.pop("character_id", None)
     request.session.pop("current_hp", None)
     request.session.pop("current_mp", None)
+    request.session.pop("current_buff", None)
 
 def question_session_initialising(request):
 

@@ -7,25 +7,21 @@
             name="viewport"
             content="width=device-width, initial-scale=1.0"
         >
-
         <title>
             {% block title %}
                 RPG Learning
             {% endblock %}
         </title>
-
         <link
             rel="stylesheet"
             href="{% static 'css/base.css' %}"
         >
-
         {% block extra_css %}
         {% endblock %}
     </head>
 
     <body>
         <div class="mobile-app">
-
             <header>
                 <div class="user-icon">
                     Icon
@@ -44,16 +40,22 @@
 
                 </div>
             </header>
-
             <section class="battlefield">
                 Here is character and battle field
             </section>
-
             <main>
+                <div class="feedback-area">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p class="feedback {{ message.tags }}">
+                                {{ message }}
+                            </p>
+                        {% endfor %}
+                    {% endif %}
+                </div>
                 {% block main %}
                 {% endblock %}
             </main>
-
             <footer>
                 <nav>
                     <a href="{% url 'mainquest:home' %}"
@@ -89,8 +91,18 @@
                     </a>
                 </nav>
             </footer>
-
         </div>
-
     </body>
 </html>
+
+<script>
+setTimeout(() => {
+    const feedbacks = document.querySelectorAll(".feedback");
+    feedbacks.forEach((feedback) => {
+        feedback.classList.add("fade-out");
+        setTimeout(() => {
+            feedback.remove();
+        }, 500);
+    });
+}, 1000);
+</script>

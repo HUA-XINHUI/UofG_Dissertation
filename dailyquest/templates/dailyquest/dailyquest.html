@@ -22,7 +22,13 @@
                     disabled
                 {% endif %}
             >
-                reward
+                {% if not quest1_completed %}
+                    unfinished
+                {% elif user_daily_data.daily_quest1_rewarded %}
+                    rewarded
+                {% else %}
+                    reward
+                {% endif %}
             </button>
 
             <br>
@@ -36,7 +42,13 @@
                     disabled
                 {% endif %}
             >
-                reward
+                {% if not quest2_completed %}
+                    unfinished
+                {% elif user_daily_data.daily_quest2_rewarded %}
+                    rewarded
+                {% else %}
+                    reward
+                {% endif %}
             </button>
 
             <br>
@@ -50,7 +62,13 @@
                     disabled
                 {% endif %}
             >
-                reward
+                {% if not quest3_completed %}
+                    unfinished
+                {% elif user_daily_data.daily_quest3_rewarded %}
+                    rewarded
+                {% else %}
+                    reward
+                {% endif %}
             </button>
         </form>
     </h3>

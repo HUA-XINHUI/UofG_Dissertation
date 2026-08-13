@@ -105,3 +105,12 @@ footer {
     box-sizing: border-box;
     text-align: center;
 }
+
+.feedback {
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+
+.feedback.fade-out {
+    opacity: 0;
+}

@@ -49,18 +49,30 @@ def home(request):
             user_daily_data.daily_quest1_rewarded = True
             request.user.user_profile.gold += quest1_reward
             request.user.user_profile.save()
+            messages.success(
+                request,
+                f"daily quest 1 rewarded"
+            )
         elif (action == "2"
               and quest2_completed
               and not user_daily_data.daily_quest2_rewarded) :
             user_daily_data.daily_quest2_rewarded = True
             request.user.user_profile.gold += quest2_reward
             request.user.user_profile.save()
+            messages.success(
+                request,
+                f"daily quest 2 rewarded"
+            )
         elif (action == "3"
               and quest3_completed
               and not user_daily_data.daily_quest3_rewarded) :
             user_daily_data.daily_quest3_rewarded = True
             request.user.user_profile.gold += quest3_reward
             request.user.user_profile.save()
+            messages.success(
+                request,
+                f"daily quest 3 rewarded"
+            )
         user_daily_data.save()
         return redirect("dailyquest:home")
 

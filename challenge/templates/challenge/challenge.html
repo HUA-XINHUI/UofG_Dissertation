@@ -42,6 +42,14 @@
 
         <main>
 
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="feedback {{ message.tags }}">
+                        {{ message }}
+                    </p>
+                {% endfor %}
+            {% endif %}
+
             <h1 class="question-location">
                 Section {{ question.unit.section.id }} · Unit {{ question.unit.id }}
             </h1>
@@ -166,6 +174,16 @@
     if (dialog) {
         dialog.showModal();
     }
+
+    setTimeout(() => {
+        const feedbacks = document.querySelectorAll(".feedback");
+        feedbacks.forEach((feedback) => {
+            feedback.classList.add("fade-out");
+            setTimeout(() => {
+                feedback.remove();
+            }, 500);
+        });
+    }, 1000);
 
 </script>
 </html>

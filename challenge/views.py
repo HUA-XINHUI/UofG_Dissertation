@@ -40,7 +40,7 @@ def home(request, unit_id):
 
             if selected_option.is_correct:
                 result = "Correct!"
-                skills.process_after_correct_skill(request.session, character)
+                skills.process_after_correct_skill(request, character)
                 request.session["total_correct"] += 1
             else:
                 result = "Wrong!"
@@ -60,7 +60,7 @@ def home(request, unit_id):
                     return redirect("challenge:home", unit_id=unit_id)
 
         elif action == "skill":
-            skills.process_manual_skill(request.session, character, current_question)
+            skills.process_manual_skill(request, character, current_question)
             options = options.exclude(id__in=request.session.get("removed_options_id", []))
 
         elif action == "quit":

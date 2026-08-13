@@ -6,8 +6,7 @@ from mainquest.models import Unit
 from dailyquest.models import UserDailyData
 from store.models import Skill, Character
 from userprofile.models import UserProfile, UserTaskData
-from . import skills
-from . import process_session
+from . import skills, utility
 
 def home(request, unit_id):
 
@@ -20,7 +19,7 @@ def home(request, unit_id):
     character = request.user.user_profile.selected_character
 
     if not request.session.get("challenge_activate", False):
-        process_session.challenge_session_initialising(request, character)
+        utility.challenge_session_initialising(request, character, unit_id)
     # challenge_activating = True; current_index = 0; total_correct = 0; total_wrong = 0; is_win=False
     # character_id = character.id; current_hp = character.max_hp; current_mp = character.max_mp
     current_question = questions[request.session["current_index"]]
@@ -35,7 +34,7 @@ def home(request, unit_id):
 
         if action == "check":
             hide_options = True
-            process_session.question_session_initialising(request)
+            utility.question_session_initialising(request)
             selected_option_id = request.POST.get("selected_option")
             selected_option = get_object_or_404(QuestionOption, id=selected_option_id, )
 
@@ -51,22 +50,22 @@ def home(request, unit_id):
         elif action == "continue":
                 request.session["current_index"] += 1
                 if request.session["current_hp"] <= 0:
-                    ending_process(request, False)
+                    ending_process(request, False, unit)
                     return redirect("challenge:finish")
                 elif request.session["current_index"] == questions.count():
-                    ending_process(request, True)
+                    ending_process(request, True, unit)
                     return redirect("challenge:finish")
                 else:
-                    process_session.question_session_clearing(request)
+                    utility.question_session_clearing(request)
                     return redirect("challenge:home", unit_id=unit_id)
 
         elif action == "skill":
             skills.process_manual_skill(request.session, character, current_question)
             options = options.exclude(id__in=request.session.get("removed_options_id", []))
 
-        else: #action == "quit"
-            process_session.challenge_session_clearing(request)
-            process_session.question_session_clearing(request)
+        elif action == "quit":
+            utility.challenge_session_clearing(request)
+            utility.question_session_clearing(request)
             return redirect("mainquest:home")
 
     skill_available = (character.skill.trigger_time == Skill.TriggerTime.MANUAL)
@@ -89,7 +88,7 @@ def home(request, unit_id):
         context,
     )
 
-def ending_process(request, is_win):
+def ending_process(request, is_win, unit):
 
     daily_data, created = UserDailyData.objects.get_or_create(user=request.user)
     user_profile, created = UserProfile.objects.get_or_create(user=request.user)
@@ -110,6 +109,7 @@ def ending_process(request, is_win):
         request.session["is_win"] = True
         if request.session["current_hp"] == Character.objects.get(id=request.session["character_id"]).max_hp:
             daily_data.full_hp_units_passed_today += 1
+        user_profile.unit_progress = utility.get_next_unit(unit)
         daily_data.units_passed_today += 1
     daily_data.questions_correct_today += request.session["total_correct"]
 
@@ -141,7 +141,7 @@ def finish(request):
         challenge_result = "YOU WIN!!!!!"
     else:
         challenge_result = "YOU LOSE!!!!!"
-    process_session.challenge_session_clearing(request)
+    utility.challenge_session_clearing(request)
 
     context = {
         "challenge_result" : challenge_result,

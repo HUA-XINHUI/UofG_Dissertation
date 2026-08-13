@@ -10,83 +10,128 @@
 
 {% block main %}
 
-<div class="section-text">
-    <h1>{{ section.id }}</h1>
-    <h2>{{ unit.id }}</h2>
-</div>
-
-<form method="post">
-    {% csrf_token %}
-
-    <div class="unit-button">
-            <button type="button" class="left">
-                left
-            </button>
-
-        {% for unit in section.units.all %}
-            <button 
-                type="button" 
-                class="open-dialog-button"
-                data-unit-id="{{ unit.id }}"
-                data-unit-description="{{ unit.description }}"
-            >
-            {{ unit.id }}
-            </button>
-        {% endfor %}
-
-            <button type="button" class="right">
-                right
-            </button>
-
-            <input
-                type="hidden"
-                id="mainquest-selected"
-                name="mainquest-request"
-            >
-
+    <div 
+        id="section-information"
+        data-current-section-id="{{ current_section_id }}">
     </div>
 
-    <dialog id="unit-dialog">
+    <button 
+        id="left-button"
+        type="button"
+    >
+        left
+    </button>
 
-        <h1 id="dialog-unit-title"></h1>
-        <h2 id="dialog-unit-description"></h2>
+    {% for section in sections.all %}
+        <div 
+            class="section-cards"
+            data-section-id="{{ section.id }}"
+        >
+            Section : {{ section.id }}
+            <div class="unit-button">
+                {% for unit in section.units.all %}
+                    <button 
+                        type="button" 
+                        class="open-dialog-button"
+                        data-unit-id="{{ unit.id }}"
+                        data-unit-description="{{ unit.description }}"
+                        {% if unit.id > current_unit_id %}
+                            disabled
+                        {% endif %}
+                    >
+                    {{ unit.order_no }}
+                    </button>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
 
-        <button type="submit" id="begin-confirm">
-            <h1>Continue +20EXP </h1>
-        </button>
+    <form method="post">
+    {% csrf_token %}
+        <input
+            type="hidden"
+            id="unit-selected"
+            name="unit-request"
+        >
+        <dialog id="unit-dialog">
+            <h1 id="dialog-unit-title"></h1>
+            <h2 id="dialog-unit-description"></h2>
 
-        <button type="button" id="close-dialog-button">
-            Close
-        </button>
+            <button type="submit" id="begin-confirm">
+                <h1>Continue +20EXP </h1>
+            </button>
 
-    </dialog>
+            <button type="button" id="close-dialog-button">
+                Close
+            </button>
+        </dialog>
+    </form>
 
-</form>
+    <button 
+        type="button" 
+        id="right-button">
+        right
+    </button>
+    
+    <script>
+        const sectionCards = document.querySelectorAll(".section-cards")
+        const sectionInformation = document.querySelector("#section-information")
+        let sectionIndex = Number(sectionInformation.dataset.currentSectionId)
 
-<script>
-    const dialog = document.querySelector("#unit-dialog");
-    const openButtons = document.querySelectorAll(".open-dialog-button");
-    const closeButton = document.querySelector("#close-dialog-button");
-    const dialogTitle = document.querySelector("#dialog-unit-title");
-    const dialogDescription = document.querySelector("#dialog-unit-description");
-    const selectedUnitInput = document.querySelector("#mainquest-selected");
+        function showCard() {
+            sectionCards.forEach((card) => {
+                if (sectionIndex == card.dataset.sectionId) {
+                    card.classList.remove("hidden");
+                } else {
+                    card.classList.add("hidden");
+                }
+            });
+        }
+        showCard()
 
-    openButtons.forEach(function (button) {
-        button.addEventListener("click", function () {
-            const unitId = button.dataset.unitId;
-            const unitDescription = button.dataset.unitDescription;
+        const leftButton = document.querySelector("#left-button")
+        const rightButton = document.querySelector("#right-button")
 
-            dialogTitle.textContent = `Unit ${unitId}`;
-            dialogDescription.textContent = unitDescription;
-            selectedUnitInput.value = unitId;
+        leftButton.addEventListener("click", function(){
+            sectionIndex -= 1
+            if (sectionIndex < 1){
+                sectionIndex = sectionCards.length
+            }
+            showCard()
+        })
 
-            dialog.showModal();
+        rightButton.addEventListener("click", function(){
+            sectionIndex += 1
+            if (sectionIndex > sectionCards.length){
+                sectionIndex = 1
+            }
+            showCard()
+        })
+
+        const dialog = document.querySelector("#unit-dialog");
+        const openButtons = document.querySelectorAll(".open-dialog-button");
+        const closeButton = document.querySelector("#close-dialog-button");
+        const dialogTitle = document.querySelector("#dialog-unit-title");
+        const dialogDescription = document.querySelector("#dialog-unit-description");
+        const selectedUnitInput = document.querySelector("#unit-selected");
+
+        openButtons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                const unitId = button.dataset.unitId;
+                const unitDescription = button.dataset.unitDescription;
+
+                dialogTitle.textContent = `Unit ${unitId}`;
+                dialogDescription.textContent = unitDescription;
+                selectedUnitInput.value = unitId;
+
+                dialog.showModal();
+            });
         });
-    });
 
-    closeButton.addEventListener("click", function () {
-        dialog.close();
-    });
-</script>
+        closeButton.addEventListener("click", function () {
+            dialog.close();
+        });
+
+    </script>
 
 {% endblock %}

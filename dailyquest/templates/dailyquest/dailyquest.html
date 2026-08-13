@@ -18,10 +18,7 @@
                 type="submit"
                 name="action"
                 value="1"
-                {% if not quest1_completed %}
-                    style= "visibility: hidden";
-                {% endif %}
-                {% if user_daily_data.daily_quest1_rewarded %}
+                {% if not quest1_completed or user_daily_data.daily_quest1_rewarded%}
                     disabled
                 {% endif %}
             >
@@ -35,10 +32,7 @@
                 type="submit"
                 name="action"
                 value="2"
-                {% if not quest2_completed %}
-                    style= "visibility: hidden";
-                {% endif %}
-                {% if user_daily_data.daily_quest2_rewarded %}
+                {% if not quest2_completed or user_daily_data.daily_quest2_rewarded%}
                     disabled
                 {% endif %}
             >
@@ -52,10 +46,7 @@
                 type="submit"
                 name="action"
                 value="3"
-                {% if not quest3_completed %}
-                    style= "visibility: hidden";
-                {% endif %}
-                {% if user_daily_data.daily_quest3_rewarded %}
+                {% if not quest3_completed or user_daily_data.daily_quest3_rewarded%}
                     disabled
                 {% endif %}
             >

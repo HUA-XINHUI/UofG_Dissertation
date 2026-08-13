@@ -1,33 +1,66 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.utils import timezone
 from .models import UserDailyData
 
 def home(request):
 
-    quest1_completed = False
-    quest2_completed = False
-    quest3_completed = False
+    quest1_target = 5
+    quest2_target = 1
+    quest3_target = 2
+
+    quest1_reward = 20
+    quest2_reward = 20
+    quest3_reward = 20
 
     user_daily_data, created = UserDailyData.objects.get_or_create(user=request.user)
 
-    if user_daily_data.questions_correct_today >= 5:
-        quest1_completed = True
-        quest1_progress = min(user_daily_data.questions_correct_today, 5)
-    if user_daily_data.full_hp_units_passed_today >= 1:
-        quest2_completed = True
-        quest2_progress = min(user_daily_data.full_hp_units_passed_today, 1)
-    if user_daily_data.units_passed_today >= 2:
-        quest3_completed = True
-        quest3_progress = min(user_daily_data.units_passed_today, 2)
+    today = timezone.localdate()
+    if user_daily_data.progress_date != today:
+        user_daily_data.progress_date = today
+        user_daily_data.daily_challenge_rewarded = False
+        user_daily_data.daily_quest1_rewarded = False
+        user_daily_data.daily_quest2_rewarded = False
+        user_daily_data.daily_quest3_rewarded = False
+        user_daily_data.full_hp_units_passed_today = 0
+        user_daily_data.questions_correct_today = 0
+        user_daily_data.units_passed_today = 0
+        user_daily_data.save()
+
+    quest1_progress = min(user_daily_data.questions_correct_today, quest1_target)
+    quest2_progress = min(user_daily_data.full_hp_units_passed_today, quest2_target)
+    quest3_progress = min(user_daily_data.units_passed_today, quest3_target)
+
+    quest1_completed = (
+        user_daily_data.questions_correct_today >= quest1_target
+    )
+    quest2_completed = (
+        user_daily_data.full_hp_units_passed_today >= quest2_target
+    )
+    quest3_completed = (
+        user_daily_data.units_passed_today >= quest3_target
+    )
 
     if request.method == "POST":
         action = request.POST.get("action")
-        if action == "1":
+        if (action == "1"
+            and quest1_completed
+            and not user_daily_data.daily_quest1_rewarded) :
             user_daily_data.daily_quest1_rewarded = True
-        elif action == "2":
+            request.user.user_profile.gold += quest1_reward
+            request.user.user_profile.save()
+        elif (action == "2"
+              and quest2_completed
+              and not user_daily_data.daily_quest2_rewarded) :
             user_daily_data.daily_quest2_rewarded = True
-        else:
+            request.user.user_profile.gold += quest2_reward
+            request.user.user_profile.save()
+        elif (action == "3"
+              and quest3_completed
+              and not user_daily_data.daily_quest3_rewarded) :
             user_daily_data.daily_quest3_rewarded = True
+            request.user.user_profile.gold += quest3_reward
+            request.user.user_profile.save()
         user_daily_data.save()
         return redirect("dailyquest:home")
 

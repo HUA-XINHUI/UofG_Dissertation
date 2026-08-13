@@ -77,14 +77,12 @@ class Skill(models.Model):
     name = models.CharField(max_length=30)
     description = models.TextField(blank=True)
 
-    class TriggerTime(models.TextChoices):
-        MANUAL = "manual"
-        AFTER_CORRECT = "after_correct"
-        AFTER_WRONG = "after_wrong"
-        CHALLENGE_END = "challenge_end"
-    trigger_time = models.CharField(
-        max_length=30,
-        choices=TriggerTime.choices,
+    class TriggerType(models.TextChoices):
+        ACTIVE = "active"
+        PASSIVE = "passive"
+    trigger_type = models.CharField(
+        max_length=15,
+        choices=TriggerType.choices,
     )
 
     effect_value = models.IntegerField()

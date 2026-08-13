@@ -44,6 +44,7 @@ def home(request, unit_id):
                 request.session["total_correct"] += 1
             else:
                 result = "Wrong!"
+                skills.process_after_wrong_skill(request, character)
                 request.session["current_hp"] -= 1
                 request.session["total_wrong"] += 1
 
@@ -68,7 +69,7 @@ def home(request, unit_id):
             utility.question_session_clearing(request)
             return redirect("mainquest:home")
 
-    skill_available = (character.skill.trigger_time == Skill.TriggerTime.MANUAL)
+    skill_available = (character.skill.trigger_type == Skill.TriggerType.ACTIVE)
 
     context = {
         "unit": unit,

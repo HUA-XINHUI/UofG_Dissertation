@@ -1,5 +1,6 @@
 from mainquest.models import Unit
 from django.db.models import Q
+from . import skills
 
 def challenge_session_initialising(request, character, unit_id):
 
@@ -13,7 +14,7 @@ def challenge_session_initialising(request, character, unit_id):
     request.session["character_id"] = character.id
     request.session["current_hp"] = character.max_hp
     request.session["current_mp"] = character.max_mp
-    request.session["current_buff"] = []
+    request.session["buffs"] = skills.challenge_buffs_initialising(request, character)
 
 def challenge_session_clearing(request):
 
@@ -27,7 +28,7 @@ def challenge_session_clearing(request):
     request.session.pop("character_id", None)
     request.session.pop("current_hp", None)
     request.session.pop("current_mp", None)
-    request.session.pop("current_buff", None)
+    request.session.pop("buffs", None)
 
 def question_session_initialising(request):
 

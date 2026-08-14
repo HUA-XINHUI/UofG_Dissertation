@@ -22,7 +22,7 @@ def home(request):
             )
         elif action == "buy":
             if user.user_profile.gold >= character.unlock_price:
-                asset, create = user.user_asset.get_or_create(character=character)
+                asset, create = user.unlocked_characters.get_or_create(character=character)
                 if create :
                     user.user_profile.gold -= character.unlock_price
                     messages.success(

@@ -40,11 +40,11 @@ def home(request, unit_id):
 
             if selected_option.is_correct:
                 result = "Correct!"
-                skills.process_after_correct_skill(request, character)
+                skills.process_after_correct_skill(request)
                 request.session["total_correct"] += 1
             else:
                 result = "Wrong!"
-                skills.process_after_wrong_skill(request, character)
+                skills.process_after_wrong_skill(request)
                 request.session["current_hp"] -= 1
                 request.session["total_wrong"] += 1
 
@@ -91,6 +91,9 @@ def home(request, unit_id):
 
 def ending_process(request, is_win, unit):
 
+    gold_reward = 20
+    exp_reward = 20
+
     daily_data, created = UserDailyData.objects.get_or_create(user=request.user)
     user_profile, created = UserProfile.objects.get_or_create(user=request.user)
     user_task_data, created = UserTaskData.objects.get_or_create(user=request.user)
@@ -108,14 +111,17 @@ def ending_process(request, is_win, unit):
 
     if is_win:
         request.session["is_win"] = True
+        gold_reward, exp_reward = skills.process_after_challenge_ending(request, gold_reward, exp_reward)
+        user_profile.gold += gold_reward
+        user_profile.experience += exp_reward
+        user_profile.unit_progress = utility.get_next_unit(unit)
+
+        #daily quest handler
         if request.session["current_hp"] == Character.objects.get(id=request.session["character_id"]).max_hp:
             daily_data.full_hp_units_passed_today += 1
-        user_profile.unit_progress = utility.get_next_unit(unit)
         daily_data.units_passed_today += 1
-    daily_data.questions_correct_today += request.session["total_correct"]
 
-    user_profile.experience += 20
-    user_profile.gold += 20
+    daily_data.questions_correct_today += request.session["total_correct"]
     user_task_data.total_questions_answered += (request.session["total_correct"] + request.session["total_wrong"])
     user_task_data.total_correct_answered += request.session["total_correct"]
 

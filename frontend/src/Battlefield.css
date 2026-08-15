@@ -4,42 +4,42 @@
 
 .player {
     position: relative;
-    left: 0;
-    transition: left 0.2s;
+    transition: transform 0.2s;
 }
 
-.player-attacking {
-    left: 100px;
+.player-attack {
+    transform: translateX(300px);
+}
+
+.player-hurt {
+    animation: hurt 0.2s;
 }
 
 .enemy {
     position: relative;
-    margin-left: 200px;
+    left: 350px;
+    transition: transform 0.2s;
+}
+
+.enemy-attack {
+    transform: translateX(-300px);
 }
 
 .enemy-hurt {
-    animation: enemy-hurt 0.2s;
+    animation: hurt 0.2s
 }
 
-@keyframes enemy-hurt {
-
-    0% {
-        left: 0;
-    }
-
+@keyframes hurt {
     25% {
-        left: 10px;
+        transform: translateX(10px);
     }
-
     50% {
-        left: -10px;
+        transform: translateX(-10px);
     }
-
     75% {
-        left: 10px;
+        transform: translateX(10px);
     }
-
     100% {
-        left: 0;
+        transform: translateX(0);
     }
 }

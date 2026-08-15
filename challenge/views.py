@@ -61,7 +61,7 @@ def home(request, unit_id):
                     return redirect("challenge:home", unit_id=unit_id)
 
         elif action == "skill":
-            skills.process_manual_skill(request, character, current_question)
+            skills.process_manual_skill(request, current_question)
             options = options.exclude(id__in=request.session.get("removed_options_id", []))
 
         elif action == "quit":

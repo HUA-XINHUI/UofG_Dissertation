@@ -4,59 +4,65 @@ import "./Battlefield.css"
 function Battlefield(props) {
 
     const [currentHp, setCurrentHp] = useState(props.currentHp)
+    const [currentMp, setCurrentMp] = useState(props.currentMp)
 
-    const [isAttacking, setIsAttacking] = useState(false)
-    const [isEnemyHurt, setIsEnemyHurt] = useState(false)
+    const [playerState, setPlayerState] = useState("idle")
+    const [enemyState, setEnemyState] = useState("idle")
 
-    function attack() {
-
-        // 1. 玩家开始攻击
-        setIsAttacking(true)
-
-        // 2. 200ms 后敌人受伤
+    function correct(){
+        setPlayerState("attack")
         setTimeout(function () {
-            setIsEnemyHurt(true)
+            setEnemyState("hurt")
         }, 200)
-
-        // 3. 400ms 后敌人恢复
         setTimeout(function () {
-            setIsEnemyHurt(false)
+            setEnemyState("idle")
         }, 400)
-
-        // 4. 500ms 后玩家回原位
         setTimeout(function () {
-            setIsAttacking(false)
+            setPlayerState("idle")
+        }, 500)
+    }
+
+    function wrong(){
+        setEnemyState("attack")
+        setTimeout(function () {
+            setPlayerState("hurt")
+        }, 200)
+        setTimeout(function () {
+            setPlayerState("idle")
+        }, 400)
+        setTimeout(function () {
+            setEnemyState("idle")
         }, 500)
     }
 
     return (
         <div className="battlefield">
 
-            <div
-                className={
-                    isAttacking
-                        ? "player player-attacking"
-                        : "player"
-                }
-            >
+            <div>
                 <p>{props.playerName}</p>
                 <p>HP: {currentHp}</p>
+                <p>MP: {currentMp}</p>
             </div>
 
             <div
-                className={
-                    isEnemyHurt
-                        ? "enemy enemy-hurt"
-                        : "enemy"
-                }
+                className={`player player-${playerState}`}
+            >
+                Player
+            </div>
+
+            <div
+                className={`enemy enemy-${enemyState}`}
             >
                 Slime
             </div>
 
-            <button onClick={attack}>
-                Attack
+            <button onClick={correct}>
+                Correct
             </button>
 
+            <button onClick={wrong}>
+                Wrong
+            </button>
         </div>
     )
 }

@@ -9,11 +9,13 @@ if (battlefieldRoot) {
 
   const playerName = battlefieldRoot.dataset.playerName
   const currentHp = battlefieldRoot.dataset.currentHp
+  const currentMp = battlefieldRoot.dataset.currentMp
 
   createRoot(battlefieldRoot).render(
     <Battlefield 
       playerName={playerName}
       currentHp={currentHp}
+      currentMp={currentMp}
     />
   )
 }

@@ -14,7 +14,7 @@ def challenge_session_initialising(request, character, unit_id):
     request.session["character_id"] = character.id
     request.session["current_hp"] = character.max_hp
     request.session["current_mp"] = character.max_mp
-    request.session["buffs"] = skills.challenge_buffs_initialising(request, character)
+    request.session["buffs"] = skills.challenge_buffs_initialising(request)
 
 def challenge_session_clearing(request):
 

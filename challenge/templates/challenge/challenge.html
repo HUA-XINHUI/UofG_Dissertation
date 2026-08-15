@@ -36,9 +36,12 @@
             </div>
         </header>
 
-        <section class="battlefield">
-            here is character
-        </section>
+        <section 
+            id="battlefield-root"
+            data-player-name="{{ character.name }}"
+            data-current-hp="{{ current_hp }}"
+            data-current-mp="{{ current_mp }}"
+        ></section>
 
         <main>
 
@@ -186,4 +189,32 @@
     }, 1000);
 
 </script>
+
+<div
+    id="battlefield-root"
+    data-player-name="{{ character.name }}"
+    data-current-hp="{{ current_hp }}"
+></div>
+
+
+<script type="module">
+    import RefreshRuntime from 'http://localhost:5173/@react-refresh'
+
+    RefreshRuntime.injectIntoGlobalHook(window)
+
+    window.$RefreshReg$ = () => {}
+    window.$RefreshSig$ = () => (type) => type
+    window.__vite_plugin_react_preamble_installed__ = true
+</script>
+
+<script
+    type="module"
+    src="http://localhost:5173/@vite/client"
+></script>
+
+<script
+    type="module"
+    src="http://localhost:5173/src/main.jsx"
+></script>
+
 </html>

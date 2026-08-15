@@ -1,0 +1,45 @@
+.battlefield {
+    width: 400px;
+}
+
+.player {
+    position: relative;
+    left: 0;
+    transition: left 0.2s;
+}
+
+.player-attacking {
+    left: 100px;
+}
+
+.enemy {
+    position: relative;
+    margin-left: 200px;
+}
+
+.enemy-hurt {
+    animation: enemy-hurt 0.2s;
+}
+
+@keyframes enemy-hurt {
+
+    0% {
+        left: 0;
+    }
+
+    25% {
+        left: 10px;
+    }
+
+    50% {
+        left: -10px;
+    }
+
+    75% {
+        left: 10px;
+    }
+
+    100% {
+        left: 0;
+    }
+}

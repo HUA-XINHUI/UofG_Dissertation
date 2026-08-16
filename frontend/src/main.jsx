@@ -1,22 +1,31 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
-import Battlefield from './Battlefield.jsx'
+import Challenge from './Challenge.jsx'
 
-const battlefieldRoot = document.querySelector("#battlefield-root")
-if (battlefieldRoot) {
+const challengeRoot = document.querySelector("#challenge-root")
 
-  const playerName = battlefieldRoot.dataset.playerName
-  const currentHp = battlefieldRoot.dataset.currentHp
-  const currentMp = battlefieldRoot.dataset.currentMp
+if (challengeRoot) {
 
-  createRoot(battlefieldRoot).render(
-    <Battlefield 
-      playerName={playerName}
-      currentHp={currentHp}
-      currentMp={currentMp}
-    />
-  )
+    const playerName = challengeRoot.dataset.playerName
+    const currentHp = Number(challengeRoot.dataset.currentHp)
+    const currentMp = Number(challengeRoot.dataset.currentMp)
+
+    const questionDataElement = document.querySelector("#question-data")
+    const questionData = JSON.parse(questionDataElement.textContent)
+
+    console.log("questionDataElement:", questionDataElement)
+    console.log("raw text:", questionDataElement.textContent)
+    console.log("questionData:", questionData)
+    
+    createRoot(challengeRoot).render(
+        <Challenge
+            playerName={playerName}
+            currentHp={currentHp}
+            currentMp={currentMp}
+            questionData={questionData}
+        />
+    )
 }
 
 const challengeForm = document.querySelector("#challenge-form")

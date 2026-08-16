@@ -26,6 +26,23 @@ def home(request, unit_id):
     # character_id = character.id; current_hp = character.max_hp; current_mp = character.max_mp
     current_question = questions[request.session["current_index"]]
     options = current_question.options.all()
+    question_data = {
+        "id" : current_question.id,
+        "orderNo" : current_question.order_no,
+        "title" : current_question.title,
+        "description" : current_question.description,
+        "questionType" : current_question.question_type,
+        "explanation" : current_question.explanation,
+        "options" : [
+            {
+                "id" : option.id,
+                "orderNo" : option.order_no,
+                "title" : option.title,
+                "description" : option.description,
+            }
+            for option in current_question.options.all()
+        ]
+    }
 
     result = None
     selected_option_id = None
@@ -52,9 +69,10 @@ def home(request, unit_id):
 
             return JsonResponse({
                 "result": result,
-                "current_hp": request.session["current_hp"],
-                "current_mp": request.session["current_mp"],
+                "currentHp": request.session["current_hp"],
+                "currentMp": request.session["current_mp"],
                 "explanation": current_question.explanation,
+                "questionData" : question_data,
             })
 
         elif action == "continue":
@@ -89,7 +107,8 @@ def home(request, unit_id):
         "current_mp": request.session["current_mp"],
         "character": character,
         "skill_available": skill_available,
-        "hide_options": hide_options
+        "hide_options": hide_options,
+        "question_data" : question_data,
     }
 
     return render(

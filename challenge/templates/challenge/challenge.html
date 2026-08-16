@@ -37,11 +37,13 @@
         </header>
 
         <section 
-            id="battlefield-root"
+            id="challenge-root"
             data-player-name="{{ character.name }}"
             data-current-hp="{{ current_hp }}"
             data-current-mp="{{ current_mp }}"
         ></section>
+
+        {{ question_data|json_script:"question-data" }}
 
         <main>
 

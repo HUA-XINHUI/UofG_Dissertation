@@ -43,3 +43,21 @@
         transform: translateX(0);
     }
 }
+
+.result-dialog {
+    position: fixed;
+
+    left: 50%;
+    bottom: 100px;
+
+    transform: translateX(-50%);
+
+    width: 350px;
+
+    padding: 20px;
+
+    background: white;
+    border: 3px solid black;
+
+    z-index: 1000;
+}

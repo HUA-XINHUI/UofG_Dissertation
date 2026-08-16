@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import "./Battlefield.css"
 
 function Battlefield(props) {
@@ -8,6 +8,10 @@ function Battlefield(props) {
 
     const [playerState, setPlayerState] = useState("idle")
     const [enemyState, setEnemyState] = useState("idle")
+
+    const [result, setResult] = useState(null)
+    const [explanation, setExplanation] = useState("")
+    const [showResult, setShowResult] = useState(false)
 
     function correct(){
         setPlayerState("attack")
@@ -35,6 +39,36 @@ function Battlefield(props) {
         }, 500)
     }
 
+    useEffect(function () {
+        function handleChallengeResult(event) {
+            const data = event.detail
+            console.log("Battlefield received:", data)
+            setCurrentHp(data.current_hp)
+            setCurrentMp(data.current_mp)
+            setResult(data.result)
+            setExplanation(data.explanation)
+            if (data.result === "correct") {
+                correct()
+            }
+            if (data.result === "wrong") {
+                wrong()
+            }
+            setTimeout(function () {
+                setShowResult(true)
+            }, 550)
+        }
+        window.addEventListener(
+            "challenge-result",
+            handleChallengeResult
+        )
+        return function () {
+            window.removeEventListener(
+                "challenge-result",
+                handleChallengeResult
+            )
+        }
+    }, [])
+
     return (
         <div className="battlefield">
 
@@ -56,13 +90,27 @@ function Battlefield(props) {
                 Slime
             </div>
 
-            <button onClick={correct}>
-                Correct
-            </button>
+            {showResult && (
+                <div className="result-dialog">
 
-            <button onClick={wrong}>
-                Wrong
-            </button>
+                    <h2>
+                        {result === "correct"
+                            ? "Correct!"
+                            : "Wrong!"
+                        }
+                    </h2>
+
+                    <p>
+                        {explanation}
+                    </p>
+
+                    <button>
+                        Continue
+                    </button>
+
+                </div>
+            )}
+
         </div>
     )
 }

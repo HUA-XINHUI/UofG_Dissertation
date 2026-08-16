@@ -73,7 +73,10 @@
         </main>
 
         <footer>
-            <form method="post">
+            <form 
+                id="challenge-form"
+                method="post"
+            >
                 {% csrf_token %}
                 <div class="answer-options">
 
@@ -94,6 +97,7 @@
                         type="hidden"
                         name="selected_option"
                         id="selected-option"
+                        data-explanation="question.explanation"
                     >
 
                 </div>

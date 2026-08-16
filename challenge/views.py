@@ -1,11 +1,13 @@
 from django.shortcuts import get_object_or_404, render, redirect
-from django.contrib import messages
+from django.http import JsonResponse
 from django.utils import timezone
+
 from challenge.models import Question, QuestionOption
 from mainquest.models import Unit
 from dailyquest.models import UserDailyData
 from store.models import Skill, Character
 from userprofile.models import UserProfile, UserTaskData
+
 from . import skills, utility
 
 def home(request, unit_id):
@@ -39,14 +41,21 @@ def home(request, unit_id):
             selected_option = get_object_or_404(QuestionOption, id=selected_option_id, )
 
             if selected_option.is_correct:
-                result = "Correct!"
+                result = "correct"
                 skills.process_after_correct_skill(request)
                 request.session["total_correct"] += 1
             else:
-                result = "Wrong!"
+                result = "wrong"
                 skills.process_after_wrong_skill(request)
                 request.session["current_hp"] -= 1
                 request.session["total_wrong"] += 1
+
+            return JsonResponse({
+                "result": result,
+                "current_hp": request.session["current_hp"],
+                "current_mp": request.session["current_mp"],
+                "explanation": current_question.explanation,
+            })
 
         elif action == "continue":
                 request.session["current_index"] += 1

@@ -9,8 +9,28 @@ function Challenge(props) {
 
     async function processCheck(){
         const formData = new FormData()
-        formData.append("selected_option", selectedOptionId)
         formData.append("action", "check")
+        formData.append("selected_option", selectedOptionId)
+        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value
+        formData.append("csrfmiddlewaretoken", csrfToken)
+        const response = await fetch(
+            window.location.href,
+            {
+                method : "POST",
+                body : formData,
+            }
+        )
+        const data = await response.json()
+        window.dispatchEvent(
+            new CustomEvent("challenge-result", {
+                detail: data
+            })
+        )
+    }
+
+    async function processContinue(){
+        const formData = new FormData()
+        formData.append("action", "continue")
         const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value
         formData.append("csrfmiddlewaretoken", csrfToken)
         const response = await fetch(
@@ -22,11 +42,8 @@ function Challenge(props) {
         )
         const data = await response.json()
         console.log(data)
-        window.dispatchEvent(
-            new CustomEvent("challenge-result", {
-                detail: data
-            })
-        )
+        setQuestion(data.questionData)
+        setSelectedOptionId(null)
     }
 
     return (
@@ -66,6 +83,14 @@ function Challenge(props) {
                         onClick={processCheck}
                     >
                         Check
+                    </button>
+
+                    <button
+                        className="continue-button"
+                        disabled={selectedOptionId === null}
+                        onClick={processContinue}
+                    >
+                        Continue
                     </button>
                 </div>
             </div>

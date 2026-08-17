@@ -1,8 +1,11 @@
-from mainquest.models import Unit
+from django.shortcuts import get_object_or_404, render, redirect
 from django.db.models import Q
-from . import skills
 
-def challenge_session_initialising(request, character, unit_id):
+from . import skills
+from challenge.models import QuestionOption
+from mainquest.models import Unit
+
+def initialise_challenge_sessions(request, character, unit_id):
 
     request.session["challenge_activate"] = True
     request.session["unit_id"] = unit_id
@@ -16,7 +19,7 @@ def challenge_session_initialising(request, character, unit_id):
     request.session["current_mp"] = character.max_mp
     request.session["buffs"] = skills.challenge_buffs_initialising(request)
 
-def challenge_session_clearing(request):
+def clear_challenge_sessions(request):
 
     request.session["challenge_activate"] = False
     request.session.pop("unit_id", None)
@@ -30,11 +33,11 @@ def challenge_session_clearing(request):
     request.session.pop("current_mp", None)
     request.session.pop("buffs", None)
 
-def question_session_initialising(request):
+def initialise_question_sessions(request):
 
     request.session["removed_options_id"] = []
 
-def question_session_clearing(request):
+def clear_question_sessions(request):
 
     request.session.pop("removed_options_id", None)
 
@@ -58,3 +61,53 @@ def get_next_unit(current_unit):
         .first()
     )
 
+def pack_challenge_data(request):
+    challenge_data = {
+        "characterId" : request.session["character_id"],
+        "currentHp" : request.session["current_hp"],
+        "currentMp" : request.session["current_mp"],
+        "buffs" : request.session["buffs"]
+    }
+    return challenge_data
+
+def pack_question_data(current_question):
+    question_data = {
+        "id" : current_question.id,
+        "orderNo" : current_question.order_no,
+        "title" : current_question.title,
+        "description" : current_question.description,
+        "questionType" : current_question.question_type,
+        "explanation" : current_question.explanation,
+        "options" : [
+            {
+                "id" : option.id,
+                "orderNo" : option.order_no,
+                "title" : option.title,
+                "description" : option.description,
+            }
+            for option in current_question.options.all()
+        ]
+    }
+    return question_data
+
+def check_correction_or_not(request):
+    selected_option_id = request.POST.get("selected_option")
+    selected_option = get_object_or_404(QuestionOption, id=selected_option_id)
+    if selected_option.is_correct:
+        return True
+    return False
+
+def check_ending_or_not(request, questions):
+    if request.session["current_hp"] <= 0:
+        request.session["is_win"] = False
+        return True
+    if request.session["current_index"] + 1 == questions.count():
+        request.session["is_win"] = True
+        return True
+    return False
+
+def fetch_next_question(request, questions):
+    request.session["current_index"] += 1
+    current_question = questions[request.session["current_index"]]
+    question_data = pack_question_data(current_question)
+    return question_data

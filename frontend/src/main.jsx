@@ -4,7 +4,6 @@ import { createRoot } from 'react-dom/client'
 import Challenge from './Challenge.jsx'
 
 const challengeRoot = document.querySelector("#challenge-root")
-
 if (challengeRoot) {
 
     const playerName = challengeRoot.dataset.playerName
@@ -14,10 +13,6 @@ if (challengeRoot) {
     const questionDataElement = document.querySelector("#question-data")
     const questionData = JSON.parse(questionDataElement.textContent)
 
-    console.log("questionDataElement:", questionDataElement)
-    console.log("raw text:", questionDataElement.textContent)
-    console.log("questionData:", questionData)
-    
     createRoot(challengeRoot).render(
         <Challenge
             playerName={playerName}

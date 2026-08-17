@@ -42,7 +42,6 @@ function Battlefield(props) {
     useEffect(function () {
         function handleChallengeResult(event) {
             const data = event.detail
-            console.log("Battlefield received:", data)
             setCurrentHp(data.current_hp)
             setCurrentMp(data.current_mp)
             setResult(data.result)

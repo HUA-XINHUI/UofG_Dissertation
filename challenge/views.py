@@ -86,7 +86,8 @@ def home(request, unit_id):
         "character": character,
         "skill_available": skill_available,
         "hide_options": hide_options,
-        "question_data" : question_data,
+        "challengeData" : challenge_data,
+        "questionData" : question_data,
     }
 
     return render(

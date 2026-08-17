@@ -36,15 +36,10 @@
             </div>
         </header>
 
-        <section 
-            id="challenge-root"
-            data-player-name="{{ character.name }}"
-            data-current-hp="{{ current_hp }}"
-            data-current-mp="{{ current_mp }}"
-        ></section>
-
-        {{ question_data|json_script:"question-data" }}
-
+        <section id="challenge-root"></section>
+        {{ challengeData|json_script:"challenge-data" }}
+        {{ questionData|json_script:"question-data" }}
+        
         <main>
 
             {% if messages %}

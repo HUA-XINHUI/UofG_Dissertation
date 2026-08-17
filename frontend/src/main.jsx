@@ -6,18 +6,12 @@ import Challenge from './Challenge.jsx'
 const challengeRoot = document.querySelector("#challenge-root")
 if (challengeRoot) {
 
-    const playerName = challengeRoot.dataset.playerName
-    const currentHp = Number(challengeRoot.dataset.currentHp)
-    const currentMp = Number(challengeRoot.dataset.currentMp)
-
-    const questionDataElement = document.querySelector("#question-data")
-    const questionData = JSON.parse(questionDataElement.textContent)
+    const challengeData = JSON.parse(document.querySelector("#challenge-data").textContent)
+    const questionData = JSON.parse(document.querySelector("#question-data").textContent)
 
     createRoot(challengeRoot).render(
         <Challenge
-            playerName={playerName}
-            currentHp={currentHp}
-            currentMp={currentMp}
+            challengeData={challengeData}
             questionData={questionData}
         />
     )

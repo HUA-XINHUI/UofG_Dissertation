@@ -4,6 +4,10 @@ import Battlefield from "./Battlefield.jsx"
 
 function Challenge(props) {
 
+    const challengeData = props.challengeData
+    const questionData = props.questionData
+
+
     const [question, setQuestion] = useState(props.questionData)
     const [selectedOptionId, setSelectedOptionId] = useState(null)
 

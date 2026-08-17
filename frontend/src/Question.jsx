@@ -1,117 +1,57 @@
-import { useState, useEffect } from "react"
-import "./Battlefield.css"
+import { useState,useEffect } from "react"
 
-function Battlefield(props) {
+function Question(props) {
+    // console.log(props)
+    const questionData = props.questionData
+    const title = questionData.title
+    const description = questionData.description
+    const explanation = questionData.explanation
+    const options = questionData.options
 
-    const [currentHp, setCurrentHp] = useState(props.currentHp)
-    const [currentMp, setCurrentMp] = useState(props.currentMp)
-
-    const [playerState, setPlayerState] = useState("idle")
-    const [enemyState, setEnemyState] = useState("idle")
-
-    const [result, setResult] = useState(null)
-    const [explanation, setExplanation] = useState("")
-    const [showResult, setShowResult] = useState(false)
-
-    function correct(){
-        setPlayerState("attack")
-        setTimeout(function () {
-            setEnemyState("hurt")
-        }, 200)
-        setTimeout(function () {
-            setEnemyState("idle")
-        }, 400)
-        setTimeout(function () {
-            setPlayerState("idle")
-        }, 500)
-    }
-
-    function wrong(){
-        setEnemyState("attack")
-        setTimeout(function () {
-            setPlayerState("hurt")
-        }, 200)
-        setTimeout(function () {
-            setPlayerState("idle")
-        }, 400)
-        setTimeout(function () {
-            setEnemyState("idle")
-        }, 500)
-    }
-
+    const [selectedOptionId, setSelectedOptionId] = useState(null)
     useEffect(function () {
-        function handleChallengeResult(event) {
-            const data = event.detail
-            setCurrentHp(data.current_hp)
-            setCurrentMp(data.current_mp)
-            setResult(data.result)
-            setExplanation(data.explanation)
-            if (data.result === "correct") {
-                correct()
-            }
-            if (data.result === "wrong") {
-                wrong()
-            }
-            setTimeout(function () {
-                setShowResult(true)
-            }, 550)
-        }
-        window.addEventListener(
-            "challenge-result",
-            handleChallengeResult
-        )
-        return function () {
-            window.removeEventListener(
-                "challenge-result",
-                handleChallengeResult
-            )
-        }
-    }, [])
+        setSelectedOptionId(null)
+    }, [questionData.id])
 
     return (
-        <div className="battlefield">
-
-            <div>
-                <p>{props.playerName}</p>
-                <p>HP: {currentHp}</p>
-                <p>MP: {currentMp}</p>
-            </div>
-
-            <div
-                className={`player player-${playerState}`}
-            >
-                Player
-            </div>
-
-            <div
-                className={`enemy enemy-${enemyState}`}
-            >
-                Slime
-            </div>
-
-            {showResult && (
-                <div className="result-dialog">
-
-                    <h2>
-                        {result === "correct"
-                            ? "Correct!"
-                            : "Wrong!"
+        <>
+            <h1>{title}</h1>
+            <h1>{description}</h1>
+            <h1>{explanation}</h1>
+            {options.map(function (option) {
+                return (
+                    <button 
+                        type="button"
+                        key={option.id}
+                        className={
+                            selectedOptionId === option.id
+                                ? "answer-option selected"
+                                : "answer-option"
                         }
-                    </h2>
-
-                    <p>
-                        {explanation}
-                    </p>
-
-                    <button>
-                        Continue
+                        onClick={
+                            function(){
+                                setSelectedOptionId(option.id)
+                        }
+                    }
+                    >
+                        <strong> {option.title} </strong>
+                        <span> {option.description} </span>
                     </button>
+                )
+            })}
 
-                </div>
-            )}
-
-        </div>
+            <button
+                type="button"
+                disabled={selectedOptionId === null}
+                onClick={() => {
+                    props.processCheck(selectedOptionId)
+                    console.log(selectedOptionId)
+                }}
+            >
+                check
+            </button>
+        </>
     )
 }
 
-export default Battlefield
+export default Question

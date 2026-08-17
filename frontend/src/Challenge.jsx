@@ -1,105 +1,96 @@
-import { useState } from "react"
-
-import Battlefield from "./Battlefield.jsx"
+import { useState, useEffect } from "react"
+import Question from "./Question.jsx"
+import "./Challenge.css"
 
 function Challenge(props) {
 
     const challengeData = props.challengeData
-    const questionData = props.questionData
+    const isCorrect = props.isCorrect
+    const characterId = challengeData.characterId
+    const currentHp = challengeData.currentHp
+    const currentMp = challengeData.currentMp
+    const buffs = challengeData.buffs
+    const processContinue = props.processContinue
 
+    const checkCount = props.checkCount
+    const [playerState, setPlayerState] = useState("idle")
+    const [enemyState, setEnemyState] = useState("idle")
+    const [showResult, setShowResult] = useState(false)
 
-    const [question, setQuestion] = useState(props.questionData)
-    const [selectedOptionId, setSelectedOptionId] = useState(null)
-
-    async function processCheck(){
-        const formData = new FormData()
-        formData.append("action", "check")
-        formData.append("selected_option", selectedOptionId)
-        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value
-        formData.append("csrfmiddlewaretoken", csrfToken)
-        const response = await fetch(
-            window.location.href,
-            {
-                method : "POST",
-                body : formData,
-            }
-        )
-        const data = await response.json()
-        window.dispatchEvent(
-            new CustomEvent("challenge-result", {
-                detail: data
-            })
-        )
+    function correct(){
+        setPlayerState("attack")
+        setTimeout(function () {
+            setEnemyState("hurt")
+        }, 200)
+        setTimeout(function () {
+            setEnemyState("idle")
+        }, 400)
+        setTimeout(function () {
+            setPlayerState("idle")
+        }, 500)
     }
 
-    async function processContinue(){
-        const formData = new FormData()
-        formData.append("action", "continue")
-        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value
-        formData.append("csrfmiddlewaretoken", csrfToken)
-        const response = await fetch(
-            window.location.href,
-            {
-                method : "POST",
-                body : formData,
-            }
-        )
-        const data = await response.json()
-        console.log(data)
-        setQuestion(data.questionData)
-        setSelectedOptionId(null)
+    function wrong(){
+        setEnemyState("attack")
+        setTimeout(function () {
+            setPlayerState("hurt")
+        }, 200)
+        setTimeout(function () {
+            setPlayerState("idle")
+        }, 400)
+        setTimeout(function () {
+            setEnemyState("idle")
+        }, 500)
     }
+
+    useEffect(()=> {
+        if (isCorrect === true) {
+            correct()
+            setTimeout(() => {
+                setShowResult(true)
+            }, 550)
+        }
+        if (isCorrect === false) {
+            wrong()
+            setTimeout(() => {
+                setShowResult(true)
+            }, 550)
+        }
+    }, [checkCount])
 
     return (
-        <div className="challenge">
-            <Battlefield
-                playerName={props.playerName}
-                currentHp={props.currentHp}
-                currentMp={props.currentMp}
-            />
-            <div className="question">
-                <h2> {question.title} </h2>
-                <p> {question.description} </p>
-                <div className="options">
-                    {question.options.map(function (option) {
-                        return (
-                            <button 
-                                key={option.id}
-                                className={
-                                    selectedOptionId === option.id
-                                        ? "answer-option selected"
-                                        : "answer-option"
-                                }
-                                onClick={
-                                    function(){
-                                        setSelectedOptionId(option.id)
-                                }
-                            }
-                            >
-                                <strong> {option.title} </strong>
-                                <span> {option.description} </span>
-                            </button>
-                        )
-                    })}
-                    <button
-                        className="check-button"
-                        disabled={selectedOptionId === null}
-                        onClick={processCheck}
-                    >
-                        Check
-                    </button>
+        <div className="battlefield">
+            <div>
+                <p>HP: {currentHp}</p>
+                <p>MP: {currentMp}</p>
+            </div>
+            <div
+                className={`player player-${playerState}`}
+            >
+                Player
+            </div>
+            <div
+                className={`enemy enemy-${enemyState}`}
+            >
+                Slime
+            </div>
 
+            {showResult && (
+                <div className="result-dialog">
                     <button
-                        className="continue-button"
-                        disabled={selectedOptionId === null}
-                        onClick={processContinue}
-                    >
+                        onClick={async () =>{
+                            await props.processContinue()
+                            setShowResult(false)
+                        }}>
                         Continue
                     </button>
                 </div>
-            </div>
+            )}
+
         </div>
     )
 }
 
 export default Challenge
+
+

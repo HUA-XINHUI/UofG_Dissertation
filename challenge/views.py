@@ -25,8 +25,8 @@ def home(request, unit_id):
 
     current_question = questions[request.session["current_index"]]
     options = current_question.options.all()
-    question_data = utility.pack_challenge_data(request)
-    challenge_data = utility.pack_question_data(current_question)
+    challenge_data = utility.pack_challenge_data(request)
+    question_data = utility.pack_question_data(current_question)
 
     result = None
     hide_options = False
@@ -48,20 +48,25 @@ def home(request, unit_id):
                 skills.process_after_wrong_skill(request)
                 request.session["current_hp"] -= 1
                 request.session["total_wrong"] += 1
+            challenge_data = utility.pack_challenge_data(request)
+            utility.clear_question_sessions(request)
+            return JsonResponse({
+                "isCorrect" : is_correct,
+                "challengeData" : challenge_data,
+            })
 
+        elif action == "continue":
             is_end = utility.check_ending_or_not(request, questions)
             if is_end:
                 ending_process(request, False, unit)
                 return JsonResponse({
-                        "isEnd": True,
-                        "redirectUrl": "/challenge/finish/",
+                    "isEnd": True,
+                    "redirectUrl": "/challenge/finish/",
                 })
 
-            challenge_data = utility.pack_challenge_data(request)
             question_data = utility.fetch_next_question(request, questions)
-            utility.clear_question_sessions(request)
             return JsonResponse({
-                "challengeData" : challenge_data,
+                "is_end" : is_end,
                 "questionData" : question_data,
             })
 
@@ -150,7 +155,7 @@ def finish(request):
     total_correct = request.session.get("total_correct", 0)
     total_wrong = request.session.get("total_wrong", 0)
     total_questions = total_correct + total_wrong
-    accuracy = total_correct/(total_correct + total_wrong)
+    # accuracy = total_correct/(total_correct + total_wrong)
 
     if request.session["is_win"]:
         challenge_result = "YOU WIN!!!!!"
@@ -162,7 +167,7 @@ def finish(request):
         "total_questions" : total_questions,
         "total_correct": total_correct,
         "total_wrong": total_wrong,
-        "accuracy" : accuracy,
+        # "accuracy" : accuracy,
         "user_gold" : user_gold,
         "user_exp" : user_exp,
         "exp_to_next_level" : exp_to_next_level,

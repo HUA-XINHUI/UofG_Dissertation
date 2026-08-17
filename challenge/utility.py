@@ -92,10 +92,8 @@ def pack_question_data(current_question):
 
 def check_correction_or_not(request):
     selected_option_id = request.POST.get("selected_option")
-    selected_option = get_object_or_404(QuestionOption, id=selected_option_id)
-    if selected_option.is_correct:
-        return True
-    return False
+    selected_option = QuestionOption.objects.get(id=selected_option_id)
+    return selected_option.is_correct
 
 def check_ending_or_not(request, questions):
     if request.session["current_hp"] <= 0:

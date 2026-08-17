@@ -1,12 +1,14 @@
 import { useState } from "react"
 
 import Challenge from "./Challenge.jsx"
-import Battlefield from "./Battlefield.jsx"
+import Question from "./Question.jsx"
 
 function App(props) {
 
+    const [isCorrect, setIsCorrect] = useState(null)
     const [challengeData, setChallengeData] = useState(props.challengeData)
     const [questionData, setQuestionData] = useState(props.questionData)
+    const [checkCount, setCheckCount] = useState(1)
 
     async function processCheck(selectedOptionId){
         const formData = new FormData()
@@ -22,40 +24,45 @@ function App(props) {
             }
         )
         const data = await response.json()
+        setIsCorrect(data.isCorrect)
+        setChallengeData(data.challengeData)
+        setCheckCount( checkCount + 1)
+    }
+
+    async function processContinue(){
+        const formData = new FormData()
+        formData.append("action", "continue")
+        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value
+        formData.append("csrfmiddlewaretoken", csrfToken)
+        const response = await fetch(
+            window.location.href,
+            {
+                method : "POST",
+                body : formData,
+            }
+        )
+        const data = await response.json()
         if (data.isEnd){
             window.location.href = data.redirectUrl
             return
         }
-        setChallengeData(data.challengeData)
         setQuestionData(data.questionData)
     }
-
-    // async function processContinue(){
-    //     const formData = new FormData()
-    //     formData.append("action", "continue")
-    //     const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value
-    //     formData.append("csrfmiddlewaretoken", csrfToken)
-    //     const response = await fetch(
-    //         window.location.href,
-    //         {
-    //             method : "POST",
-    //             body : formData,
-    //         }
-    //     )
-    //     const data = await response.json()
-    //     console.log(data)
-    //     setQuestion(data.questionData)
-    //     setSelectedOptionId(null)
-    // }
-
     return (
         <>
             <Challenge
-                challengeData={questionData}
+                isCorrect={isCorrect}
+                checkCount={checkCount}
+                challengeData={challengeData}
+                processContinue={processContinue}
             />
-            <Battlefield
-                questionData={challengeData}
+
+            <Question
+                questionData={questionData}
+                processCheck={processCheck}
             />
         </>
     )
 }
+
+export default App

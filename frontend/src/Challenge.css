@@ -61,3 +61,15 @@
 
     z-index: 1000;
 }
+
+#challenge-root {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.challenge {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}

@@ -8,6 +8,7 @@ from mainquest.models import Unit
 def initialise_challenge_sessions(request, questions, character):
 
     request.session["challenge_activate"] = True
+    request.session["is_end"] = False
     request.session["is_win"] = False
     request.session["current_index"] = 0
     request.session["total_questions"] = questions.count()
@@ -22,6 +23,7 @@ def initialise_challenge_sessions(request, questions, character):
 def clear_challenge_sessions(request):
 
     request.session["challenge_activate"] = False
+    request.session.pop("is_end", None)
     request.session.pop("is_win", None)
     request.session.pop("current_index", None)
     request.session.pop("total_questions", None)
@@ -70,7 +72,7 @@ def pack_challenge_data(request):
     }
     return challenge_data
 
-def pack_question_data(current_question):
+def pack_question_data(request, current_question):
     question_data = {
         "id" : current_question.id,
         "orderNo" : current_question.order_no,
@@ -86,7 +88,8 @@ def pack_question_data(current_question):
                 "description" : option.description,
             }
             for option in current_question.options.all()
-        ]
+        ],
+        "removedOptionsId" : request.session["removed_options_id"]
     }
     return question_data
 
@@ -102,5 +105,5 @@ def check_ending_or_not(request):
 def fetch_next_question(request, questions):
     request.session["current_index"] += 1
     current_question = questions[request.session["current_index"]]
-    question_data = pack_question_data(current_question)
+    question_data = pack_question_data(request, current_question)
     return question_data

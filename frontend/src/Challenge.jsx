@@ -1,12 +1,8 @@
 import { useState, useEffect } from "react"
-import Question from "./Question.jsx"
 import "./Challenge.css"
 
 function Challenge(props) {
-
-    console.log(props)
-    // console.log(props.challengeData.bossCurrentHp)
-
+    console.log(props.showDialog)
     const challengeData = props.challengeData
     const isCorrect = props.isCorrect
     const characterId = challengeData.characterId
@@ -19,7 +15,6 @@ function Challenge(props) {
     const checkCount = props.checkCount
     const [playerState, setPlayerState] = useState("idle")
     const [enemyState, setEnemyState] = useState("idle")
-    const [showResult, setShowResult] = useState(false)
 
     function correct(){
         setPlayerState("attack")
@@ -50,9 +45,6 @@ function Challenge(props) {
     useEffect(()=> {
         if (isCorrect === true) {
             correct()
-            setTimeout(() => {
-                setShowResult(true)
-            }, 550)
         }
         if (isCorrect === false) {
             wrong()
@@ -78,19 +70,6 @@ function Challenge(props) {
             >
                 Slime
             </div>
-
-            {showResult && (
-                <div className="result-dialog">
-                    <button
-                        onClick={async () =>{
-                            await props.processContinue()
-                            setShowResult(false)
-                        }}>
-                        Continue
-                    </button>
-                </div>
-            )}
-
         </div>
     )
 }

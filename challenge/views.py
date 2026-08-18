@@ -22,9 +22,10 @@ def home(request, unit_id):
         utility.initialise_question_sessions(request)
 
     current_question = questions[request.session["current_index"]]
-    options = current_question.options.all()
     challenge_data = utility.pack_challenge_data(request)
-    question_data = utility.pack_question_data(current_question)
+    question_data = utility.pack_question_data(request, current_question)
+
+    show_dialog = False
 
     if request.method == "POST":
         action = request.POST.get("action")
@@ -32,37 +33,37 @@ def home(request, unit_id):
         if action == "check":
             selected_option_id = request.POST.get("selected_option")
             selected_option = QuestionOption.objects.get(id=selected_option_id)
-            removed_options_id = request.session["removed_options_id"]
 
             if selected_option.is_correct:
                 skills.process_after_correct_skill(request)
                 request.session["total_correct"] += 1
+                request.session["is_end"] = utility.check_ending_or_not(request)
+                show_dialog = True
             else:
+                show_dialog = False
                 skills.process_after_wrong_skill(request)
                 request.session["current_hp"] -= 1
                 request.session["total_wrong"] += 1
-                removed_options_id.append(selected_option_id)
-                options = options.exclude(id__in=removed_options_id)
+                request.session["is_end"] = utility.check_ending_or_not(request)
+                if request.session["is_end"]:
+                    show_dialog = True
+                removed_options_id = request.session["removed_options_id"]
+                removed_options_id.append(int(selected_option_id))
                 request.session["removed_options_id"] = removed_options_id
 
             challenge_data = utility.pack_challenge_data(request)
             return JsonResponse({
+                "showDialog" : show_dialog,
+                "isEnd" : request.session["is_end"],
                 "isCorrect" : selected_option.is_correct,
                 "challengeData" : challenge_data,
-                "questionData" : {"options" : [
-                {
-                    "id" : option.id,
-                    "orderNo" : option.order_no,
-                    "title" : option.title,
-                    "description" : option.description,
-                }
-                for option in options.all()]},
+                "questionData" : {
+                    "removedOptionsId" : request.session["removed_options_id"]
+                },
             })
 
         elif action == "continue":
-            utility.initialise_question_sessions(request)
-            is_end = utility.check_ending_or_not(request)
-            if is_end:
+            if request.session["is_end"]:
                 ending_process(request, unit)
                 return JsonResponse({
                     "isEnd": True,
@@ -71,26 +72,21 @@ def home(request, unit_id):
 
             question_data = utility.fetch_next_question(request, questions)
             return JsonResponse({
-                "is_end" : is_end,
+                "isEnd" : request.session["is_end"],
                 "questionData" : question_data,
             })
 
         elif action == "skill":
             skills.process_manual_skill(request, current_question)
-            options = options.exclude(id__in=request.session.get("removed_options_id", []))
+            options = current_question.options.exclude(id__in=request.session.get("removed_options_id", []))
             return JsonResponse({
                 "challengeData" : {
                     "buffs" : request.session["buffs"],
                     "currentMp" : request.session["current_mp"]
                 },
-                "questionData" : {"options" : [
-                {
-                    "id" : option.id,
-                    "orderNo" : option.order_no,
-                    "title" : option.title,
-                    "description" : option.description,
-                }
-                for option in options.all()]},
+                "questionData" : {
+                    "removedOptionsId" : request.session["removed_options_id"]
+                },
             })
 
         elif action == "quit":
@@ -106,7 +102,6 @@ def home(request, unit_id):
     context = {
         "unit": unit,
         "question": current_question,
-        "options" : options,
         "current_hp": request.session["current_hp"],
         "current_mp": request.session["current_mp"],
         "character": character,

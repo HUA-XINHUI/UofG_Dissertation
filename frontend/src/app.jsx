@@ -1,10 +1,12 @@
-import { useState } from "react"
+import { use, useState } from "react"
 
 import Challenge from "./Challenge.jsx"
 import Question from "./Question.jsx"
 
 function App(props) {
 
+    const [showDialog, setShowDialog] = useState(false)
+    const [isEnd, setIsEnd] = useState(false)
     const [isCorrect, setIsCorrect] = useState(null)
     const [challengeData, setChallengeData] = useState(props.challengeData)
     const [questionData, setQuestionData] = useState(props.questionData)
@@ -30,6 +32,8 @@ function App(props) {
             return { ...oldData, ...data.questionData }
         })
         setCheckCount( checkCount + 1)
+        setShowDialog(data.showDialog)
+        setIsEnd(data.isEnd)
     }
 
     async function processContinue(){
@@ -50,6 +54,7 @@ function App(props) {
             return
         }
         setQuestionData(data.questionData)
+        setShowDialog(false)
     }
 
     async function processSkill(){
@@ -69,7 +74,6 @@ function App(props) {
         setChallengeData((oldData) => { 
             return { ...oldData, ...data.challengeData, } 
         }) 
-
         setQuestionData((oldData) => {
             return { ...oldData, ...data.questionData}
         })
@@ -97,12 +101,16 @@ function App(props) {
                 isCorrect={isCorrect}
                 checkCount={checkCount}
                 challengeData={challengeData}
-                processContinue={processContinue}
+
             />
 
             <Question
+                showDialog={showDialog}
+                isEnd={isEnd}
+                checkCount={checkCount}
                 questionData={questionData}
                 processCheck={processCheck}
+                processContinue={processContinue}
                 processSkill={processSkill}
                 processQuit={processQuit}
             />

@@ -7,6 +7,7 @@ function App(props) {
 
     const [showDialog, setShowDialog] = useState(false)
     const [isEnd, setIsEnd] = useState(false)
+    const [isWin, setIsWin] = useState(null)
     const [isCorrect, setIsCorrect] = useState(null)
     const [challengeData, setChallengeData] = useState(props.challengeData)
     const [questionData, setQuestionData] = useState(props.questionData)
@@ -34,6 +35,7 @@ function App(props) {
         setCheckCount( checkCount + 1)
         setShowDialog(data.showDialog)
         setIsEnd(data.isEnd)
+        setIsWin(data.isWin)
     }
 
     async function processContinue(){
@@ -55,6 +57,9 @@ function App(props) {
         }
         setQuestionData(data.questionData)
         setShowDialog(false)
+        if (data.isWin){
+            setIsWin(data.isWin)
+        }
     }
 
     async function processSkill(){
@@ -101,12 +106,12 @@ function App(props) {
                 isCorrect={isCorrect}
                 checkCount={checkCount}
                 challengeData={challengeData}
-
             />
 
             <Question
                 showDialog={showDialog}
                 isEnd={isEnd}
+                isWin={isWin}
                 checkCount={checkCount}
                 questionData={questionData}
                 processCheck={processCheck}

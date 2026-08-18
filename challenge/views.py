@@ -22,7 +22,7 @@ def home(request, unit_id):
         utility.initialise_question_sessions(request)
 
     current_question = questions[request.session["current_index"]]
-    challenge_data = utility.pack_challenge_data(request)
+    challenge_data = utility.pack_challenge_data(request, unit_id)
     question_data = utility.pack_question_data(request, current_question)
 
     show_dialog = False
@@ -38,23 +38,26 @@ def home(request, unit_id):
                 skills.process_after_correct_skill(request)
                 request.session["total_correct"] += 1
                 request.session["is_end"] = utility.check_ending_or_not(request)
+                if request.session["is_end"]:
+                    request.session["is_win"] = True
                 show_dialog = True
             else:
-                show_dialog = False
                 skills.process_after_wrong_skill(request)
                 request.session["current_hp"] -= 1
                 request.session["total_wrong"] += 1
                 request.session["is_end"] = utility.check_ending_or_not(request)
                 if request.session["is_end"]:
                     show_dialog = True
+                    request.session["is_win"] = False
                 removed_options_id = request.session["removed_options_id"]
                 removed_options_id.append(int(selected_option_id))
                 request.session["removed_options_id"] = removed_options_id
 
-            challenge_data = utility.pack_challenge_data(request)
+            challenge_data = utility.pack_challenge_data(request, unit_id)
             return JsonResponse({
                 "showDialog" : show_dialog,
                 "isEnd" : request.session["is_end"],
+                "isWin" : request.session["is_win"],
                 "isCorrect" : selected_option.is_correct,
                 "challengeData" : challenge_data,
                 "questionData" : {
@@ -66,13 +69,13 @@ def home(request, unit_id):
             if request.session["is_end"]:
                 ending_process(request, unit)
                 return JsonResponse({
-                    "isEnd": True,
+                    "isEnd" : True,
+                    "isWin" : request.session["is_win"],
                     "redirectUrl": reverse("challenge:finish"),
                 })
 
             question_data = utility.fetch_next_question(request, questions)
             return JsonResponse({
-                "isEnd" : request.session["is_end"],
                 "questionData" : question_data,
             })
 

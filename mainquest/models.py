@@ -83,7 +83,7 @@ class Boss(models.Model):
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=30)
     description = models.TextField(blank=True)
-    asset_key = models.CharField(max_length=100)
+    asset_key = models.CharField(max_length=100,blank=True)
 
     def __str__(self):
         return self.name

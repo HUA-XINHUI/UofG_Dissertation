@@ -1,75 +1,360 @@
-.battlefield {
-    width: 400px;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.player {
-    position: relative;
-    transition: transform 0.2s;
+html,
+body {
+    width: 100%;
+    min-height: 100vh;
 }
 
-.player-attack {
-    transform: translateX(300px);
-}
-
-.player-hurt {
-    animation: hurt 0.2s;
-}
-
-.enemy {
-    position: relative;
-    left: 350px;
-    transition: transform 0.2s;
-}
-
-.enemy-attack {
-    transform: translateX(-300px);
-}
-
-.enemy-hurt {
-    animation: hurt 0.2s
-}
-
-@keyframes hurt {
-    25% {
-        transform: translateX(10px);
-    }
-    50% {
-        transform: translateX(-10px);
-    }
-    75% {
-        transform: translateX(10px);
-    }
-    100% {
-        transform: translateX(0);
-    }
-}
-
-.result-dialog {
-    position: fixed;
-
-    left: 50%;
-    bottom: 100px;
-
-    transform: translateX(-50%);
-
-    width: 350px;
-
-    padding: 20px;
-
+.mobile-app {
+    width: 100%;
+    max-width: 430px;
+    height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
     background: white;
-    border: 3px solid black;
-
-    z-index: 1000;
+    box-shadow: 0 0 12px rgba(0, 0, 0, .2);
 }
+
+
+/* =========================
+   React root
+   ========================= */
 
 #challenge-root {
     flex: 1;
+    min-height: 0;
     display: flex;
     flex-direction: column;
 }
 
 .challenge {
     flex: 1;
+    min-height: 0;
     display: flex;
     flex-direction: column;
+}
+
+
+/* =========================
+   Battlefield
+   ========================= */
+
+.battlefield {
+    flex: 0 0 210px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 3px solid black;
+}
+
+
+/* =========================
+   Battlefield header
+   ========================= */
+
+.battlefield-header {
+    width: 100%;
+    height: 70px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    padding: 15px 20px;
+}
+
+.battlefield-header p {
+    margin: 0;
+}
+
+.player-information-zone {
+    text-align: left;
+}
+
+.enemy-information-zone {
+    text-align: right;
+}
+
+
+/* =========================
+   Combat zone
+   ========================= */
+
+.combat-zone {
+    flex: 1;
+
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    padding: 10px 30px 20px;
+}
+
+
+/* =========================
+   Player / Enemy
+   ========================= */
+
+.player,
+.enemy {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    transition: transform 0.2s;
+}
+
+.character-image,
+.enemy-image {
+    text-align: center;
+}
+
+.player-name,
+.enemy-name {
+    text-align: center;
+}
+
+
+/* =========================
+   Attack animations
+   ========================= */
+
+.player-attack {
+    transform: translateX(230px);
+}
+
+.enemy-attack {
+    transform: translateX(-230px);
+}
+
+
+/* =========================
+   Hurt animations
+   ========================= */
+
+.player-hurt .character-image {
+    animation: hurt 0.2s;
+}
+
+.enemy-hurt .enemy-image {
+    animation: hurt 0.2s;
+}
+
+@keyframes hurt {
+
+    25% {
+        transform: translateX(10px);
+    }
+
+    50% {
+        transform: translateX(-10px);
+    }
+
+    75% {
+        transform: translateX(10px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+
+/* =========================
+   Question
+   ========================= */
+
+.question {
+    flex: 1;
+    min-height: 0;
+
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* =========================
+   Question main
+   ========================= */
+
+.question-main {
+    flex: 1;
+    min-height: 0;
+
+    padding: 20px;
+
+    overflow-y: auto;
+}
+
+.question-title {
+    margin-bottom: 10px;
+}
+
+.question-description {
+    margin-bottom: 10px;
+}
+
+.question-explanation {
+    margin-bottom: 10px;
+}
+
+
+/* =========================
+   Question footer
+   ========================= */
+
+.question-footer {
+    flex: 0 0 130px;
+
+    width: 100%;
+
+    padding: 10px;
+
+    background: white;
+}
+
+
+/* =========================
+   Answer options
+   ========================= */
+
+.answer-options {
+    width: 100%;
+
+    display: flex;
+
+    gap: 8px;
+
+    margin-bottom: 8px;
+}
+
+.answer-option {
+    flex: 1;
+
+    min-width: 0;
+    height: 50px;
+
+    padding: 8px;
+
+    border: 3px solid black;
+
+    background: white;
+
+    font-size: 20px;
+
+    cursor: pointer;
+}
+
+.answer-option.selected {
+    transform: translateY(5px);
+
+    background: #e5e5e5;
+}
+
+.answer-option:disabled {
+    opacity: 0.5;
+
+    cursor: default;
+}
+
+
+/* =========================
+   Skill / Check / Quit
+   ========================= */
+
+.check-options {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+
+    gap: 8px;
+}
+
+.check-options button {
+    min-width: 0;
+    height: 50px;
+
+    padding: 8px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 3px solid black;
+
+    background: white;
+
+    font-size: 18px;
+
+    cursor: pointer;
+}
+
+.check-options button:disabled {
+    opacity: 0.5;
+
+    cursor: default;
+}
+
+
+/* =========================
+   Result overlay
+   ========================= */
+
+.result-overlay {
+    position: fixed;
+    inset: 0;
+
+    z-index: 1000;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(0, 0, 0, 0.3);
+}
+
+
+/* =========================
+   Result dialog
+   ========================= */
+
+.result-dialog {
+    width: min(350px, 80%);
+
+    padding: 20px;
+
+    background: white;
+
+    border: 3px solid black;
+
+    text-align: center;
+}
+
+.result-dialog p {
+    margin-bottom: 10px;
+}
+
+.result-dialog button {
+    min-height: 40px;
+
+    padding: 8px 16px;
+
+    border: 3px solid black;
+
+    background: white;
+
+    cursor: pointer;
 }

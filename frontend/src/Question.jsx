@@ -2,8 +2,6 @@ import { useState,useEffect } from "react"
 
 function Question(props) {
 
-    console.log(props.questionData)
-
     const questionData = props.questionData
     const title = questionData.title
     const description = questionData.description
@@ -14,6 +12,7 @@ function Question(props) {
     const checkCount = props.checkCount
     const showDialog = props.showDialog
     const isEnd = props.isEnd
+    const isWin = props.isWin
     const [showResult, setShowResult] = useState(false)
 
     useEffect(function () {
@@ -31,27 +30,40 @@ function Question(props) {
     return (
         <div className="question">
             <main className="question-main">
-                <h1 className="question-title">
-                    {title}
-                </h1>
                 <h2 className="question-description">
                     {description}
                 </h2>
+                {options.map(function (option) {
+                    return (
+                        <h2 key={option.id}>
+                            {option.title} : {option.description}
+                        </h2>
+                    )
+                })}
             </main>
 
             {showResult && (
-                <div className="result-dialog">
-                    <p> Congratulations! you are correct! </p>
-                    <p className="question-explanation">
-                        {explanation}
-                    </p>
-                    <button
-                        onClick={async () =>{
-                            await props.processContinue()
-                            setShowResult(false)
-                        }}>
-                        Continue
-                    </button>
+                <div className="result-overlay">
+                    <div className="result-dialog">
+                        <p>
+                            {isWin === null
+                                ? "Congratulations! You are correct!"
+                                : isWin === true
+                                    ? "You win!"
+                                    : "You lose! Good luck next time!"
+                            }
+                        </p>
+                        <p className="question-explanation">
+                            {explanation}
+                        </p>
+                        <button
+                            onClick={async () =>{
+                                await props.processContinue()
+                                setShowResult(false)
+                            }}>
+                            Continue
+                        </button>
+                    </div>
                 </div>
             )}
 
@@ -97,7 +109,6 @@ function Question(props) {
                         disabled={selectedOptionId === null}
                         onClick={() => {
                             props.processCheck(selectedOptionId)
-                            console.log(selectedOptionId)
                         }}
                     >
                         check

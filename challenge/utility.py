@@ -9,7 +9,7 @@ def initialise_challenge_sessions(request, questions, character):
 
     request.session["challenge_activate"] = True
     request.session["is_end"] = False
-    request.session["is_win"] = False
+    request.session["is_win"] = None
     request.session["current_index"] = 0
     request.session["total_questions"] = questions.count()
     request.session["total_correct"] = 0
@@ -61,12 +61,14 @@ def get_next_unit(current_unit):
         .first()
     )
 
-def pack_challenge_data(request):
+def pack_challenge_data(request, unit_id):
     challenge_data = {
+        "playerAlias" : request.user.user_profile.alias,
         "characterId" : request.session["character_id"],
         "currentHp" : request.session["current_hp"],
         "currentMp" : request.session["current_mp"],
         "buffs" : request.session["buffs"],
+        "bossName" : Unit.objects.get(id=unit_id).boss.name,
         "bossMaxHp" : request.session["total_questions"],
         "bossCurrentHp" : request.session["total_questions"] - request.session["total_correct"],
     }

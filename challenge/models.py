@@ -88,7 +88,7 @@ class QuestionOption(models.Model):
                 name="unique_option_order_in_question",
             ),
         ]
-
+# 加一个限制：同一个question至少要有一题是对的
     def __str__(self):
         return self.title
     

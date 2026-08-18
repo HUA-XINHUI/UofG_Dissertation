@@ -4,6 +4,7 @@
     padding:0;
     box-sizing:border-box;
 }
+
 /* ---------- Body ---------- */
 body{
     background: red;
@@ -22,95 +23,4 @@ body{
     flex-direction:column;
     background:white;
     box-shadow:0 0 12px rgba(0,0,0,.2);
-}
-/* ---------- 用户信息栏 ---------- */
-header {
-    display: flex;
-    height: 80px;
-    padding: 20px;
-    display:flex;
-    flex-direction:column;
-    align-items: center;
-    border-bottom: 3px solid black;
-}
-/* ---------- 战斗显示 ---------- */
-.battlefield {
-    height: 130px;
-    padding: 20px;
-    border-bottom: 3px solid black;
-}
-/* ---------- 中间main区 ---------- */
-main {
-    flex: 1;
-    padding: 20px;
-}
-/* ---------- 底部按钮 ---------- */
-footer {
-    height: 100px;
-}
-
-.answer-options {
-    display: flex;
-    gap: 8px;
-    width: 100%;
-}
-.answer-option {
-    flex: 1;
-    height: 50px;
-    padding: 8px;
-    border: 3px solid black;
-    background-color: white;
-    font-size: 20px;
-    cursor: pointer;
-}
-.answer-option.selected {
-    transform: translateY(5px);
-    box-shadow: none;
-    background-color: #e5e5e5;
-}
-
-.check-options {
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    gap: 8px;
-    width: 100%;
-}
-
-.check-options button,
-.check-options a {
-    min-width: 0;
-    height: 50px;
-    padding: 8px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    border: 3px solid black;
-    background-color: white;
-
-    color: black;
-    font-size: 18px;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-#explanation-dialog {
-    position: fixed;
-    inset: 0;
-    width: min(320px, 80%);
-    height: fit-content;
-    margin: auto;
-    padding: 20px;
-    box-sizing: border-box;
-    text-align: center;
-}
-
-.feedback {
-    opacity: 1;
-    transition: opacity 0.5s;
-}
-
-.feedback.fade-out {
-    opacity: 0;
 }

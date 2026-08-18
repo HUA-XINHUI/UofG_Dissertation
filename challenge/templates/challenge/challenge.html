@@ -1,55 +1,37 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>
-        {% block title %}
-            RPG Learning
-        {% endblock %}
-    </title>
+    <title>RPG Learning</title>
 
     <link
         rel="stylesheet"
         href="{% static 'challenge/css/challenge.css' %}"
     >
-
-    {% block extra_css %}
-    {% endblock %}
 </head>
 
 <body>
     <div class="mobile-app">
 
-        <header>
-        </header>
-
-            <form id="csrf-form" style="display: none;">
-                {% csrf_token %}
-            </form>
+        <form id="csrf-form" style="display: none;">
+            {% csrf_token %}
+        </form>
 
         <section id="challenge-root"></section>
+
         {{ challengeData|json_script:"challenge-data" }}
         {{ questionData|json_script:"question-data" }}
-        
-        <main>
-            {% if messages %}
-                {% for message in messages %}
-                    <p class="feedback {{ message.tags }}">
-                        {{ message }}
-                    </p>
-                {% endfor %}
-            {% endif %}
-        </main>
 
-        <footer>
-        </footer>
-</body>
+    </div>
 
     <script type="module">
         import RefreshRuntime from 'http://localhost:5173/@react-refresh'
@@ -70,5 +52,7 @@
         type="module"
         src="http://localhost:5173/src/main.jsx"
     ></script>
+
+</body>
 
 </html>

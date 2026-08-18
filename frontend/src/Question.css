@@ -128,3 +128,21 @@
 .check-options button:disabled {
     cursor: default;
 }
+
+.result-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.result-dialog {
+    width: 350px;
+    padding: 20px;
+
+    background: white;
+    border: 3px solid black;
+}

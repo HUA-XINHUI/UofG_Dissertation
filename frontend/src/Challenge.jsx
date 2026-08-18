@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import "./Challenge.css"
 
 function Challenge(props) {
-    console.log(props.showDialog)
+
     const challengeData = props.challengeData
     const isCorrect = props.isCorrect
     const characterId = challengeData.characterId
@@ -53,22 +53,35 @@ function Challenge(props) {
 
     return (
         <div className="battlefield">
-            <div>
-                <p>HP: {currentHp}</p>
-                <p>MP: {currentMp}</p>
-            </div>
-            <div
-                className={`player player-${playerState}`}
-            >
-                Player
-            </div>
-            <div>
-                <p>BOSS: {bossCurrentHp} / {bossMaxHp}</p>
-            </div>
-            <div
-                className={`enemy enemy-${enemyState}`}
-            >
-                Slime
+
+            <header className="battlefield-header">
+                <div className="player-information-zone">
+                    <p>HP: {currentHp}</p>
+                    <p>MP: {currentMp}</p>
+                </div>
+                <div className="enemy-information-zone">
+                    <p>BOSS: {bossCurrentHp} / {bossMaxHp}</p>
+                </div>
+            </header>
+
+            <div className="combat-zone">
+                <div className={`player player-${playerState}`}>
+                    <div className="character-image">
+                        Player Image
+                    </div>
+                    <div className="player-name">
+                        {challengeData.playerAlias}
+                    </div>
+                </div>
+
+                <div className={`enemy enemy-${enemyState}`}>
+                    <div className="enemy-image">
+                        Enemy Image
+                    </div>
+                    <div className="enemy-name">
+                        {challengeData.bossName}
+                    </div>
+                </div>
             </div>
         </div>
     )

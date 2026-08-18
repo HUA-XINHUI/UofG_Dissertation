@@ -3,7 +3,12 @@ from django.contrib import messages
 from .models import Character
 from userprofile.models import UserAsset
 
+
+from challenge import utility
+
 def home(request):
+
+    utility.clear_challenge_sessions(request)
 
     user = request.user
     characters = Character.objects.all()

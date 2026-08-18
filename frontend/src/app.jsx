@@ -26,6 +26,9 @@ function App(props) {
         const data = await response.json()
         setIsCorrect(data.isCorrect)
         setChallengeData(data.challengeData)
+        setQuestionData((oldData) => {
+            return { ...oldData, ...data.questionData }
+        })
         setCheckCount( checkCount + 1)
     }
 

@@ -4,7 +4,8 @@ import "./Challenge.css"
 
 function Challenge(props) {
 
-    console.log(props.challengeData.currentMp)
+    console.log(props)
+    // console.log(props.challengeData.bossCurrentHp)
 
     const challengeData = props.challengeData
     const isCorrect = props.isCorrect
@@ -12,7 +13,8 @@ function Challenge(props) {
     const currentHp = challengeData.currentHp
     const currentMp = challengeData.currentMp
     const buffs = challengeData.buffs
-    const processContinue = props.processContinue
+    const bossMaxHp = challengeData.bossMaxHp
+    const bossCurrentHp = challengeData.bossCurrentHp
 
     const checkCount = props.checkCount
     const [playerState, setPlayerState] = useState("idle")
@@ -54,9 +56,6 @@ function Challenge(props) {
         }
         if (isCorrect === false) {
             wrong()
-            setTimeout(() => {
-                setShowResult(true)
-            }, 550)
         }
     }, [checkCount])
 
@@ -70,6 +69,9 @@ function Challenge(props) {
                 className={`player player-${playerState}`}
             >
                 Player
+            </div>
+            <div>
+                <p>BOSS: {bossCurrentHp} / {bossMaxHp}</p>
             </div>
             <div
                 className={`enemy enemy-${enemyState}`}

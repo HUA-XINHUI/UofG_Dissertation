@@ -5,12 +5,12 @@ from . import skills
 from challenge.models import QuestionOption
 from mainquest.models import Unit
 
-def initialise_challenge_sessions(request, character, unit_id):
+def initialise_challenge_sessions(request, questions, character):
 
     request.session["challenge_activate"] = True
-    request.session["unit_id"] = unit_id
     request.session["is_win"] = False
     request.session["current_index"] = 0
+    request.session["total_questions"] = questions.count()
     request.session["total_correct"] = 0
     request.session["total_wrong"] = 0
 
@@ -22,9 +22,9 @@ def initialise_challenge_sessions(request, character, unit_id):
 def clear_challenge_sessions(request):
 
     request.session["challenge_activate"] = False
-    request.session.pop("unit_id", None)
     request.session.pop("is_win", None)
     request.session.pop("current_index", None)
+    request.session.pop("total_questions", None)
     request.session.pop("total_correct", None)
     request.session.pop("total_wrong", None)
 
@@ -34,11 +34,9 @@ def clear_challenge_sessions(request):
     request.session.pop("buffs", None)
 
 def initialise_question_sessions(request):
-
     request.session["removed_options_id"] = []
 
 def clear_question_sessions(request):
-
     request.session.pop("removed_options_id", None)
 
 def get_next_unit(current_unit):
@@ -66,7 +64,9 @@ def pack_challenge_data(request):
         "characterId" : request.session["character_id"],
         "currentHp" : request.session["current_hp"],
         "currentMp" : request.session["current_mp"],
-        "buffs" : request.session["buffs"]
+        "buffs" : request.session["buffs"],
+        "bossMaxHp" : request.session["total_questions"],
+        "bossCurrentHp" : request.session["total_questions"] - request.session["total_correct"],
     }
     return challenge_data
 
@@ -90,16 +90,11 @@ def pack_question_data(current_question):
     }
     return question_data
 
-def check_correction_or_not(request):
-    selected_option_id = request.POST.get("selected_option")
-    selected_option = QuestionOption.objects.get(id=selected_option_id)
-    return selected_option.is_correct
-
-def check_ending_or_not(request, questions):
+def check_ending_or_not(request):
     if request.session["current_hp"] <= 0:
         request.session["is_win"] = False
         return True
-    if request.session["current_index"] + 1 == questions.count():
+    if request.session["total_correct"] == request.session["total_questions"]:
         request.session["is_win"] = True
         return True
     return False

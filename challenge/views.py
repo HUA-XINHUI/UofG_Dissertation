@@ -1,8 +1,9 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import JsonResponse
 from django.utils import timezone
+from django.urls import reverse
 
-from challenge.models import Question
+from challenge.models import Question, QuestionOption
 from mainquest.models import Unit
 from dailyquest.models import UserDailyData
 from store.models import Skill, Character
@@ -13,55 +14,59 @@ from . import skills, utility
 def home(request, unit_id):
 
     unit = get_object_or_404(Unit, id=unit_id)
-    questions = (
-        Question.objects
-        .filter(unit=unit)
-        .prefetch_related("options")
-    )
+    questions = (Question.objects.filter(unit=unit).prefetch_related("options"))
     character = request.user.user_profile.selected_character
 
     if not request.session.get("challenge_activate", False):
-        utility.initialise_challenge_sessions(request, character, unit_id)
+        utility.initialise_challenge_sessions(request, questions, character)
+        utility.initialise_question_sessions(request)
 
     current_question = questions[request.session["current_index"]]
     options = current_question.options.all()
     challenge_data = utility.pack_challenge_data(request)
     question_data = utility.pack_question_data(current_question)
 
-    result = None
-    hide_options = False
-
     if request.method == "POST":
         action = request.POST.get("action")
 
         if action == "check":
-            hide_options = True
-            utility.initialise_question_sessions(request)
+            selected_option_id = request.POST.get("selected_option")
+            selected_option = QuestionOption.objects.get(id=selected_option_id)
+            removed_options_id = request.session["removed_options_id"]
 
-            is_correct = utility.check_correction_or_not(request)
-            if is_correct:
-                result = "correct"
+            if selected_option.is_correct:
                 skills.process_after_correct_skill(request)
                 request.session["total_correct"] += 1
             else:
-                result = "wrong"
                 skills.process_after_wrong_skill(request)
                 request.session["current_hp"] -= 1
                 request.session["total_wrong"] += 1
+                removed_options_id.append(selected_option_id)
+                options = options.exclude(id__in=removed_options_id)
+                request.session["removed_options_id"] = removed_options_id
+
             challenge_data = utility.pack_challenge_data(request)
-            utility.clear_question_sessions(request)
             return JsonResponse({
-                "isCorrect" : is_correct,
+                "isCorrect" : selected_option.is_correct,
                 "challengeData" : challenge_data,
+                "questionData" : {"options" : [
+                {
+                    "id" : option.id,
+                    "orderNo" : option.order_no,
+                    "title" : option.title,
+                    "description" : option.description,
+                }
+                for option in options.all()]},
             })
 
         elif action == "continue":
-            is_end = utility.check_ending_or_not(request, questions)
+            utility.initialise_question_sessions(request)
+            is_end = utility.check_ending_or_not(request)
             if is_end:
-                ending_process(request, False, unit)
+                ending_process(request, unit)
                 return JsonResponse({
                     "isEnd": True,
-                    "redirectUrl": "/challenge/finish/",
+                    "redirectUrl": reverse("challenge:finish"),
                 })
 
             question_data = utility.fetch_next_question(request, questions)
@@ -93,7 +98,7 @@ def home(request, unit_id):
             utility.clear_question_sessions(request)
             return JsonResponse({
                 "isEnd": True,
-                "redirectUrl": "/challenge/finish/",
+                "redirectUrl": "/",
             })
 
     skill_available = (character.skill.trigger_type == Skill.TriggerType.ACTIVE)
@@ -102,12 +107,10 @@ def home(request, unit_id):
         "unit": unit,
         "question": current_question,
         "options" : options,
-        "result": result,
         "current_hp": request.session["current_hp"],
         "current_mp": request.session["current_mp"],
         "character": character,
         "skill_available": skill_available,
-        "hide_options": hide_options,
         "challengeData" : challenge_data,
         "questionData" : question_data,
     }
@@ -118,7 +121,7 @@ def home(request, unit_id):
         context,
     )
 
-def ending_process(request, is_win, unit):
+def ending_process(request, unit):
 
     gold_reward = 20
     exp_reward = 20
@@ -138,8 +141,7 @@ def ending_process(request, is_win, unit):
         daily_data.questions_correct_today = 0
         daily_data.units_passed_today = 0
 
-    if is_win:
-        request.session["is_win"] = True
+    if request.session["is_win"]:
         gold_reward, exp_reward = skills.process_after_challenge_ending(request, gold_reward, exp_reward)
         user_profile.gold += gold_reward
         user_profile.experience += exp_reward
@@ -157,7 +159,6 @@ def ending_process(request, is_win, unit):
     daily_data.save()
     user_profile.save()
     user_task_data.save()
-    utility.clear_challenge_sessions(request)
 
 def finish(request):
 
@@ -178,6 +179,8 @@ def finish(request):
         challenge_result = "YOU WIN!!!!!"
     else:
         challenge_result = "YOU LOSE!!!!!"
+
+    utility.clear_challenge_sessions(request)
 
     context = {
         "challenge_result" : challenge_result,

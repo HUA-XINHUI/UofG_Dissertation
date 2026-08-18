@@ -1,7 +1,7 @@
 import { useState,useEffect } from "react"
 
 function Question(props) {
-    console.log(props)
+    console.log(props.questionData)
     const questionData = props.questionData
     const title = questionData.title
     const description = questionData.description

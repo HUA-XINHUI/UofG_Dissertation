@@ -1,7 +1,7 @@
 import { useState,useEffect } from "react"
 
 function Question(props) {
-    // console.log(props)
+    console.log(props)
     const questionData = props.questionData
     const title = questionData.title
     const description = questionData.description
@@ -9,6 +9,7 @@ function Question(props) {
     const options = questionData.options
 
     const [selectedOptionId, setSelectedOptionId] = useState(null)
+
     useEffect(function () {
         setSelectedOptionId(null)
     }, [questionData.id])
@@ -42,6 +43,16 @@ function Question(props) {
 
             <button
                 type="button"
+                // disabled={selectedOptionId === null}
+                onClick={() => {
+                    props.processSkill()
+                }}
+            >
+                skill
+            </button>
+
+            <button
+                type="button"
                 disabled={selectedOptionId === null}
                 onClick={() => {
                     props.processCheck(selectedOptionId)
@@ -49,6 +60,15 @@ function Question(props) {
                 }}
             >
                 check
+            </button>
+
+            <button
+                type="button"
+                onClick={() => {
+                    props.processQuit()
+                }}
+            >
+                quit
             </button>
         </>
     )

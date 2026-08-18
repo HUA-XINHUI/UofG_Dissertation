@@ -73,11 +73,28 @@ def home(request, unit_id):
         elif action == "skill":
             skills.process_manual_skill(request, current_question)
             options = options.exclude(id__in=request.session.get("removed_options_id", []))
+            return JsonResponse({
+                "challengeData" : {
+                    "buffs" : request.session["buffs"],
+                    "currentMp" : request.session["current_mp"]
+                },
+                "questionData" : {"options" : [
+                {
+                    "id" : option.id,
+                    "orderNo" : option.order_no,
+                    "title" : option.title,
+                    "description" : option.description,
+                }
+                for option in options.all()]},
+            })
 
         elif action == "quit":
             utility.clear_challenge_sessions(request)
             utility.clear_question_sessions(request)
-            return redirect("mainquest:home")
+            return JsonResponse({
+                "isEnd": True,
+                "redirectUrl": "/challenge/finish/",
+            })
 
     skill_available = (character.skill.trigger_type == Skill.TriggerType.ACTIVE)
 

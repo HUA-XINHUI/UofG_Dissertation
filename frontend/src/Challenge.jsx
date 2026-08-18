@@ -4,6 +4,8 @@ import "./Challenge.css"
 
 function Challenge(props) {
 
+    console.log(props.challengeData.currentMp)
+
     const challengeData = props.challengeData
     const isCorrect = props.isCorrect
     const characterId = challengeData.characterId

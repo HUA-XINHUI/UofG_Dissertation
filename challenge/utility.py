@@ -16,6 +16,8 @@ def initialise_challenge_sessions(request, questions, character):
 
     request.session["character_id"] = character.id
     request.session["character_class"] = character.character_class
+    request.session["character_asset_key"] = character.asset_key
+    request.session["enemy_asset_key"] = questions.first().unit.boss.asset_key
     request.session["current_hp"] = character.max_hp
     request.session["current_mp"] = character.max_mp
     request.session["buffs"] = skills.challenge_buffs_initialising(request)
@@ -32,6 +34,8 @@ def clear_challenge_sessions(request):
 
     request.session.pop("character_id", None)
     request.session.pop("character_class", None)
+    request.session.pop("character_asset_key", None)
+    request.session.pop("enemy_asset_key", None)
     request.session.pop("current_hp", None)
     request.session.pop("current_mp", None)
     request.session.pop("buffs", None)
@@ -67,6 +71,8 @@ def pack_challenge_data(request, unit_id):
         "playerAlias" : request.user.user_profile.alias,
         "characterId" : request.session["character_id"],
         "characterClass" : request.session["character_class"],
+        "characterAssetKey" : request.session["character_asset_key"],
+        "enemyAssetKey" : request.session["enemy_asset_key"],
         "currentHp" : request.session["current_hp"],
         "currentMp" : request.session["current_mp"],
         "buffs" : request.session["buffs"],

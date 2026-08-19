@@ -15,4 +15,7 @@ def get_level(experience):
 
 def get_exp_to_next_level(experience):
     level = get_level(experience)
+    if level >= len(LEVEL_REQUIREMENTS):
+        return None
+    
     return LEVEL_REQUIREMENTS[level]

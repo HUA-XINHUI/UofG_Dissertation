@@ -139,7 +139,7 @@ def ending_process(request, unit):
         daily_data.questions_correct_today = 0
         daily_data.units_passed_today = 0
 
-    if request.session["is_win"]:
+    if request.session.get("is_win"):
         gold_reward, exp_reward = skills.process_after_challenge_ending(request, gold_reward, exp_reward)
         user_profile.gold += gold_reward
         user_profile.experience += exp_reward
@@ -173,7 +173,7 @@ def finish(request):
     total_questions = total_correct + total_wrong
     # accuracy = total_correct/(total_correct + total_wrong)
 
-    if request.session["is_win"]:
+    if request.session.get("is_win"):
         challenge_result = "YOU WIN!!!!!"
     else:
         challenge_result = "YOU LOSE!!!!!"

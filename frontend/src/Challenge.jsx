@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react"
 import "./Challenge.css"
 
-import warriorImage from "./assets/characters/archer/blue/IDLE.png"
-import slimeImage from "./assets/characters/archer/green/IDLE.png"
-
 import CharacterSprite from "./sprites/CharacterSprite"
 
 function Challenge(props) {
@@ -70,7 +67,7 @@ function Challenge(props) {
                 <div className={`player player-${playerState}`}>
                     <div className="character-image">
                         <CharacterSprite
-                            character="archerBlue"
+                            character={challengeData.characterAssetKey}
                             state={playerState}
                             facing="right"
                             onAnimationEnd={() => {
@@ -88,7 +85,7 @@ function Challenge(props) {
                 <div className={`enemy enemy-${enemyState}`}>
                     <div className="enemy-image">
                         <CharacterSprite
-                            character="archerBlue"
+                            character={challengeData.enemyAssetKey}
                             state={enemyState}
                             facing="left"
                             onAnimationEnd={() => {

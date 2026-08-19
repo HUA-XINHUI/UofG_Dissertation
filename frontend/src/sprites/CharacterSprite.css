@@ -4,19 +4,15 @@
 
 
 /* ---------- Facing ---------- */
-
 .sprite-facing {
     display: inline-block;
 }
-
 .sprite-facing.right {
     transform: scaleX(1);
 }
-
 .sprite-facing.left {
     transform: scaleX(-1);
 }
-
 
 /* ---------- Sprite ---------- */
 .sprite {

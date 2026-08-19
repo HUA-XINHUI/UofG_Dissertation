@@ -1,4 +1,5 @@
 import { useState,useEffect } from "react"
+import "./Question.css"
 
 function Question(props) {
 
@@ -30,22 +31,32 @@ function Question(props) {
     return (
         <div className="question">
             <main className="question-main">
-                <h2 className="question-description">
-                    {description}
+                <h2 className="question-type">
+                    {questionData.questionType}
                 </h2>
-                {options.map(function (option) {
-                    return (
-                        <h2 key={option.id}>
-                            {option.title} : {option.description}
-                        </h2>
-                    )
-                })}
+
+                <h2 className="question-description">
+                    {questionData.description}
+                </h2>
+
+                <div className="question-options">
+                    {options.map(function (option) {
+                        return (
+                            <h3 
+                                className="option-description"
+                                key={option.id}
+                                >
+                                {option.title} : {option.description}
+                            </h3>
+                        )
+                    })}
+                </div>
             </main>
 
             {showResult && (
                 <div className="result-overlay">
                     <div className="result-dialog">
-                        <p>
+                        <p className="dialog-result">
                             {isWin === null
                                 ? "Congratulations! You are correct!"
                                 : isWin === true
@@ -60,7 +71,8 @@ function Question(props) {
                             onClick={async () =>{
                                 await props.processContinue()
                                 setShowResult(false)
-                            }}>
+                            }}
+                        >
                             Continue
                         </button>
                     </div>
@@ -101,7 +113,7 @@ function Question(props) {
                             props.processSkill()
                         }}
                     >
-                        skill
+                        Skill
                     </button>
 
                     <button
@@ -111,7 +123,7 @@ function Question(props) {
                             props.processCheck(selectedOptionId)
                         }}
                     >
-                        check
+                        Check
                     </button>
 
                     <button
@@ -120,7 +132,7 @@ function Question(props) {
                             props.processQuit()
                         }}
                     >
-                        quit
+                        Quit
                     </button>
                 </div>
             </footer>

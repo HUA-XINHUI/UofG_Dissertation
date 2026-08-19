@@ -110,65 +110,12 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    transition: transform 0.2s;
-}
-
-.character-image,
-.enemy-image {
-    text-align: center;
 }
 
 .player-name,
 .enemy-name {
     text-align: center;
 }
-
-
-/* =========================
-   Attack animations
-   ========================= */
-
-.player-attack {
-    transform: translateX(230px);
-}
-
-.enemy-attack {
-    transform: translateX(-230px);
-}
-
-
-/* =========================
-   Hurt animations
-   ========================= */
-
-.player-hurt .character-image {
-    animation: hurt 0.2s;
-}
-
-.enemy-hurt .enemy-image {
-    animation: hurt 0.2s;
-}
-
-@keyframes hurt {
-
-    25% {
-        transform: translateX(10px);
-    }
-
-    50% {
-        transform: translateX(-10px);
-    }
-
-    75% {
-        transform: translateX(10px);
-    }
-
-    100% {
-        transform: translateX(0);
-    }
-}
-
 
 /* =========================
    Question
@@ -349,12 +296,8 @@ body {
 
 .result-dialog button {
     min-height: 40px;
-
     padding: 8px 16px;
-
     border: 3px solid black;
-
     background: white;
-
     cursor: pointer;
 }

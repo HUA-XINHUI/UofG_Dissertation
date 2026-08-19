@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react"
 import "./Challenge.css"
 
+import warriorImage from "./assets/characters/archer/blue/IDLE.png"
+import slimeImage from "./assets/characters/archer/green/IDLE.png"
+
+import CharacterSprite from "./sprites/CharacterSprite"
+
 function Challenge(props) {
 
     const challengeData = props.challengeData
@@ -18,28 +23,24 @@ function Challenge(props) {
 
     function correct(){
         setPlayerState("attack")
-        setTimeout(function () {
-            setEnemyState("hurt")
-        }, 200)
-        setTimeout(function () {
-            setEnemyState("idle")
+        setTimeout(() => {
+            if (bossCurrentHp <= 0) {
+                setEnemyState("die")
+            } else {
+                setEnemyState("hurt")
+            }
         }, 400)
-        setTimeout(function () {
-            setPlayerState("idle")
-        }, 500)
     }
 
     function wrong(){
         setEnemyState("attack")
-        setTimeout(function () {
-            setPlayerState("hurt")
-        }, 200)
-        setTimeout(function () {
-            setPlayerState("idle")
+        setTimeout(() => {
+            if (currentHp <= 0) {
+                setPlayerState("die")
+            } else {
+                setPlayerState("hurt")
+            }
         }, 400)
-        setTimeout(function () {
-            setEnemyState("idle")
-        }, 500)
     }
 
     useEffect(()=> {
@@ -56,6 +57,7 @@ function Challenge(props) {
 
             <header className="battlefield-header">
                 <div className="player-information-zone">
+                    <p>{ challengeData.characterClass }</p>
                     <p>HP: {currentHp}</p>
                     <p>MP: {currentMp}</p>
                 </div>
@@ -67,7 +69,16 @@ function Challenge(props) {
             <div className="combat-zone">
                 <div className={`player player-${playerState}`}>
                     <div className="character-image">
-                        Player Image
+                        <CharacterSprite
+                            character="archerBlue"
+                            state={playerState}
+                            facing="right"
+                            onAnimationEnd={() => {
+                                if (playerState !== "die") {
+                                    setPlayerState("idle")
+                                }
+                            }}
+                        />
                     </div>
                     <div className="player-name">
                         {challengeData.playerAlias}
@@ -76,7 +87,16 @@ function Challenge(props) {
 
                 <div className={`enemy enemy-${enemyState}`}>
                     <div className="enemy-image">
-                        Enemy Image
+                        <CharacterSprite
+                            character="archerBlue"
+                            state={enemyState}
+                            facing="left"
+                            onAnimationEnd={() => {
+                                if (enemyState !== "die") {
+                                    setEnemyState("idle")
+                                }
+                            }}
+                        />
                     </div>
                     <div className="enemy-name">
                         {challengeData.bossName}

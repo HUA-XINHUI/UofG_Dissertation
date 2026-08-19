@@ -1,0 +1,56 @@
+.sprite-actor {
+    display: inline-block;
+}
+
+
+/* ---------- Facing ---------- */
+
+.sprite-facing {
+    display: inline-block;
+}
+
+.sprite-facing.right {
+    transform: scaleX(1);
+}
+
+.sprite-facing.left {
+    transform: scaleX(-1);
+}
+
+
+/* ---------- Sprite ---------- */
+.sprite {
+    background-repeat: no-repeat;
+
+    background-size:
+        var(--sheet-width)
+        100%;
+
+    animation-name: sprite-animation;
+
+    animation-duration:
+        var(--animation-duration);
+
+    animation-timing-function:
+        steps(var(--frame-count), jump-none);
+
+    animation-iteration-count:
+        var(--animation-iteration);
+
+    animation-fill-mode: forwards;
+}
+
+
+@keyframes sprite-animation {
+
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position:
+            calc(-1 * var(--last-frame-offset))
+            0;
+    }
+
+}

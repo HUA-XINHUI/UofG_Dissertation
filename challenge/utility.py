@@ -2,7 +2,6 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.db.models import Q
 
 from . import skills
-from challenge.models import QuestionOption
 from mainquest.models import Unit
 
 def initialise_challenge_sessions(request, questions, character):
@@ -16,6 +15,7 @@ def initialise_challenge_sessions(request, questions, character):
     request.session["total_wrong"] = 0
 
     request.session["character_id"] = character.id
+    request.session["character_class"] = character.character_class
     request.session["current_hp"] = character.max_hp
     request.session["current_mp"] = character.max_mp
     request.session["buffs"] = skills.challenge_buffs_initialising(request)
@@ -31,6 +31,7 @@ def clear_challenge_sessions(request):
     request.session.pop("total_wrong", None)
 
     request.session.pop("character_id", None)
+    request.session.pop("character_class", None)
     request.session.pop("current_hp", None)
     request.session.pop("current_mp", None)
     request.session.pop("buffs", None)
@@ -65,6 +66,7 @@ def pack_challenge_data(request, unit_id):
     challenge_data = {
         "playerAlias" : request.user.user_profile.alias,
         "characterId" : request.session["character_id"],
+        "characterClass" : request.session["character_class"],
         "currentHp" : request.session["current_hp"],
         "currentMp" : request.session["current_mp"],
         "buffs" : request.session["buffs"],

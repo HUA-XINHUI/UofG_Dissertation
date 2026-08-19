@@ -13,7 +13,9 @@
 .sprite-facing.left {
     transform: scaleX(-1);
 }
-
+.sprite-flipped {
+    transform: scaleX(-1);
+}
 /* ---------- Sprite ---------- */
 .sprite {
     background-repeat: no-repeat;

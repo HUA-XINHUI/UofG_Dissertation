@@ -26,6 +26,7 @@ import enemyWolfDie from "../assets/characters/enemies/wolf/DEATH.png"
 const animationConfig = {
 
     archerBlue: {
+        flipX: false,
         idle: {
             image: archerBlueIdle,
             frames: 14,
@@ -61,6 +62,7 @@ const animationConfig = {
     },
 
     warriorRed: {
+        flipX: false,
         idle: {
             image: warriorRedIdle,
             frames: 5,
@@ -96,6 +98,7 @@ const animationConfig = {
     },
 
     rogueGreen: {
+        flipX: false,
         idle: {
             image: rogueGreenIdle,
             frames: 5,
@@ -131,6 +134,7 @@ const animationConfig = {
     },
 
     alchemistPanda: {
+        flipX: true,
         idle: {
             image: alchemistPandaIdle,
             frames: 8,
@@ -166,6 +170,7 @@ const animationConfig = {
     },
 
     enemyWolf: {
+        flipX: false,
         idle: {
             image: enemyWolfIdle,
             frames: 6,

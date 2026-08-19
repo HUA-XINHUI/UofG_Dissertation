@@ -8,11 +8,13 @@ function CharacterSprite({
     facing = "right",
     onAnimationEnd,
 }) {
-    const animation = animationConfig[character][state]
-    const sheetWidth =
-        animation.frameWidth * animation.frames
-    const lastFrameOffset =
-        animation.frameWidth * (animation.frames - 1)
+
+    const characterConfig = animationConfig[character]
+    const animation = characterConfig[state]
+
+    const sheetWidth = animation.frameWidth * animation.frames
+    const lastFrameOffset = animation.frameWidth * (animation.frames - 1)
+
     const spriteStyle = {
         backgroundImage: `url(${animation.image})`,
         width: `${animation.frameWidth}px`,
@@ -20,7 +22,6 @@ function CharacterSprite({
 
         "--sheet-width": `${sheetWidth}px`,
         "--last-frame-offset": `${lastFrameOffset}px`,
-
         "--frame-count": animation.frames,
         "--animation-duration": `${animation.duration}s`,
         "--animation-iteration": animation.loop
@@ -41,7 +42,7 @@ function CharacterSprite({
             >
                 <div
                     key={`${character}-${state}`}
-                    className="sprite"
+                    className={`sprite ${characterConfig.flipX ? "sprite-flipped" : ""}`}
                     style={spriteStyle}
                     onAnimationEnd={handleAnimationEnd}
                 />

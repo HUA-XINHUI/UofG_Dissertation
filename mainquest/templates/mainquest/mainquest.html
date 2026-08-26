@@ -15,64 +15,67 @@
         data-current-section-id="{{ current_section_id }}">
     </div>
 
-    <button 
-        id="left-button"
-        type="button"
-    >
-        left
-    </button>
-
-    {% for section in sections.all %}
-        <div 
-            class="section-cards"
-            data-section-id="{{ section.id }}"
-        >
-            Section : {{ section.id }}
-            <div class="unit-button">
-                {% for unit in section.units.all %}
-                    <button 
-                        type="button" 
-                        class="open-dialog-button"
-                        data-unit-id="{{ unit.id }}"
-                        data-unit-description="{{ unit.description }}"
-                        {% if unit.id > current_unit_id %}
-                            disabled
-                        {% endif %}
-                    >
-                    {{ unit.order_no }}
-                    </button>
-                {% endfor %}
+    <div class="section-map">
+        {% for section in sections.all %}
+            <div 
+                class="section-cards"
+                data-section-id="{{ section.id }}"
+            >
+                Section : {{ section.id }}
+                <div class="unit-button">
+                    {% for unit in section.units.all %}
+                        <button 
+                            type="button" 
+                            class="open-dialog-button"
+                            data-unit-id="{{ unit.id }}"
+                            data-unit-description="{{ unit.description }}"
+                            {% if unit.id > current_unit_id %}
+                                disabled
+                            {% endif %}
+                        >
+                        {{ unit.order_no }}
+                        </button>
+                    {% endfor %}
+                </div>
             </div>
+        {% endfor %}
+
+        <form method="post">
+        {% csrf_token %}
+            <input
+                type="hidden"
+                id="unit-selected"
+                name="unit-request"
+            >
+            <dialog id="unit-dialog">
+                <h1 id="dialog-unit-title"></h1>
+                <h2 id="dialog-unit-description"></h2>
+
+                <button type="submit" id="begin-confirm">
+                    <h1>Continue +20EXP </h1>
+                </button>
+
+                <button type="button" id="close-dialog-button">
+                    Close
+                </button>
+            </dialog>
+        </form>
+        <div id="switch-buttons">
+            <button 
+                id="left-button"
+                type="button"
+            >
+                left
+            </button>
+
+            <button 
+                type="button" 
+                id="right-button"
+            >
+                right
+            </button>
         </div>
-    {% endfor %}
-
-    <form method="post">
-    {% csrf_token %}
-        <input
-            type="hidden"
-            id="unit-selected"
-            name="unit-request"
-        >
-        <dialog id="unit-dialog">
-            <h1 id="dialog-unit-title"></h1>
-            <h2 id="dialog-unit-description"></h2>
-
-            <button type="submit" id="begin-confirm">
-                <h1>Continue +20EXP </h1>
-            </button>
-
-            <button type="button" id="close-dialog-button">
-                Close
-            </button>
-        </dialog>
-    </form>
-
-    <button 
-        type="button" 
-        id="right-button">
-        right
-    </button>
-    
+    </div>
     <script>
         const sectionCards = document.querySelectorAll(".section-cards")
         const sectionInformation = document.querySelector("#section-information")

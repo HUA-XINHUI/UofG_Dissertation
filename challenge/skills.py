@@ -32,7 +32,6 @@ def process_after_correct_skill(request):
         return
 
 def process_after_wrong_skill(request):
-    # character = Character.objects.get(id=request.session["character_id"])
     buffs = request.session["buffs"]
     if "Cloak of Stealth" in buffs:
         request.session["current_hp"] += 1
@@ -45,7 +44,6 @@ def process_after_wrong_skill(request):
         return
 
 def process_after_challenge_ending(request, gold_reward, exp_reward):
-    # character = Character.objects.get(id=request.session["character_id"])
     buffs = request.session["buffs"]
     if "Greedy" in buffs:
         gold_reward += 20

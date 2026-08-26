@@ -3,7 +3,6 @@
     --bg-app: #f7f6f2;
     --bg-section: #efede7;
     --bg-card: #ffffff;
-
     --text-main: #222;
     --border-main: #222;
 }
@@ -88,7 +87,6 @@ body {
     width: 100%;
     padding: 10px;
 }
-
 
 .answer-options {
     width: 100%;

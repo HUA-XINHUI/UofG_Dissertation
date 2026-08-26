@@ -4,15 +4,12 @@ import "./Question.css"
 function Question(props) {
 
     const questionData = props.questionData
-    const title = questionData.title
-    const description = questionData.description
     const explanation = questionData.explanation
     const options = questionData.options
 
     const [selectedOptionId, setSelectedOptionId] = useState(null)
     const checkCount = props.checkCount
     const showDialog = props.showDialog
-    const isEnd = props.isEnd
     const isWin = props.isWin
     const [showResult, setShowResult] = useState(false)
 

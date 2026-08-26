@@ -1,3 +1,43 @@
+.section-map {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.section-cards {
+    bottom: 10px;
+}
+
+#switch-buttons {
+    margin-top: auto;
+    margin-bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px 0px;
+}
+
+#left-button,
+#right-button {
+    width: 55px;
+    height: 55px;
+    border: 2px solid #222;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 4px 0 #222;
+}
+
+.open-dialog-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 4px 0 #222;
+}
+
 #unit-dialog{
     margin: auto;
     padding: 20px;

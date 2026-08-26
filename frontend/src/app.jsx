@@ -32,7 +32,7 @@ function App(props) {
         setQuestionData((oldData) => {
             return { ...oldData, ...data.questionData }
         })
-        setCheckCount( checkCount + 1)
+        setCheckCount( checkCount + 1 )
         setShowDialog(data.showDialog)
         setIsEnd(data.isEnd)
         setIsWin(data.isWin)

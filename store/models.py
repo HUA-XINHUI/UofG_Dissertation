@@ -39,7 +39,7 @@ class Character(models.Model):
         choices=AttackType.choices)
 
     skill = models.ForeignKey(
-        "store.Skill",
+        "Skill",
         to_field="id",
         on_delete=models.PROTECT,
         related_name="characters",
@@ -72,7 +72,6 @@ Max uses count : if item, the max uses count in one challenge
 Resource cost : if mana, the mana cost
 """
 class Skill(models.Model):
-
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=30)
     description = models.TextField(blank=True)
@@ -86,7 +85,6 @@ class Skill(models.Model):
     )
 
     effect_value = models.IntegerField()
-
     class ResourceType(models.TextChoices):
         NONE = "none"
         MANA = "mana"
@@ -95,7 +93,6 @@ class Skill(models.Model):
         max_length=20,
         choices=ResourceType.choices,
     )
-
     resource_cost = models.PositiveIntegerField(blank=True, null=True)
 
     def __str__(self):

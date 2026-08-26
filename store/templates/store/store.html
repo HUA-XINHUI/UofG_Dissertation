@@ -9,21 +9,14 @@
 {% endblock %}
 
 {% block main %}
+<div id="character-store">
 
-    <h1 
-        id="character-store"
+    <div
+        id="character-store-logo"
         data-selected-character-id = "{{ current_character_id }}"
     >
-    Character Store
-    </h1>
-
-    <button 
-        class="switch-buttons"
-        id="left-button"
-    >
-        left
-    </button>
-
+        <h1>Character Store</h1>
+    </div>
 
     {% for character in characters %}
 
@@ -34,20 +27,24 @@
             name="character_id"
             value="{{ character.id }}"
         >
+
             <div 
                 class="character-cards"
                 data-character-id="{{ character.id }}"
             >
-                <h2>Name : {{ character.name }}</h2>
-                <h2>Max Hp : {{ character.max_hp }}</h2>
-                <h2>Max Mp : {{ character.max_mp }}</h2>
-                <h2>{{ character.description }}</h2>
-                <h1>picture here : {{ character.name }}</h1>
-                <h2>Skill : {{ character.skill.name }}</h2>
-                <h2>{{ character.skill.description }}</h2>
+                <div class="character-cards-info">
+                    <p>Name : {{ character.name }}</p>
+                    <p>Max Hp : {{ character.max_hp }}</p>
+                    <p>Max Mp : {{ character.max_mp }}</p>
+                    <p>{{ character.description }}</p>
+                    <p>picture here : {{ character.name }}</p>
+                    <p>Skill : {{ character.skill.name }}</p>
+                    <p>{{ character.skill.description }}</p>
+
                 {% if not character.id in unlocked_characters_id %}
-                <h2>Unlock Price : {{ character.unlock_price }}</h2>
+                    <p>Unlock Price : {{ character.unlock_price }}</p>
                 {% endif %}
+                </div>
 
                 {% if character.id == user.user_profile.selected_character.id %}
                 <button
@@ -76,56 +73,61 @@
                     Buy
                 </button>
                 {% endif %}
+
             </div>
         </form>
     {% endfor %}
 
+    <div class="switch-buttons">
+        <button id="left-button">
+            left
+        </button>
 
-    <button 
-        id="right-button"
-        class="switch-buttons"
-    >
-        right
-    </button>
+        <button id="right-button">
+            right
+        </button>
+    </div>
 
-    <script>
+</div>
 
-        const characterCards = document.querySelectorAll(".character-cards");
-        const statusButtons = document.querySelectorAll(".status-buttons");
+<script>
 
-        const characterStore = document.querySelector("#character-store")
-        const selectedCharacterId = Number(characterStore.dataset.selectedCharacterId)
-        let currentIndex = selectedCharacterId
+    const characterCards = document.querySelectorAll(".character-cards");
+    const statusButtons = document.querySelectorAll(".status-buttons");
 
-        const leftSwitchButton = document.querySelector("#left-button");
-        const rightSwitchButton = document.querySelector("#right-button");
+    const characterStore = document.querySelector("#character-store-logo")
+    const selectedCharacterId = Number(characterStore.dataset.selectedCharacterId)
+    let currentIndex = selectedCharacterId
 
-        function showCard() {
-            characterCards.forEach((card) => {
-                if (currentIndex == card.dataset.characterId) {
-                    card.classList.remove("hidden");
-                } else {
-                    card.classList.add("hidden");
-                }
-            });
+    const leftSwitchButton = document.querySelector("#left-button");
+    const rightSwitchButton = document.querySelector("#right-button");
+
+    function showCard() {
+        characterCards.forEach((card) => {
+            if (currentIndex == card.dataset.characterId) {
+                card.classList.remove("hidden");
+            } else {
+                card.classList.add("hidden");
+            }
+        });
+    }
+
+    showCard()
+    leftSwitchButton.addEventListener("click", () =>{
+        currentIndex -= 1;
+        if (currentIndex < 1){
+            currentIndex = characterCards.length
         }
+        showCard();
+    })
+    rightSwitchButton.addEventListener("click", () =>{
+        currentIndex += 1;
+        if (currentIndex > characterCards.length){
+            currentIndex = 1
+        }
+        showCard();
+    })
 
-        showCard()
-        leftSwitchButton.addEventListener("click", () =>{
-            currentIndex -= 1;
-            if (currentIndex < 1){
-                currentIndex = characterCards.length
-            }
-            showCard();
-        })
-        rightSwitchButton.addEventListener("click", () =>{
-            currentIndex += 1;
-            if (currentIndex > characterCards.length){
-                currentIndex = 1
-            }
-            showCard();
-        })
-
-    </script>
+</script>
 
 {% endblock %}

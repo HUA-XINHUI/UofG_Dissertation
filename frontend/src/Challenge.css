@@ -1,41 +1,50 @@
+/* 此处为codex修改 */
 :root {
-    --sprite-scale: 1.5;
+    --sprite-scale: 1.34;
+    --ink: #241c16;
+    --muted: #6d6258;
+    --line: #2b2119;
+    --panel-bg: #fff4d0;
+    --sky: #b9dfdc;
+    --grass: #78b870;
 }
 
+/* 此处为codex修改 */
 .character-image,
 .enemy-image {
     scale: var(--sprite-scale);
     transform-origin: center bottom;
 }
 
+/* 此处为codex修改 */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* 此处为codex修改 */
 html,
 body {
     width: 100%;
-    min-height: 100vh;
+    min-height: 100dvh;
 }
 
+/* 此处为codex修改 */
 .mobile-app {
     width: 100%;
-    max-width: 430px;
-    height: 100vh;
+    max-width: 26.875rem;
+    height: 100dvh;
+    max-height: 100dvh;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    background: white;
-    box-shadow: 0 0 12px rgba(0, 0, 0, .2);
+    overflow: hidden;
+    background: #fff9ea;
+    box-shadow: 0 0 .75rem rgba(0, 0, 0, .2);
 }
 
-
-/* =========================
-   React root
-   ========================= */
-
+/* 此处为codex修改 */
 #challenge-root {
     flex: 1;
     min-height: 0;
@@ -43,6 +52,7 @@ body {
     flex-direction: column;
 }
 
+/* 此处为codex修改 */
 .challenge {
     flex: 1;
     min-height: 0;
@@ -50,78 +60,146 @@ body {
     flex-direction: column;
 }
 
-
-/* =========================
-   Battlefield
-   ========================= */
-
+/* 此处为codex修改 */
 .battlefield {
-    flex: 0 0 210px;
+    flex: 0 0 13.25rem;
     width: 100%;
     display: flex;
     flex-direction: column;
-    border-bottom: 3px solid black;
+    overflow: hidden;
+    border-bottom: .1875rem solid var(--line);
+    background:
+        linear-gradient(180deg, rgba(185, 223, 220, .95) 0 52%, rgba(120, 184, 112, .95) 52% 100%),
+        repeating-linear-gradient(45deg, transparent 0 .75rem, rgba(43, 33, 25, .06) .75rem 1.5rem);
 }
 
-
-/* =========================
-   Battlefield header
-   ========================= */
-
+/* 此处为codex修改 */
 .battlefield-header {
     width: 100%;
-    height: 70px;
-
+    min-height: 4.45rem;
+    padding: .75rem .85rem;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-
-    padding: 15px 20px;
+    gap: .75rem;
+    background: linear-gradient(180deg, rgba(255, 249, 234, .96), rgba(255, 244, 208, .78));
+    border-bottom: .125rem solid rgba(43, 33, 25, .22);
 }
 
+/* 此处为codex修改 */
 .battlefield-header p {
     margin: 0;
+    font-size: clamp(.75rem, 3.4vw, .88rem);
+    font-weight: 900;
+    line-height: 1.32;
 }
 
+/* 此处为codex修改 */
+.player-information-zone,
+.enemy-information-zone {
+    max-width: 48%;
+    padding: .45rem .55rem;
+    border: .125rem solid var(--line);
+    border-radius: .55rem;
+    background: rgba(255, 253, 247, .84);
+    box-shadow: 0 .18rem 0 var(--line);
+}
+
+/* 此处为codex修改 */
 .player-information-zone {
     text-align: left;
 }
 
+/* 此处为codex修改 */
 .enemy-information-zone {
     text-align: right;
 }
 
-
-/* =========================
-   Combat zone
-   ========================= */
-
+/* 此处为codex修改 */
 .combat-zone {
     flex: 1;
     width: 100%;
+    padding: .6rem 1.65rem .9rem;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    padding: 10px 30px 20px;
 }
 
-
-/* =========================
-   Player / Enemy
-   ========================= */
-
+/* 此处为codex修改 */
 .player,
 .enemy {
+    min-width: 5.5rem;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: -50px;
+    margin-bottom: -2.65rem;
 }
 
+/* 此处为codex修改 */
 .player-name,
 .enemy-name {
+    max-width: 7.5rem;
+    margin-top: .35rem;
+    padding: .22rem .5rem;
+    overflow: hidden;
+    border: .125rem solid var(--line);
+    border-radius: 999rem;
+    color: var(--ink);
+    background: rgba(255, 253, 247, .86);
+    box-shadow: 0 .125rem 0 var(--line);
     text-align: center;
-    translate: 0 -30px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    translate: 0 -1.45rem;
+    font-size: clamp(.68rem, 3vw, .8rem);
+    font-weight: 900;
 }
 
+/* 此处为codex修改 */
+.player-attack .character-image,
+.enemy-attack .enemy-image {
+    animation: lunge .32s ease-in-out;
+}
+
+/* 此处为codex修改 */
+.player-hurt .character-image,
+.enemy-hurt .enemy-image {
+    animation: hurt-shake .26s ease-in-out;
+}
+
+/* 此处为codex修改 */
+.player-die,
+.enemy-die {
+    opacity: .55;
+    filter: grayscale(.65);
+}
+
+/* 此处为codex修改 */
+@keyframes lunge {
+    50% {
+        transform: translateX(.85rem);
+    }
+}
+
+/* 此处为codex修改 */
+@keyframes hurt-shake {
+    30% {
+        transform: translateX(-.38rem);
+    }
+
+    65% {
+        transform: translateX(.38rem);
+    }
+}
+
+/* 此处为codex修改 */
+@media (max-width: 22.5rem) {
+    :root {
+        --sprite-scale: 1.15;
+    }
+
+    .combat-zone {
+        padding-inline: 1.2rem;
+    }
+}

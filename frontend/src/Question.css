@@ -1,194 +1,271 @@
+/* 此处为codex修改 */
 :root {
-    --bg-page: #e8e6e1;
-    --bg-app: #f7f6f2;
-    --bg-section: #efede7;
-    --bg-card: #ffffff;
-    --text-main: #222;
-    --border-main: #222;
+    --bg-page: #dfe9e2;
+    --bg-app: #fff9ea;
+    --bg-section: #f7edcf;
+    --bg-card: #fffdf7;
+    --text-main: #241c16;
+    --text-muted: #6d6258;
+    --border-main: #2b2119;
+    --accent: #2f8f83;
+    --gold: #d89a2b;
+    --danger: #c95446;
 }
 
+/* 此处为codex修改 */
 body {
     background: var(--bg-page);
     color: var(--text-main);
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
+/* 此处为codex修改 */
 .mobile-app {
     background: var(--bg-app);
 }
 
-.question-main {
-    background: var(--bg-app);
+/* 此处为codex修改 */
+button {
+    font: inherit;
 }
 
-.answer-option,
-.check-options button,
-.continue-button,
-.result-dialog {
-    background: var(--bg-card);
-    border-color: var(--border-main);
-}
-
-.character-name,
-.boss-name,
-.question-type {
-    font-family: "Press Start 2P", monospace;
-}
-
-.answer-option,
-.check-options button,
-.continue-button {
-    border: 2px solid #222;
-    border-radius: 12px;
-    background: white;
-    box-shadow: 0 4px 0 #222;
-    font-family: "Nunito", sans-serif;
-    font-weight: 700;
-    cursor: pointer;
-    transition:
-        transform 0.12s ease,
-        box-shadow 0.12s ease,
-        background 0.12s ease;
-}
-
+/* 此处为codex修改 */
 .question {
     flex: 1;
     min-height: 0;
     width: 100%;
     display: flex;
     flex-direction: column;
+    background: var(--bg-app);
 }
 
-.question-type {
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    gap: 15px;
-}
-
+/* 此处为codex修改 */
 .question-main {
     flex: 1;
     min-height: 0;
-    padding: 20px;
+    padding: 1rem;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap : 30px;
+    gap: .95rem;
 }
 
+/* 此处为codex修改 */
+.question-type,
+.question-description,
+.option-description {
+    margin: 0;
+}
+
+/* 此处为codex修改 */
+.question-type {
+    align-self: flex-start;
+    padding: .42rem .7rem;
+    border: .125rem solid var(--border-main);
+    border-radius: 999rem;
+    background: #f3d577;
+    box-shadow: 0 .18rem 0 var(--border-main);
+    color: var(--text-main);
+    font-size: clamp(.75rem, 3.5vw, .9rem);
+    font-weight: 900;
+    line-height: 1;
+}
+
+/* 此处为codex修改 */
+.question-description {
+    padding: 1rem;
+    border: .1875rem solid var(--border-main);
+    border-radius: .9rem;
+    background: var(--bg-card);
+    box-shadow: 0 .28rem 0 var(--border-main);
+    color: var(--text-main);
+    font-size: clamp(1rem, 4.7vw, 1.18rem);
+    line-height: 1.36;
+}
+
+/* 此处为codex修改 */
 .question-options {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
+    display: grid;
+    gap: .62rem;
 }
 
+/* 此处为codex修改 */
+.option-description {
+    padding: .72rem .82rem;
+    border: .125rem solid rgba(43, 33, 25, .24);
+    border-radius: .65rem;
+    background: rgba(255, 253, 247, .74);
+    color: var(--text-muted);
+    font-size: clamp(.9rem, 4vw, 1rem);
+    line-height: 1.35;
+    font-weight: 800;
+}
+
+/* 此处为codex修改 */
 .question-footer {
-    flex: 0 0 130px;
+    flex: 0 0 auto;
     width: 100%;
-    padding: 10px;
+    padding: .75rem .85rem .85rem;
+    border-top: .1875rem solid var(--border-main);
+    background: #fff4d0;
 }
 
+/* 此处为codex修改 */
 .answer-options {
     width: 100%;
-    display: flex;
-    gap: 8px;
-    margin-bottom: 8px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: .48rem;
+    margin-bottom: .62rem;
 }
 
-.answer-option {
-    flex: 1;
+/* 此处为codex修改 */
+.answer-option,
+.check-options button,
+.continue-button,
+.result-dialog button {
     min-width: 0;
-    height: 50px;
-    padding: 8px;
-    border: 3px solid black;
-    background: white;
-    font-size: 20px;
+    min-height: 2.9rem;
+    padding: .48rem;
+    border: .15rem solid var(--border-main);
+    border-radius: .6rem;
+    background: var(--bg-card);
+    box-shadow: 0 .25rem 0 var(--border-main);
+    color: var(--text-main);
+    font-size: clamp(.85rem, 3.8vw, 1.05rem);
+    font-weight: 900;
     cursor: pointer;
+    transition: transform .14s ease, box-shadow .14s ease, background .14s ease;
 }
 
+/* 此处为codex修改 */
+.answer-option:hover:not(:disabled),
+.check-options button:hover:not(:disabled),
+.result-dialog button:hover {
+    background: #fff2c2;
+}
+
+/* 此处为codex修改 */
 .answer-option.selected {
-    transform: translateY(5px);
-    background: #e5e5e5;
+    background: #9fd9ad;
+    box-shadow: 0 .08rem 0 var(--border-main);
+    transform: translateY(.18rem);
 }
 
-.answer-option:disabled {
-    opacity: 0.5;
-    cursor: default;
+/* 此处为codex修改 */
+.answer-option:disabled,
+.check-options button:disabled {
+    opacity: .48;
+    box-shadow: none;
+    cursor: not-allowed;
 }
 
+/* 此处为codex修改 */
 .check-options {
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    gap: 8px;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    gap: .48rem;
 }
 
-.check-options button {
-    min-width: 0;
-    height: 50px;
-    padding: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 3px solid black;
-    background: white;
-    font-size: 18px;
-    cursor: pointer;
+/* 此处为codex修改 */
+.check-options button:nth-child(1) {
+    background: #c6e4f1;
 }
 
-.check-options button:disabled {
-    opacity: 0.5;
-    cursor: default;
+/* 此处为codex修改 */
+.check-options button:nth-child(2) {
+    background: #9fd9ad;
 }
 
+/* 此处为codex修改 */
+.check-options button:nth-child(3) {
+    background: #ffd2be;
+}
+
+/* 此处为codex修改 */
 .result-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     z-index: 1000;
+    padding: 1rem;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
+    background: rgba(36, 28, 22, .32);
 }
 
+/* 此处为codex修改 */
 .result-dialog {
-    width: 420px;
-    height: 150px;
-    padding: 20px;
-    background: white;
-
-    border: 3px solid black;
-    border-radius: 16px;
-    box-shadow: 0 6px 0 #222;
-
+    width: min(25.5rem, 100%);
+    max-height: min(78dvh, 22rem);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .72rem;
+    overflow-y: auto;
+    border: .1875rem solid var(--border-main);
+    border-radius: 1rem;
+    background: var(--bg-app);
+    box-shadow: 0 .65rem 0 rgba(43, 33, 25, .35);
     text-align: center;
-    position : fixed;
-    bottom : 5px;
-    animation: result-slide-up 0.35s ease-out;
+    animation: result-slide-up .28s ease-out;
 }
 
+/* 此处为codex修改 */
+.dialog-result {
+    margin: 0;
+    color: var(--text-main);
+    font-size: clamp(1.05rem, 4.8vw, 1.28rem);
+    font-weight: 900;
+}
+
+/* 此处为codex修改 */
+.question-explanation {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: clamp(.9rem, 4vw, 1rem);
+    line-height: 1.35;
+}
+
+/* 此处为codex修改 */
 .result-dialog button {
-    position: fixed;
-    width: 410px;
-    height: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 10px;
-    border: 3px solid black;
-    border-radius: 16px;
-    background: white;
-    font-size: 18px;
-    cursor: pointer;
-    z-index: 2000;
-    animation: button-slide-up 0.35s ease-out;
+    width: 100%;
+    background: #f3d577;
 }
 
+/* 此处为codex修改 */
 @keyframes result-slide-up {
-    from { bottom: -50px}
-    to { bottom: 5px}}
+    from {
+        opacity: 0;
+        transform: translateY(1.5rem);
+    }
 
-@keyframes button-slide-up {
-    from { bottom: -50px }
-    to { bottom: 10px }}
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 此处为codex修改 */
+@media (max-width: 22.5rem) {
+    .question-main {
+        padding: .75rem;
+        gap: .75rem;
+    }
+
+    .question-description {
+        padding: .82rem;
+    }
+
+    .answer-options,
+    .check-options {
+        gap: .35rem;
+    }
+
+    .answer-option,
+    .check-options button {
+        min-height: 2.65rem;
+        padding-inline: .3rem;
+    }
+}

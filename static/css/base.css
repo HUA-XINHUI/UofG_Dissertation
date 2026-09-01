@@ -1,113 +1,341 @@
-/* ---------- Reset ---------- */
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+/* 此处为codex修改 */
+:root {
+    --page-bg: #dfe9e2;
+    --app-bg: #fff9ea;
+    --panel-bg: #f7edcf;
+    --card-bg: #fffdf7;
+    --ink: #241c16;
+    --muted: #6d6258;
+    --line: #2b2119;
+    --accent: #2f8f83;
+    --accent-dark: #1f625d;
+    --gold: #d89a2b;
+    --danger: #c95446;
+    --success: #338b5f;
+    --shadow-soft: 0 1rem 2.4rem rgba(43, 33, 25, .2);
+    --shadow-hard: 0 .28rem 0 var(--line);
+    --radius-sm: .5rem;
+    --radius-md: .75rem;
+    --radius-lg: 1.1rem;
+    --font-body: "Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
-/* ---------- Body ---------- */
-body{
-    background: red;
-    display:flex;
-    justify-content:center;
-    min-height:100vh;
-    background:#e5e5e5;
-    font-family:Arial, Helvetica, sans-serif;
+/* 此处为codex修改 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-/* ---------- 整个网页 ---------- */
-.mobile-app{
-    width:100%;
-    max-width:430px;
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    background:white;
-    box-shadow:0 0 12px rgba(0,0,0,.2);
+
+/* 此处为codex修改 */
+html {
+    min-height: 100%;
+    background:
+        radial-gradient(circle at 8% 0%, rgba(47, 143, 131, .22), transparent 28rem),
+        linear-gradient(135deg, #dce9e2 0%, #efe4c7 100%);
 }
-/* ---------- 用户信息栏 ---------- */
-header {
-    display: flex;
-    height: 80px;
-    padding: 20px;
-    align-items: center;
-    border-bottom: 3px solid black;
-}
-.user-icon {
-    width: 55px;
-    height: 55px;
-    flex-shrink: 0;
+
+/* 此处为codex修改 */
+body {
+    min-height: 100dvh;
     display: flex;
     justify-content: center;
-    align-items: center;
-    border: 3px solid black;
-    border-radius: 50%;
-    font-size: 24px;
+    color: var(--ink);
+    background: transparent;
+    font-family: var(--font-body);
+    line-height: 1.45;
 }
+
+/* 此处为codex修改 */
+button,
+input {
+    font: inherit;
+}
+
+/* 此处为codex修改 */
+button {
+    border: .125rem solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: .7rem 1rem;
+    color: var(--ink);
+    background: var(--card-bg);
+    box-shadow: var(--shadow-hard);
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform .14s ease, box-shadow .14s ease, background .14s ease;
+}
+
+/* 此处为codex修改 */
+button:hover:not(:disabled) {
+    background: #fff2c2;
+    transform: translateY(-.08rem);
+}
+
+/* 此处为codex修改 */
+button:active:not(:disabled) {
+    box-shadow: 0 .08rem 0 var(--line);
+    transform: translateY(.2rem);
+}
+
+/* 此处为codex修改 */
+button:disabled {
+    color: #8c8178;
+    background: #ddd4c5;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+/* 此处为codex修改 */
+h1,
+h2,
+h3 {
+    line-height: 1.15;
+}
+
+/* 此处为codex修改 */
+h1 {
+    margin-bottom: .9rem;
+    font-size: clamp(1.45rem, 6vw, 2rem);
+    font-weight: 900;
+}
+
+/* 此处为codex修改 */
+h2 {
+    margin-bottom: .65rem;
+    font-size: clamp(1.05rem, 4.6vw, 1.3rem);
+}
+
+/* 此处为codex修改 */
+h3 {
+    font-size: clamp(.95rem, 4vw, 1.08rem);
+    font-weight: 700;
+}
+
+/* 此处为codex修改 */
+p {
+    margin-bottom: .65rem;
+    overflow-wrap: anywhere;
+}
+
+/* 此处为codex修改 */
+.mobile-app {
+    width: 100%;
+    max-width: 26.875rem;
+    height: 100dvh;
+    max-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: var(--app-bg);
+    border-inline: .125rem solid rgba(43, 33, 25, .16);
+    box-shadow: var(--shadow-soft);
+}
+
+/* 此处为codex修改 */
+header {
+    min-height: 5.15rem;
+    padding: .95rem 1rem;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: .85rem;
+    border-bottom: .1875rem solid var(--line);
+    background: linear-gradient(180deg, #fff7df 0%, #f4dc8f 100%);
+}
+
+/* 此处为codex修改 */
+.user-icon {
+    width: 3.35rem;
+    height: 3.35rem;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    border: .1875rem solid var(--line);
+    border-radius: 50%;
+    color: transparent;
+    background: #fffdf7;
+    box-shadow: 0 .2rem 0 var(--line);
+    position: relative;
+}
+
+/* 此处为codex修改 */
+.user-icon::before {
+    content: "";
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 1.28rem 0 .48rem var(--accent-dark);
+}
+
+/* 此处为codex修改 */
 .user-information {
-    /* margin-left: 10px; */
+    min-width: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    gap: .45rem;
 }
+
+/* 此处为codex修改 */
 .user-id {
-    padding-left: 10px;
-    font-size: 25px;
-    font-weight: 400;
-    line-height: 1.5;
+    max-width: 100%;
+    overflow: hidden;
+    color: var(--ink);
+    font-size: clamp(1.15rem, 5vw, 1.55rem);
+    font-weight: 900;
+    line-height: 1.05;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
+
+/* 此处为codex修改 */
 .user-assets {
-    padding-left: 15px;
     display: flex;
-    gap: 30px;
-    font-size: 15px;
+    flex-wrap: wrap;
+    gap: .45rem;
+    color: var(--muted);
+    font-size: clamp(.78rem, 3.4vw, .92rem);
+    font-weight: 800;
     line-height: 1;
 }
-/* ---------- 战斗显示 ---------- */
-.battlefield {
-    height: 130px;
-    padding: 20px;
-    border-bottom: 3px solid black;
+
+/* 此处为codex修改 */
+.user-assets span {
+    padding: .28rem .5rem;
+    border: .125rem solid rgba(43, 33, 25, .24);
+    border-radius: 999rem;
+    background: rgba(255, 253, 247, .75);
 }
-/* ---------- 中间main区 ---------- */
+
+/* 此处为codex修改 */
+.battlefield {
+    min-height: 7.6rem;
+    padding: 1rem;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-bottom: .1875rem solid var(--line);
+    color: var(--muted);
+    background:
+        linear-gradient(rgba(47, 143, 131, .14), rgba(47, 143, 131, .14)),
+        repeating-linear-gradient(45deg, transparent 0 .875rem, rgba(43, 33, 25, .04) .875rem 1.75rem);
+    text-align: center;
+    font-weight: 800;
+}
+
+/* 此处为codex修改 */
 main {
     flex: 1;
-    padding: 20px;
+    min-height: 0;
+    padding: 1rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-bottom: .1875rem solid var(--line);
+    background: var(--app-bg);
+}
 
-    border-bottom: 3px solid black;
+/* 此处为codex修改 */
+main > div {
+    margin-bottom: 1rem;
 }
-/* ---------- 底部按钮 ---------- */
+
+/* 此处为codex修改 */
+main > div:last-child {
+    margin-bottom: 0;
+}
+
+/* 此处为codex修改 */
+main form {
+    display: grid;
+    gap: .75rem;
+}
+
+/* 此处为codex修改 */
+main p,
+main h3 {
+    color: var(--muted);
+}
+
+/* 此处为codex修改 */
+main div:not(.feedback-area):not(#character-store):not(.section-map):not(.section-cards):not(.unit-button):not(.switch-buttons):not(.character-cards):not(.character-cards-info) {
+    padding: 1rem;
+    border: .125rem solid rgba(43, 33, 25, .22);
+    border-radius: var(--radius-md);
+    background: rgba(255, 253, 247, .7);
+}
+
+/* 此处为codex修改 */
 footer {
-    height: 50px;
+    min-height: 3.4rem;
+    flex-shrink: 0;
+    border-top: .1875rem solid var(--line);
+    background: #fff4d0;
 }
+
+/* 此处为codex修改 */
 footer nav {
     width: 100%;
     height: 100%;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
 }
+
+/* 此处为codex修改 */
 footer nav a {
-    flex: 1;
+    min-width: 0;
+    min-height: 3.4rem;
+    padding: .42rem .2rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-right: 2px solid black;
-    color: black;
+    border-right: .125rem solid rgba(43, 33, 25, .32);
+    color: var(--muted);
     text-align: center;
     text-decoration: none;
+    font-size: clamp(.64rem, 3vw, .78rem);
+    font-weight: 900;
+    line-height: 1.05;
 }
+
+/* 此处为codex修改 */
 footer nav a:last-child {
     border-right: none;
 }
+
+/* 此处为codex修改 */
 footer nav a.active {
-    background-color: #e5e5e5;
-    font-weight: 700;
-    border-top: 5px solid black;
+    color: var(--ink);
+    background: #f3d577;
+    box-shadow: inset 0 .32rem 0 var(--line);
 }
 
+/* 此处为codex修改 */
+.feedback-area {
+    display: grid;
+    gap: .5rem;
+}
+
+/* 此处为codex修改 */
 .feedback {
+    margin: 0 0 .75rem;
+    padding: .65rem .75rem;
+    border: .125rem solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--card-bg);
+    box-shadow: 0 .18rem 0 var(--line);
     opacity: 1;
-    transition: opacity 0.5s;
+    transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
+/* 此处为codex修改 */
 .feedback.fade-out {
     opacity: 0;
+    transform: translateY(-.25rem);
+}
+
+/* 此处为codex修改 */
+.hidden {
+    display: none !important;
 }

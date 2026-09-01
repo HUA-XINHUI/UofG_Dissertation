@@ -1,26 +1,47 @@
-/* ---------- Reset ---------- */
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+/* 此处为codex修改 */
+:root {
+    --page-bg: #dfe9e2;
+    --app-bg: #fff9ea;
+    --ink: #241c16;
+    --line: #2b2119;
 }
 
-/* ---------- Body ---------- */
-body{
-    background: red;
-    display:flex;
-    justify-content:center;
-    min-height:100vh;
-    background:#e5e5e5;
-    font-family:Arial, Helvetica, sans-serif;
+/* 此处为codex修改 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-/* ---------- 整个网页 ---------- */
-.mobile-app{
-    width:100%;
-    max-width:430px;
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    background:white;
-    box-shadow:0 0 12px rgba(0,0,0,.2);
+
+/* 此处为codex修改 */
+html,
+body {
+    width: 100%;
+    min-height: 100dvh;
+}
+
+/* 此处为codex修改 */
+body {
+    display: flex;
+    justify-content: center;
+    color: var(--ink);
+    background:
+        radial-gradient(circle at 8% 0%, rgba(47, 143, 131, .22), transparent 28rem),
+        linear-gradient(135deg, #dce9e2 0%, #efe4c7 100%);
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+/* 此处为codex修改 */
+.mobile-app {
+    width: 100%;
+    max-width: 26.875rem;
+    height: 100dvh;
+    max-height: 100dvh;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: var(--app-bg);
+    border-inline: .125rem solid rgba(43, 33, 25, .16);
+    box-shadow: 0 1rem 2.4rem rgba(43, 33, 25, .2);
 }

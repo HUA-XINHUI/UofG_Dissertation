@@ -1,55 +1,157 @@
+/* 此处为codex修改 */
 #character-store {
     width: 100%;
-    height: 100%;
+    min-height: 100%;
+    height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 1rem;
+    overflow: visible;
 }
 
-.character-cards {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/* 此处为codex修改 */
+#character-store-logo {
     width: 100%;
+    padding: .9rem 1rem;
+    border: .125rem solid rgba(43, 33, 25, .2);
+    border-radius: var(--radius-md);
+    background: linear-gradient(180deg, #fffdf7, #fff1bf);
     text-align: center;
 }
 
-.character-cards-info {
+/* 此处为codex修改 */
+#character-store-logo h1 {
+    margin: 0;
+    font-size: clamp(1.35rem, 6vw, 1.8rem);
+}
+
+/* 此处为codex修改 */
+#character-store form {
     width: 100%;
+}
+
+/* 此处为codex修改 */
+.character-cards {
+    width: 100%;
+    max-width: 100%;
+    min-height: 22rem;
+    padding: 1rem;
+    flex: 0 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 1rem;
+    border: .1875rem solid var(--line);
+    border-radius: var(--radius-lg);
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, .88), rgba(232, 246, 235, .92)),
+        var(--card-bg);
+    box-shadow: var(--shadow-hard);
+    text-align: center;
 }
 
-.status-buttons {
-    margin-top: auto;
-    width: 70%;
-    height: 44px;
-    flex-shrink: 0;
-}
-
-.switch-buttons {
-    margin-top: auto;
-    margin-bottom: 10px;
+/* 此处为codex修改 */
+.character-cards-info {
     width: 100%;
+    display: grid;
+    gap: .62rem;
+}
+
+/* 此处为codex修改 */
+.character-cards-info p {
+    margin: 0;
+    padding: .62rem .75rem;
+    border: .125rem solid rgba(43, 33, 25, .18);
+    border-radius: var(--radius-sm);
+    background: rgba(255, 253, 247, .75);
+    color: var(--muted);
+    font-weight: 800;
+}
+
+/* 此处为codex修改 */
+.character-cards-info p:first-child {
+    border-color: var(--line);
+    background: var(--line);
+    color: #fff9ea;
+    font-size: clamp(1.08rem, 4.8vw, 1.35rem);
+    font-weight: 900;
+}
+
+/* 此处为codex修改 */
+.status-buttons {
+    width: min(70%, 18rem);
+    min-height: 2.9rem;
+    margin-top: auto;
+    flex-shrink: 0;
+    background: #ffe59a;
+}
+
+/* 此处为codex修改 */
+.status-buttons[value="select"] {
+    background: #9fd9ad;
+}
+
+/* 此处为codex修改 */
+.status-buttons[value="buy"] {
+    background: #ffd07b;
+}
+
+/* 此处为codex修改 */
+.status-buttons:disabled {
+    color: #fff9ea;
+    background: var(--accent-dark);
+    opacity: 1;
+}
+
+/* 此处为codex修改 */
+.switch-buttons {
+    width: 100%;
+    margin-top: auto;
+    padding: 0 .2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 10px 0px;
 }
 
+/* 此处为codex修改 */
 #left-button,
 #right-button {
-    width: 55px;
-    height: 55px;
-    border: 2px solid #222;
+    width: clamp(3rem, 14vw, 3.6rem);
+    height: clamp(3rem, 14vw, 3.6rem);
+    flex-shrink: 0;
+    border: .125rem solid var(--line);
     border-radius: 50%;
-    background: white;
-    box-shadow: 0 4px 0 #222;
+    background: #fffdf7;
+    box-shadow: var(--shadow-hard);
+    color: transparent;
+    position: relative;
 }
 
+/* 此处为codex修改 */
+#left-button::before,
+#right-button::before {
+    content: "";
+    width: .75rem;
+    height: .75rem;
+    border-top: .18rem solid var(--line);
+    border-left: .18rem solid var(--line);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+/* 此处为codex修改 */
+#left-button::before {
+    transform: translate(-35%, -50%) rotate(-45deg);
+}
+
+/* 此处为codex修改 */
+#right-button::before {
+    transform: translate(-65%, -50%) rotate(135deg);
+}
+
+/* 此处为codex修改 */
 .character-cards.hidden {
-    display: none;
+    display: none !important;
 }

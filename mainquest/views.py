@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Section, Unit
+from django.contrib.auth.decorators import login_required
 
+@login_required(login_url="accounts:home")
 def home(request):
 
     user = request.user

@@ -60,28 +60,73 @@
             </main>
             <footer>
                 <nav>
-                    <a href="{% url 'mainquest:home' %}"
-                    class="{% if request.resolver_match.namespace == 'mainquest' %}active{% endif %}"
+
+                    <a 
+                    {% if request.user.is_authenticated %}
+                        href="{% url 'mainquest:home' %}"
+                    {% endif %}
+                    class="
+                        footer-button
+                        {% if request.resolver_match.namespace == 'mainquest' %}
+                            active
+                        {% endif %}
+                        {% if not request.user.is_authenticated %}
+                            footer-button-disabled
+                        {% endif %}
+                    "
                     >
                         Main <br>
                         Quest
                     </a>
 
-                    <a href="{% url 'dailyquest:home' %}"
-                    class="{% if request.resolver_match.namespace == 'dailyquest' %}active{% endif %}"
+                    <a 
+                    {% if request.user.is_authenticated %}
+                        href="{% url 'dailyquest:home' %}"
+                    {% endif %}
+                    class="
+                        footer-button
+                        {% if request.resolver_match.namespace == 'dailyquest' %}
+                            active
+                        {% endif %}
+                        {% if not request.user.is_authenticated %}
+                            footer-button-disabled
+                        {% endif %}
+                    "
                     >
                         Daily <br>
                         Quest
                     </a>
 
-                    <a href="{% url 'userprofile:home' %}"
-                    class="{% if request.resolver_match.namespace == 'userprofile' %}active{% endif %}"
+                    <a 
+                    {% if request.user.is_authenticated %}
+                        href="{% url 'userprofile:home' %}"
+                    {% endif %}
+                    class="
+                        footer-button
+                        {% if request.resolver_match.namespace == 'userprofile' %}
+                            active
+                        {% endif %}
+                        {% if not request.user.is_authenticated %}
+                            footer-button-disabled
+                        {% endif %}
+                    "
                     >
                         Profile
                     </a>
 
-                    <a href="{% url 'store:home' %}"
-                    class="{% if request.resolver_match.namespace == 'store' %}active{% endif %}"
+                    <a 
+                    {% if request.user.is_authenticated %}
+                        href="{% url 'store:home' %}"
+                    {% endif %}
+                    class="
+                        footer-button
+                        {% if request.resolver_match.namespace == 'store' %}
+                            active
+                        {% endif %}
+                        {% if not request.user.is_authenticated %}
+                            footer-button-disabled
+                        {% endif %}
+                    "
                     >
                         Store
                     </a>

@@ -1,9 +1,12 @@
 from django.shortcuts import render
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 from .models import Character
 from userprofile.models import UserAsset
 
+
+@login_required(login_url="accounts:home")
 def home(request):
 
     user = request.user

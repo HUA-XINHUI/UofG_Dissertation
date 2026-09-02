@@ -259,7 +259,7 @@ main h3 {
 }
 
 /* 此处为codex修改 */
-main div:not(.feedback-area):not(#character-store):not(.section-map):not(.section-cards):not(.unit-button):not(.switch-buttons):not(.character-cards):not(.character-cards-info) {
+main div:not(.feedback-area):not(#character-store):not(.section-map):not(.section-cards):not(.unit-button):not(#switch-buttons):not(.switch-buttons):not(.character-cards):not(.character-cards-info) {
     padding: 1rem;
     border: .125rem solid rgba(43, 33, 25, .22);
     border-radius: var(--radius-md);
@@ -338,4 +338,10 @@ footer nav a.active {
 /* 此处为codex修改 */
 .hidden {
     display: none !important;
+}
+
+.footer-button-disabled {
+    opacity: 0.4;
+    pointer-events: none;
+    cursor: not-allowed;
 }

@@ -1,5 +1,7 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
+@login_required(login_url="accounts:home")
 def home(request):
     user = request.user
     user_profile = user.user_profile

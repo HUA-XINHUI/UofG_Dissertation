@@ -2,15 +2,16 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.http import JsonResponse
 from django.utils import timezone
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 from challenge.models import Question, QuestionOption
 from mainquest.models import Unit
 from dailyquest.models import UserDailyData
 from store.models import Skill, Character
 from userprofile.models import UserProfile, UserTaskData
-
 from . import skills, utility
 
+@login_required(login_url="accounts:home")
 def home(request, unit_id):
 
     unit = get_object_or_404(Unit, id=unit_id)
@@ -97,7 +98,7 @@ def home(request, unit_id):
             utility.clear_question_sessions(request)
             return JsonResponse({
                 "isEnd": True,
-                "redirectUrl": "/",
+                "redirectUrl": "/mainquest",
             })
 
     skill_available = (character.skill.trigger_type == Skill.TriggerType.ACTIVE)

@@ -1,5 +1,196 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block main %}
-<h1>accounts Page</h1>
+
+<main class="accounts-page">
+    {% if request.user.is_authenticated %}
+
+        <div class="account-card">
+            <h1>Account</h1>
+
+            <p>Welcome back, {{ request.user.username }}!</p>
+            <p>You are currently logged in.</p>
+
+            <form method="POST" action="{% url 'accounts:logout' %}">
+                {% csrf_token %}
+                <button type="submit">Log out</button>
+            </form>
+        </div>
+
+    {% else %}
+        <div class="login-page">
+
+            <div class="login-card">
+                <h1>Welcome</h1>
+                <p class="login-description">
+                    Continue your adventure
+                </p>
+
+                <form
+                    method="POST"
+                    class="login-form"
+                >
+                    {% csrf_token %}
+                    <label for="login-username">
+                        Username
+                    </label>
+                    <input
+                        id="login-username"
+                        type="text"
+                        name="username"
+                        required
+                    >
+                    <label for="login-password">
+                        Password
+                    </label>
+                    <input
+                        id="login-password"
+                        type="password"
+                        name="password"
+                        required
+                    >
+                    {% if error_message %}
+                        <p class="error-message">
+                            {{ error_message }}
+                        </p>
+                    {% endif %}
+                    <button
+                        type="submit"
+                        class="login-button"
+                    >
+                        Login
+                    </button>
+                </form>
+
+                <div class="register-section">
+
+                    <p>
+                        New player?
+                    </p>
+
+                    <button
+                        type="button"
+                        id="open-register-dialog"
+                        class="register-button"
+                    >
+                        Register
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+    {% endif %}
+
+    <dialog
+        id="register-dialog"
+        class="register-dialog"
+    >
+
+        <div class="register-dialog-content">
+
+            <button
+                type="button"
+                id="close-register-dialog"
+                class="close-dialog-button"
+            >
+                ×
+            </button>
+
+            <h2>Create Account</h2>
+
+            <form
+                method="POST"
+                action="{% url 'accounts:register' %}"
+                class="register-form"
+            >
+
+                {% csrf_token %}
+
+                <label for="register-username">
+                    Username
+                </label>
+
+                <input
+                    id="register-username"
+                    type="text"
+                    name="username"
+                    required
+                >
+
+                <label for="register-password">
+                    Password
+                </label>
+
+                <input
+                    id="register-password"
+                    type="password"
+                    name="password"
+                    required
+                >
+
+                <label for="confirm-password">
+                    Confirm Password
+                </label>
+
+                <input
+                    id="confirm-password"
+                    type="password"
+                    name="confirm_password"
+                    required
+                >
+
+                {% if register_error %}
+                    <p class="error-message">
+                        {{ register_error }}
+                    </p>
+                {% endif %}
+
+                <button
+                    type="submit"
+                    class="create-account-button"
+                >
+                    Create Account
+                </button>
+
+            </form>
+
+        </div>
+
+    </dialog>
+
+
+    <script>
+
+        const registerDialog =
+            document.getElementById("register-dialog");
+
+        const openRegisterButton =
+            document.getElementById("open-register-dialog");
+
+        const closeRegisterButton =
+            document.getElementById("close-register-dialog");
+
+
+        openRegisterButton.addEventListener("click", function () {
+            registerDialog.showModal();
+        });
+
+
+        closeRegisterButton.addEventListener("click", function () {
+            registerDialog.close();
+        });
+
+
+        {% if register_error %}
+            window.addEventListener("DOMContentLoaded", function () {
+                registerDialog.showModal();
+            });
+        {% endif %}
+
+    </script>
+</main>
+
 {% endblock %}

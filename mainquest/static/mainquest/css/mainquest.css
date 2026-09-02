@@ -32,12 +32,10 @@
 .unit-button {
     min-height: 12rem;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: center;
-    align-content: center;
     align-items: center;
-    column-gap: clamp(.7rem, 4vw, 1.15rem);
-    row-gap: clamp(.15rem, 2vw, .45rem);
+    gap: 0.75rem;
 }
 
 /* 此处为codex修改 */
@@ -50,10 +48,9 @@
     align-items: center;
     position: absolute;
     left: .25rem;
-    top: 50%;
-    transform: translateY(-50%);
     pointer-events: none;
     z-index: 2;
+    bottom: 2rem;
 }
 
 /* 此处为codex修改 */
@@ -244,4 +241,12 @@
 /* 此处为codex修改 */
 .hidden {
     display: none !important;
+}
+
+#section-information {
+    display: none;
+}
+
+.feedback-area {
+    display: none;
 }

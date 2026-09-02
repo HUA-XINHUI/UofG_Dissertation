@@ -42,6 +42,7 @@ class UserProfile(models.Model):
         "mainquest.Unit",
         to_field="id",
         on_delete=models.PROTECT,
+        default=1,
         null=True,
         blank=True,
         related_name="current_users",

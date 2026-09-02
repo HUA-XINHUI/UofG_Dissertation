@@ -1,0 +1,2376 @@
+[
+{
+  "model": "mainquest.section",
+  "pk": 1,
+  "fields": {
+    "title": "Intensive Week",
+    "description": "This is the start of the course and is an intense week with daily lectures and lab slots.",
+    "order_no": 1
+  }
+},
+{
+  "model": "mainquest.section",
+  "pk": 2,
+  "fields": {
+    "title": "Object Oriented Programming",
+    "description": "In the lab session this week you should attempt to complete this programming exercise that will test your understanding of the basic programming principles you learned about last week. Also some of you may not have completed the lab exercises from last week so you could continue with them.",
+    "order_no": 2
+  }
+},
+{
+  "model": "mainquest.section",
+  "pk": 3,
+  "fields": {
+    "title": "Java basics",
+    "description": "Week 3 will continue to look at Python classes and objects. We will first review how you should be thinking about classes and objects within your own code.",
+    "order_no": 3
+  }
+},
+{
+  "model": "mainquest.unit",
+  "pk": 1,
+  "fields": {
+    "section": 1,
+    "title": "Introduction & Hello World File",
+    "description": "In this lecture we will introduce the course and show you your first program.",
+    "order_no": 1,
+    "unit_type": "common",
+    "boss": 2
+  }
+},
+{
+  "model": "mainquest.unit",
+  "pk": 2,
+  "fields": {
+    "section": 1,
+    "title": "Variables, functions and scope, Comments, Conditions and Keyboard Input",
+    "description": "In this lecture, we will look at some more complex but essential concepts in programming.",
+    "order_no": 2,
+    "unit_type": "common",
+    "boss": 2
+  }
+},
+{
+  "model": "mainquest.unit",
+  "pk": 3,
+  "fields": {
+    "section": 1,
+    "title": "lalalLoops, String Formating, & Libraries",
+    "description": "This lecture will introduce iteration, string formatting and libraries we can use to import code.",
+    "order_no": 3,
+    "unit_type": "common",
+    "boss": 2
+  }
+},
+{
+  "model": "mainquest.unit",
+  "pk": 4,
+  "fields": {
+    "section": 1,
+    "title": "Data Structures",
+    "description": "In this section we will look at the different types of data structures we can use in Python.",
+    "order_no": 4,
+    "unit_type": "common",
+    "boss": 2
+  }
+},
+{
+  "model": "mainquest.unit",
+  "pk": 5,
+  "fields": {
+    "section": 1,
+    "title": "File Handling & Program Structure",
+    "description": "In this section we will introduce file handling, to read from and write to files, and things to think about when we structure our progame",
+    "order_no": 5,
+    "unit_type": "common",
+    "boss": 2
+  }
+},
+{
+  "model": "mainquest.unit",
+  "pk": 6,
+  "fields": {
+    "section": 2,
+    "title": "OOP",
+    "description": "It is intended that you will work on this lab sheet throughout the labs in Weeks 3&4.",
+    "order_no": 1,
+    "unit_type": "common",
+    "boss": 1
+  }
+},
+{
+  "model": "mainquest.unit",
+  "pk": 7,
+  "fields": {
+    "section": 3,
+    "title": "Java basics",
+    "description": "To set up Java to use with VScode on your PC follow this tutorial: https://code.visualstudio.com/docs/java/java-tutorial",
+    "order_no": 1,
+    "unit_type": "common",
+    "boss": 1
+  }
+},
+{
+  "model": "mainquest.boss",
+  "pk": 1,
+  "fields": {
+    "name": "Wolf",
+    "description": "lalala",
+    "asset_key": "enemyWolf"
+  }
+},
+{
+  "model": "mainquest.boss",
+  "pk": 2,
+  "fields": {
+    "name": "rogueGreen",
+    "description": "",
+    "asset_key": "rogueGreen"
+  }
+},
+{
+  "model": "mainquest.boss",
+  "pk": 3,
+  "fields": {
+    "name": "warriorRed",
+    "description": "",
+    "asset_key": "warriorRed"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 1,
+  "fields": {
+    "unit": 1,
+    "title": "U1Q1",
+    "description": "Which of the following is a valid way to assign a value to a variable in Python?",
+    "question_type": "multiple_choice",
+    "explanation": "The correct answer is: x = 5",
+    "order_no": 1,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 2,
+  "fields": {
+    "unit": 1,
+    "title": "U1Q3",
+    "description": "Which of the following is a valid string literal in Python?",
+    "question_type": "multiple_choice",
+    "explanation": "Single or double quotes are valid for strings in Python.",
+    "order_no": 3,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 3,
+  "fields": {
+    "unit": 1,
+    "title": "U1Q2",
+    "description": "What kind of error occurs when you try to use an undefined variable in Python?",
+    "question_type": "multiple_choice",
+    "explanation": "NameError occurs when a variable is not defined.",
+    "order_no": 2,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 4,
+  "fields": {
+    "unit": 1,
+    "title": "U1Q4",
+    "description": "What is the correct syntax to print 'Hello World!' in Python?",
+    "question_type": "multiple_choice",
+    "explanation": "This is the standard way to print in Python.",
+    "order_no": 4,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 5,
+  "fields": {
+    "unit": 1,
+    "title": "U1Q5",
+    "description": "Which of the following is NOT a built-in Python type?",
+    "question_type": "multiple_choice",
+    "explanation": "Python uses 'float' instead of 'double'.",
+    "order_no": 5,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 6,
+  "fields": {
+    "unit": 2,
+    "title": "U2Q1",
+    "description": "What is the result of evaluating the expression `5 and 2` in Python?",
+    "question_type": "multiple_choice",
+    "explanation": "In Python, `and` returns the second operand if both are truthy.",
+    "order_no": 1,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 8,
+  "fields": {
+    "unit": 2,
+    "title": "U2Q3",
+    "description": "Which of the following is the correct way to define a function in Python?",
+    "question_type": "multiple_choice",
+    "explanation": "This is the proper Python syntax.",
+    "order_no": 3,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 9,
+  "fields": {
+    "unit": 2,
+    "title": "U2Q4",
+    "description": "What is the scope of a variable declared inside a function in Python?",
+    "question_type": "multiple_choice",
+    "explanation": "The correct answer is: It is local to the function and not accessible outside",
+    "order_no": 4,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 10,
+  "fields": {
+    "unit": 2,
+    "title": "U2Q5",
+    "description": "What is the result of evaluating 7 // 4.0 in Python?",
+    "question_type": "multiple_choice",
+    "explanation": "The correct answer is: 1.0",
+    "order_no": 5,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 11,
+  "fields": {
+    "unit": 3,
+    "title": "U3Q1",
+    "description": "What will the following code output?",
+    "question_type": "multiple_choice",
+    "explanation": "7 divided by 4.0 is 1.75.",
+    "order_no": 1,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 12,
+  "fields": {
+    "unit": 3,
+    "title": "U3Q2",
+    "description": "What is the correct way to define a function in Python that takes two parameters and returns their sum?",
+    "question_type": "multiple_choice",
+    "explanation": "The correct answer is: def add(x, y): return x + y",
+    "order_no": 2,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 13,
+  "fields": {
+    "unit": 3,
+    "title": "U3Q3",
+    "description": "Which of the following best describes the scope of a variable declared inside a function?",
+    "question_type": "multiple_choice",
+    "explanation": "The correct answer is: It is local to the function and not accessible outside",
+    "order_no": 3,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 14,
+  "fields": {
+    "unit": 3,
+    "title": "U3Q4",
+    "description": "Which of the following is a valid conditional expression in Python?",
+    "question_type": "multiple_choice",
+    "explanation": "The correct answer is: if x != 5:",
+    "order_no": 4,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 15,
+  "fields": {
+    "unit": 3,
+    "title": "U3Q5",
+    "description": "What is the main reason for using a library in Python?",
+    "question_type": "multiple_choice",
+    "explanation": "Libraries help you reuse existing code.",
+    "order_no": 5,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 16,
+  "fields": {
+    "unit": 3,
+    "title": "U3Q6",
+    "description": "What is the output of this code?\r\n\r\ndef change(my_variable):\r\nmy_variable += 3\r\nprint(my_variable)\r\nmy_variable = 2\r\nchange(my_variable)\r\nprint(my_variable)",
+    "question_type": "multiple_choice",
+    "explanation": "The function prints 5.",
+    "order_no": 6,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 17,
+  "fields": {
+    "unit": 3,
+    "title": "U3Q7",
+    "description": "Which command would you use to install a third-party library like matplotlib?",
+    "question_type": "multiple_choice",
+    "explanation": "pip is the standard tool for installing Python packages.",
+    "order_no": 7,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 18,
+  "fields": {
+    "unit": 4,
+    "title": "U4Q1",
+    "description": "What is the result of executing grades.append([87, 95]) on a list?",
+    "question_type": "multiple_choice",
+    "explanation": "The correct answer is: It adds a single element which is a list: [87, 95]",
+    "order_no": 1,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 19,
+  "fields": {
+    "unit": 4,
+    "title": "U4Q2",
+    "description": "What is a key advantage of using NumPy arrays over Python lists?",
+    "question_type": "multiple_choice",
+    "explanation": "The correct answer is: They support fast vectorized operations",
+    "order_no": 2,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 20,
+  "fields": {
+    "unit": 4,
+    "title": "U4Q3",
+    "description": "Which of the following Python data structures is immutable?",
+    "question_type": "multiple_choice",
+    "explanation": "The correct answer is: Tuple",
+    "order_no": 3,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 21,
+  "fields": {
+    "unit": 4,
+    "title": "U4Q4",
+    "description": "Which operation returns the union of two sets a and b in Python?",
+    "question_type": "multiple_choice",
+    "explanation": "The correct answer is: a | b",
+    "order_no": 4,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 22,
+  "fields": {
+    "unit": 4,
+    "title": "U4Q5",
+    "description": "What does the get() method do in a Python dictionary?",
+    "question_type": "multiple_choice",
+    "explanation": "The correct answer is: Returns the value for a key if it exists, otherwise returns None or a default",
+    "order_no": 5,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 23,
+  "fields": {
+    "unit": 5,
+    "title": "U5Q1",
+    "description": "What does the condition if __name__ == '__main__': ensure?",
+    "question_type": "multiple_choice",
+    "explanation": "The correct answer is: The code block runs only when the file is executed directly",
+    "order_no": 1,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 24,
+  "fields": {
+    "unit": 5,
+    "title": "U5Q2",
+    "description": "What is the correct way to split a CSV line into fields?",
+    "question_type": "multiple_choice",
+    "explanation": "The correct answer is: line.strip().split(',')",
+    "order_no": 2,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 25,
+  "fields": {
+    "unit": 5,
+    "title": "U5Q3",
+    "description": "Which statement is recommended for safely opening a file in Python?",
+    "question_type": "multiple_choice",
+    "explanation": "The correct answer is: with open(filename, 'r') as file:",
+    "order_no": 3,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 26,
+  "fields": {
+    "unit": 5,
+    "title": "U5Q4",
+    "description": "What is the purpose of using line.strip() when printing lines from a file?",
+    "question_type": "multiple_choice",
+    "explanation": "The correct answer is: To remove leading and trailing whitespace including newline characters",
+    "order_no": 4,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 27,
+  "fields": {
+    "unit": 5,
+    "title": "U5Q5",
+    "description": "Which file mode allows you to append data to an existing file?",
+    "question_type": "multiple_choice",
+    "explanation": "The correct answer is: 'a'",
+    "order_no": 5,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 28,
+  "fields": {
+    "unit": 6,
+    "title": "S2U1Q1",
+    "description": "Given a class where age is assigned on the class, not on self, what happens if you create two people and then change one person’s age?",
+    "question_type": "multiple_choice",
+    "explanation": "Class attributes are shared across all instances. Updating it via any instance affects all.\r\nThe correct answer is: All Person objects reflect the changed age, because it is a class (static) attribute.",
+    "order_no": 1,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 29,
+  "fields": {
+    "unit": 6,
+    "title": "S2U1Q2",
+    "description": "In the example with a Canvas class that holds a list of shapes and calls describe() on each, what requirement must any object meet to be added to the canvas?",
+    "question_type": "multiple_choice",
+    "explanation": "The Canvas calls shape.describe() for each stored object. Any shape added should therefore provide a describe() method.\r\nThe correct answer is: It must implement a describe() method that the canvas can call.",
+    "order_no": 2,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 30,
+  "fields": {
+    "unit": 6,
+    "title": "S2U1Q3",
+    "description": "In Python classes, what is the main role of the __init__ method?",
+    "question_type": "multiple_choice",
+    "explanation": "__init__ is the constructor that runs when you create an object and typically assigns initial values to instance attributes. It doesn’t return the object; the instance is created before __init__ runs.\r\nThe correct answer is: It runs automatically when the object is created and initializes instance attributes.",
+    "order_no": 3,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 31,
+  "fields": {
+    "unit": 6,
+    "title": "S2U1Q4",
+    "description": "Which line correctly assigns a constructor parameter radius to an instance attribute in Python?",
+    "question_type": "multiple_choice",
+    "explanation": "Inside instance methods, use self to refer to the current object. For example: self.radius = radius.\r\nThe correct answer is: self.radius = radius",
+    "order_no": 4,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 32,
+  "fields": {
+    "unit": 6,
+    "title": "S2U1Q5",
+    "description": "Consider a class with a method defined as @staticmethod. Why can we call it as Adding.addingMethod(3, 4) without creating an instance?",
+    "question_type": "multiple_choice",
+    "explanation": "@staticmethod declares a function that does not receive self or cls, so it can be invoked on the class without making an object.\r\nThe correct answer is: Because a static method does not require self and can be called on the class directly.",
+    "order_no": 5,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 33,
+  "fields": {
+    "unit": 7,
+    "title": "S3U1Q1",
+    "description": "Given:\r\nclass Person:\r\n    def __init__(self, name, age):\r\n        self.name = name\r\n        self.age = age\r\n    def __str__(self):\r\n        return f\"I am {self.name} and I am {self.age}\"\r\n\r\nperson_one = Person(\"Bill\", 57)\r\nWhat will print(person_one) output?",
+    "question_type": "multiple_choice",
+    "explanation": "The correct answer is: I am Bill and I am 57",
+    "order_no": 1,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 34,
+  "fields": {
+    "unit": 7,
+    "title": "S3U1Q2",
+    "description": "Which implementation follows best practice for defining __eq__ on a Person class that considers two people equal if their ages match?",
+    "question_type": "multiple_choice",
+    "explanation": "The correct answer is:\r\ndef __eq__(self, other):\r\n    if not isinstance(other, Person):\r\n        return NotImplemented\r\n    return self.age == other.age",
+    "order_no": 2,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 35,
+  "fields": {
+    "unit": 7,
+    "title": "S3U1Q3",
+    "description": "Given an abstract base class using ABC and @abstractmethod for methods add and empty, what happens when you try b = Bin()?",
+    "question_type": "multiple_choice",
+    "explanation": "",
+    "order_no": 3,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 36,
+  "fields": {
+    "unit": 7,
+    "title": "S3U1Q4",
+    "description": "In Python, for user-defined classes that do not override __eq__, which statement best describes == and is?",
+    "question_type": "multiple_choice",
+    "explanation": "The correct answer is: == compares like identity unless __eq__ is defined; is always tests identity.",
+    "order_no": 4,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.question",
+  "pk": 37,
+  "fields": {
+    "unit": 7,
+    "title": "S3U1Q5",
+    "description": "In a subclass RecyclingBin(Bin), how do you reuse Bin's initialisation inside RecyclingBin.__init__?",
+    "question_type": "multiple_choice",
+    "explanation": "The correct answer is: Call super().__init__() inside RecyclingBin.__init__.",
+    "order_no": 5,
+    "available_for_daily": false,
+    "created_by": null,
+    "category": "testing"
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 1,
+  "fields": {
+    "question": 1,
+    "title": "A",
+    "description": "int x = 5",
+    "is_correct": false,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 2,
+  "fields": {
+    "question": 1,
+    "title": "B",
+    "description": "x := 5",
+    "is_correct": false,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 3,
+  "fields": {
+    "question": 1,
+    "title": "C",
+    "description": "let x = 5",
+    "is_correct": false,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 4,
+  "fields": {
+    "question": 1,
+    "title": "D",
+    "description": "x = 5",
+    "is_correct": true,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 5,
+  "fields": {
+    "question": 3,
+    "title": "A",
+    "description": "NameError",
+    "is_correct": true,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 6,
+  "fields": {
+    "question": 3,
+    "title": "B",
+    "description": "SyntaxError",
+    "is_correct": false,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 7,
+  "fields": {
+    "question": 2,
+    "title": "A",
+    "description": "'Hello World!'",
+    "is_correct": true,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 8,
+  "fields": {
+    "question": 2,
+    "title": "B",
+    "description": "Hello World!",
+    "is_correct": false,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 9,
+  "fields": {
+    "question": 2,
+    "title": "C",
+    "description": "str(Hello World!)",
+    "is_correct": false,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 10,
+  "fields": {
+    "question": 4,
+    "title": "A",
+    "description": "print(\"Hello World!\")",
+    "is_correct": true,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 11,
+  "fields": {
+    "question": 3,
+    "title": "C",
+    "description": "ValueError",
+    "is_correct": false,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 12,
+  "fields": {
+    "question": 3,
+    "title": "D",
+    "description": "TypeError",
+    "is_correct": false,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 13,
+  "fields": {
+    "question": 2,
+    "title": "D",
+    "description": "`Hello World!`",
+    "is_correct": false,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 14,
+  "fields": {
+    "question": 4,
+    "title": "B",
+    "description": "System.out.println(\"Hello World!\")",
+    "is_correct": false,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 15,
+  "fields": {
+    "question": 4,
+    "title": "C",
+    "description": "echo \"Hello World!\"",
+    "is_correct": false,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 16,
+  "fields": {
+    "question": 4,
+    "title": "D",
+    "description": "printf(\"Hello World!\")",
+    "is_correct": false,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 17,
+  "fields": {
+    "question": 5,
+    "title": "A",
+    "description": "int",
+    "is_correct": false,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 18,
+  "fields": {
+    "question": 5,
+    "title": "B",
+    "description": "double",
+    "is_correct": true,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 19,
+  "fields": {
+    "question": 5,
+    "title": "C",
+    "description": "str",
+    "is_correct": false,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 20,
+  "fields": {
+    "question": 5,
+    "title": "D",
+    "description": "bool",
+    "is_correct": false,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 21,
+  "fields": {
+    "question": 6,
+    "title": "A",
+    "description": "5 and 2",
+    "is_correct": true,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 22,
+  "fields": {
+    "question": 6,
+    "title": "B",
+    "description": "5 and 5",
+    "is_correct": false,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 23,
+  "fields": {
+    "question": 6,
+    "title": "C",
+    "description": "2 and 2",
+    "is_correct": false,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 24,
+  "fields": {
+    "question": 6,
+    "title": "D",
+    "description": "2 and 5",
+    "is_correct": false,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 29,
+  "fields": {
+    "question": 8,
+    "title": "A",
+    "description": "def add(x, y) return x + y",
+    "is_correct": false,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 30,
+  "fields": {
+    "question": 8,
+    "title": "B",
+    "description": "add(x, y): return x + y",
+    "is_correct": false,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 31,
+  "fields": {
+    "question": 8,
+    "title": "C",
+    "description": "def add(x, y): return x + y",
+    "is_correct": true,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 32,
+  "fields": {
+    "question": 8,
+    "title": "D",
+    "description": "function add(x, y): return x + y",
+    "is_correct": false,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 33,
+  "fields": {
+    "question": 9,
+    "title": "A",
+    "description": "It is local to the function and not accessible outside",
+    "is_correct": true,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 34,
+  "fields": {
+    "question": 9,
+    "title": "B",
+    "description": "It is shared with the main program",
+    "is_correct": false,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 35,
+  "fields": {
+    "question": 9,
+    "title": "C",
+    "description": "It is automatically global if the variable name is reused",
+    "is_correct": false,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 36,
+  "fields": {
+    "question": 9,
+    "title": "D",
+    "description": "It is accessible from anywhere in the program",
+    "is_correct": false,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 37,
+  "fields": {
+    "question": 10,
+    "title": "A",
+    "description": "1.75",
+    "is_correct": false,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 38,
+  "fields": {
+    "question": 10,
+    "title": "B",
+    "description": "1.0",
+    "is_correct": true,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 39,
+  "fields": {
+    "question": 10,
+    "title": "C",
+    "description": "1",
+    "is_correct": false,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 40,
+  "fields": {
+    "question": 10,
+    "title": "D",
+    "description": "Error: cannot divide int by float",
+    "is_correct": false,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 41,
+  "fields": {
+    "question": 11,
+    "title": "A",
+    "description": "Error",
+    "is_correct": false,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 42,
+  "fields": {
+    "question": 11,
+    "title": "B",
+    "description": "1",
+    "is_correct": false,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 43,
+  "fields": {
+    "question": 11,
+    "title": "C",
+    "description": "1.0",
+    "is_correct": false,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 44,
+  "fields": {
+    "question": 11,
+    "title": "D",
+    "description": "1.75",
+    "is_correct": true,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 45,
+  "fields": {
+    "question": 12,
+    "title": "A",
+    "description": "add(x, y): return x + y",
+    "is_correct": false,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 46,
+  "fields": {
+    "question": 12,
+    "title": "B",
+    "description": "def add(x, y): return x + y",
+    "is_correct": true,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 47,
+  "fields": {
+    "question": 12,
+    "title": "C",
+    "description": "function add(x, y): return x + y",
+    "is_correct": false,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 48,
+  "fields": {
+    "question": 12,
+    "title": "D",
+    "description": "def add(x, y) return x + y",
+    "is_correct": false,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 49,
+  "fields": {
+    "question": 13,
+    "title": "A",
+    "description": "It is local to the function and not accessible outside",
+    "is_correct": true,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 50,
+  "fields": {
+    "question": 13,
+    "title": "B",
+    "description": "It is accessible from anywhere in the program",
+    "is_correct": false,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 51,
+  "fields": {
+    "question": 13,
+    "title": "C",
+    "description": "It is shared with the main program",
+    "is_correct": false,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 52,
+  "fields": {
+    "question": 13,
+    "title": "D",
+    "description": "It is automatically global if the variable name is reused",
+    "is_correct": false,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 53,
+  "fields": {
+    "question": 14,
+    "title": "A",
+    "description": "if x != 5:",
+    "is_correct": true,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 54,
+  "fields": {
+    "question": 14,
+    "title": "B",
+    "description": "if x <> 5:",
+    "is_correct": false,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 55,
+  "fields": {
+    "question": 14,
+    "title": "C",
+    "description": "if x not = 5:",
+    "is_correct": false,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 56,
+  "fields": {
+    "question": 14,
+    "title": "D",
+    "description": "if x =! 5:",
+    "is_correct": false,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 57,
+  "fields": {
+    "question": 15,
+    "title": "A",
+    "description": "To store variables between runs",
+    "is_correct": false,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 58,
+  "fields": {
+    "question": 15,
+    "title": "B",
+    "description": "To convert Python code into machine code",
+    "is_correct": false,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 59,
+  "fields": {
+    "question": 15,
+    "title": "C",
+    "description": "To avoid writing code that has already been written",
+    "is_correct": true,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 60,
+  "fields": {
+    "question": 15,
+    "title": "D",
+    "description": "To make Python run faster",
+    "is_correct": false,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 61,
+  "fields": {
+    "question": 16,
+    "title": "A",
+    "description": "2 and 5",
+    "is_correct": false,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 62,
+  "fields": {
+    "question": 16,
+    "title": "B",
+    "description": "2 and 2",
+    "is_correct": true,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 63,
+  "fields": {
+    "question": 16,
+    "title": "C",
+    "description": "5 and 5",
+    "is_correct": false,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 64,
+  "fields": {
+    "question": 16,
+    "title": "D",
+    "description": "5 and 2",
+    "is_correct": false,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 65,
+  "fields": {
+    "question": 17,
+    "title": "A",
+    "description": "python install matplotlib",
+    "is_correct": false,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 66,
+  "fields": {
+    "question": 17,
+    "title": "B",
+    "description": "setup matplotlib",
+    "is_correct": false,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 67,
+  "fields": {
+    "question": 17,
+    "title": "C",
+    "description": "import matplotlib",
+    "is_correct": false,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 68,
+  "fields": {
+    "question": 17,
+    "title": "D",
+    "description": "pip install matplotlib",
+    "is_correct": true,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 69,
+  "fields": {
+    "question": 18,
+    "title": "A",
+    "description": "It throws a TypeError",
+    "is_correct": false,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 70,
+  "fields": {
+    "question": 18,
+    "title": "B",
+    "description": "It replaces the last element with [87, 95]",
+    "is_correct": false,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 71,
+  "fields": {
+    "question": 18,
+    "title": "C",
+    "description": "It adds a single element which is a list: [87, 95]",
+    "is_correct": true,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 72,
+  "fields": {
+    "question": 18,
+    "title": "D",
+    "description": "It adds 87 and 95 as separate elements",
+    "is_correct": false,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 73,
+  "fields": {
+    "question": 19,
+    "title": "A",
+    "description": "They can store mixed data types",
+    "is_correct": false,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 74,
+  "fields": {
+    "question": 19,
+    "title": "B",
+    "description": "They are always smaller in size",
+    "is_correct": false,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 75,
+  "fields": {
+    "question": 19,
+    "title": "C",
+    "description": "They support fast vectorized operations",
+    "is_correct": true,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 76,
+  "fields": {
+    "question": 19,
+    "title": "D",
+    "description": "They are built into the Python standard library",
+    "is_correct": false,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 77,
+  "fields": {
+    "question": 20,
+    "title": "A",
+    "description": "Set",
+    "is_correct": false,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 78,
+  "fields": {
+    "question": 20,
+    "title": "B",
+    "description": "Dictionary",
+    "is_correct": false,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 79,
+  "fields": {
+    "question": 20,
+    "title": "C",
+    "description": "List",
+    "is_correct": false,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 80,
+  "fields": {
+    "question": 20,
+    "title": "D",
+    "description": "Tuple",
+    "is_correct": true,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 81,
+  "fields": {
+    "question": 21,
+    "title": "A",
+    "description": "a | b",
+    "is_correct": true,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 82,
+  "fields": {
+    "question": 21,
+    "title": "B",
+    "description": "a - b",
+    "is_correct": false,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 83,
+  "fields": {
+    "question": 21,
+    "title": "C",
+    "description": "a & b",
+    "is_correct": false,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 84,
+  "fields": {
+    "question": 21,
+    "title": "D",
+    "description": "a + b",
+    "is_correct": false,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 85,
+  "fields": {
+    "question": 22,
+    "title": "A",
+    "description": "Raises an error if the key is not found",
+    "is_correct": false,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 86,
+  "fields": {
+    "question": 22,
+    "title": "B",
+    "description": "Adds a new key-value pair",
+    "is_correct": false,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 87,
+  "fields": {
+    "question": 22,
+    "title": "C",
+    "description": "Returns the value for a key if it exists, otherwise returns None or a default",
+    "is_correct": true,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 88,
+  "fields": {
+    "question": 22,
+    "title": "D",
+    "description": "Deletes the key from the dictionary",
+    "is_correct": false,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 89,
+  "fields": {
+    "question": 23,
+    "title": "A",
+    "description": "The code block runs only when the file is imported",
+    "is_correct": false,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 90,
+  "fields": {
+    "question": 23,
+    "title": "B",
+    "description": "The code block runs only when the file is executed directly",
+    "is_correct": true,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 91,
+  "fields": {
+    "question": 23,
+    "title": "C",
+    "description": "The code block runs only when the file contains a main() function",
+    "is_correct": false,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 92,
+  "fields": {
+    "question": 23,
+    "title": "D",
+    "description": "The code block runs only when the file is compiled",
+    "is_correct": false,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 93,
+  "fields": {
+    "question": 24,
+    "title": "A",
+    "description": "line.strip().split(',')",
+    "is_correct": false,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 94,
+  "fields": {
+    "question": 24,
+    "title": "B",
+    "description": "line.strip().split()",
+    "is_correct": false,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 95,
+  "fields": {
+    "question": 24,
+    "title": "C",
+    "description": "line.split().strip(',')",
+    "is_correct": false,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 96,
+  "fields": {
+    "question": 24,
+    "title": "D",
+    "description": "line.split(',').strip()",
+    "is_correct": true,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 97,
+  "fields": {
+    "question": 25,
+    "title": "A",
+    "description": "with open(filename, 'r') as file:",
+    "is_correct": true,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 98,
+  "fields": {
+    "question": 25,
+    "title": "B",
+    "description": "file.open('filename')",
+    "is_correct": false,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 99,
+  "fields": {
+    "question": 25,
+    "title": "C",
+    "description": "file = open(filename)",
+    "is_correct": false,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 100,
+  "fields": {
+    "question": 25,
+    "title": "D",
+    "description": "open(filename, 'r')",
+    "is_correct": false,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 101,
+  "fields": {
+    "question": 26,
+    "title": "A",
+    "description": "To split the line into words",
+    "is_correct": false,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 102,
+  "fields": {
+    "question": 26,
+    "title": "B",
+    "description": "To remove leading and trailing whitespace including newline characters",
+    "is_correct": true,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 103,
+  "fields": {
+    "question": 26,
+    "title": "C",
+    "description": "To convert the line to uppercase",
+    "is_correct": false,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 104,
+  "fields": {
+    "question": 26,
+    "title": "D",
+    "description": "To count the number of characters in the line",
+    "is_correct": false,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 105,
+  "fields": {
+    "question": 27,
+    "title": "A",
+    "description": "'w'",
+    "is_correct": false,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 106,
+  "fields": {
+    "question": 27,
+    "title": "B",
+    "description": "'r'",
+    "is_correct": false,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 107,
+  "fields": {
+    "question": 27,
+    "title": "C",
+    "description": "'a'",
+    "is_correct": true,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 108,
+  "fields": {
+    "question": 27,
+    "title": "D",
+    "description": "'x'",
+    "is_correct": false,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 109,
+  "fields": {
+    "question": 28,
+    "title": "A",
+    "description": "It raises an AttributeError because Person.age can’t be changed after construction.",
+    "is_correct": false,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 110,
+  "fields": {
+    "question": 28,
+    "title": "B",
+    "description": "Only the modified object changes; other objects keep their original age.",
+    "is_correct": false,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 111,
+  "fields": {
+    "question": 28,
+    "title": "C",
+    "description": "Nothing changes; class attributes are read-only.",
+    "is_correct": true,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 112,
+  "fields": {
+    "question": 28,
+    "title": "D",
+    "description": "All Person objects reflect the changed age, because it is a class (static) attribute.",
+    "is_correct": false,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 113,
+  "fields": {
+    "question": 29,
+    "title": "A",
+    "description": "It must inherit from Circle.",
+    "is_correct": false,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 114,
+  "fields": {
+    "question": 29,
+    "title": "B",
+    "description": "It must implement a describe() method that the canvas can call.",
+    "is_correct": false,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 115,
+  "fields": {
+    "question": 29,
+    "title": "C",
+    "description": "It must be an instance of a built-in Python container type.",
+    "is_correct": true,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 116,
+  "fields": {
+    "question": 29,
+    "title": "D",
+    "description": "It must provide both area and circumference properties.",
+    "is_correct": false,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 117,
+  "fields": {
+    "question": 30,
+    "title": "A",
+    "description": "It returns the newly created object to the caller.",
+    "is_correct": false,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 118,
+  "fields": {
+    "question": 30,
+    "title": "B",
+    "description": "It is only used to define class-level (static) attributes.",
+    "is_correct": false,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 119,
+  "fields": {
+    "question": 30,
+    "title": "C",
+    "description": "It runs automatically when the object is created and initializes instance attributes.",
+    "is_correct": false,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 120,
+  "fields": {
+    "question": 30,
+    "title": "D",
+    "description": "It must be decorated with @staticmethod so it can run without an instance.",
+    "is_correct": true,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 121,
+  "fields": {
+    "question": 31,
+    "title": "A",
+    "description": "Circle.radius = radius",
+    "is_correct": false,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 122,
+  "fields": {
+    "question": 31,
+    "title": "B",
+    "description": "self.radius = radius",
+    "is_correct": true,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 123,
+  "fields": {
+    "question": 31,
+    "title": "C",
+    "description": "this.radius = radius",
+    "is_correct": false,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 124,
+  "fields": {
+    "question": 31,
+    "title": "D",
+    "description": "radius = self.radius",
+    "is_correct": false,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 125,
+  "fields": {
+    "question": 32,
+    "title": "A",
+    "description": "Because a static method does not require self and can be called on the class directly.",
+    "is_correct": false,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 126,
+  "fields": {
+    "question": 32,
+    "title": "B",
+    "description": "Because Python implicitly creates a temporary object for every class method call.",
+    "is_correct": true,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 127,
+  "fields": {
+    "question": 32,
+    "title": "C",
+    "description": "Because all methods in Python are static by default unless they use self.",
+    "is_correct": false,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 128,
+  "fields": {
+    "question": 32,
+    "title": "D",
+    "description": "Because the method name matches the class name.",
+    "is_correct": false,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 129,
+  "fields": {
+    "question": 33,
+    "title": "A",
+    "description": "('Bill', 57)",
+    "is_correct": true,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 130,
+  "fields": {
+    "question": 33,
+    "title": "B",
+    "description": "Hi, I'm Bill and I am 57 years old.",
+    "is_correct": false,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 131,
+  "fields": {
+    "question": 33,
+    "title": "C",
+    "description": "<__main__.Person object at 0x...>",
+    "is_correct": false,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 132,
+  "fields": {
+    "question": 33,
+    "title": "D",
+    "description": "I am Bill and I am 57",
+    "is_correct": false,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 133,
+  "fields": {
+    "question": 34,
+    "title": "A",
+    "description": "def __eq__(self, other):\r\n    if not isinstance(other, Person):\r\n        return False\r\n    return self.age == other.age",
+    "is_correct": false,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 134,
+  "fields": {
+    "question": 34,
+    "title": "B",
+    "description": "def __eq__(self, other):\r\n    return self is other",
+    "is_correct": false,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 135,
+  "fields": {
+    "question": 34,
+    "title": "C",
+    "description": "def __eq__(self, other):\r\n    if not isinstance(other, Person):\r\n        return NotImplemented\r\n    return self.age == other.age",
+    "is_correct": true,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 136,
+  "fields": {
+    "question": 34,
+    "title": "D",
+    "description": "def __eq__(self, other):\r\n    return type(other) is Person and self.name == other.name",
+    "is_correct": false,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 137,
+  "fields": {
+    "question": 35,
+    "title": "A",
+    "description": "The object is created, but calling any method fails.",
+    "is_correct": false,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 138,
+  "fields": {
+    "question": 35,
+    "title": "B",
+    "description": "It raises an error when the module is imported, not when instantiating.",
+    "is_correct": true,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 139,
+  "fields": {
+    "question": 35,
+    "title": "C",
+    "description": "It succeeds only if you pass default implementations via keyword arguments.",
+    "is_correct": false,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 140,
+  "fields": {
+    "question": 35,
+    "title": "D",
+    "description": "It raises a TypeError because abstract methods are not implemented.",
+    "is_correct": false,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 141,
+  "fields": {
+    "question": 36,
+    "title": "A",
+    "description": "== always compares by value for all objects; is compares by type.",
+    "is_correct": false,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 142,
+  "fields": {
+    "question": 36,
+    "title": "B",
+    "description": "== and is are interchangeable in Python.",
+    "is_correct": true,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 143,
+  "fields": {
+    "question": 36,
+    "title": "C",
+    "description": "is compares values and == compares identities.",
+    "is_correct": false,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 144,
+  "fields": {
+    "question": 36,
+    "title": "D",
+    "description": "== compares like identity unless __eq__ is defined; is always tests identity.",
+    "is_correct": false,
+    "order_no": 4
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 145,
+  "fields": {
+    "question": 37,
+    "title": "A",
+    "description": "Call Bin.super().__init__(self).",
+    "is_correct": false,
+    "order_no": 1
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 146,
+  "fields": {
+    "question": 37,
+    "title": "B",
+    "description": "Do nothing; Python always calls the base constructor automatically.",
+    "is_correct": false,
+    "order_no": 2
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 147,
+  "fields": {
+    "question": 37,
+    "title": "C",
+    "description": "Call super().__init__() inside RecyclingBin.__init__.",
+    "is_correct": true,
+    "order_no": 3
+  }
+},
+{
+  "model": "challenge.questionoption",
+  "pk": 148,
+  "fields": {
+    "question": 37,
+    "title": "D",
+    "description": "Assign self = super() at the top of the constructor.",
+    "is_correct": false,
+    "order_no": 4
+  }
+},
+{
+  "model": "store.character",
+  "pk": 1,
+  "fields": {
+    "character_class": "warrior",
+    "name": "Warrior",
+    "description": "A warrior chasing a Ti champion",
+    "max_hp": 5,
+    "max_mp": 0,
+    "attack_type": "melee",
+    "skill": 1,
+    "unlock_price": 0,
+    "is_default": true,
+    "asset_key": "warriorRed"
+  }
+},
+{
+  "model": "store.character",
+  "pk": 2,
+  "fields": {
+    "character_class": "archer",
+    "name": "Archer",
+    "description": "it is a Archer",
+    "max_hp": 3,
+    "max_mp": 3,
+    "attack_type": "ranged",
+    "skill": 2,
+    "unlock_price": 1000,
+    "is_default": false,
+    "asset_key": "archerBlue"
+  }
+},
+{
+  "model": "store.character",
+  "pk": 3,
+  "fields": {
+    "character_class": "rogue",
+    "name": "Rogue",
+    "description": "a rogue, walking in darking",
+    "max_hp": 2,
+    "max_mp": 3,
+    "attack_type": "melee",
+    "skill": 3,
+    "unlock_price": 300,
+    "is_default": false,
+    "asset_key": "rogueGreen"
+  }
+},
+{
+  "model": "store.character",
+  "pk": 4,
+  "fields": {
+    "character_class": "alchemist",
+    "name": "Alchemist",
+    "description": "Greedy Alchemist, will get more golds when finishing a unit",
+    "max_hp": 1,
+    "max_mp": 0,
+    "attack_type": "melee",
+    "skill": 4,
+    "unlock_price": 1000,
+    "is_default": false,
+    "asset_key": "alchemistPanda"
+  }
+},
+{
+  "model": "store.skill",
+  "pk": 1,
+  "fields": {
+    "name": "Recover",
+    "description": "Recover HP after a correct option",
+    "trigger_type": "passive",
+    "effect_value": 1,
+    "resource_type": "none",
+    "resource_cost": null
+  }
+},
+{
+  "model": "store.skill",
+  "pk": 2,
+  "fields": {
+    "name": "Precision Shot",
+    "description": "remove a wrong option",
+    "trigger_type": "active",
+    "effect_value": 1,
+    "resource_type": "limited_use",
+    "resource_cost": 1
+  }
+},
+{
+  "model": "store.skill",
+  "pk": 3,
+  "fields": {
+    "name": "Cloak of Stealth",
+    "description": "Blocks the damage from the next incorrect answer. Can be used up to 3 times per battle.",
+    "trigger_type": "active",
+    "effect_value": 1,
+    "resource_type": "limited_use",
+    "resource_cost": 1
+  }
+},
+{
+  "model": "store.skill",
+  "pk": 4,
+  "fields": {
+    "name": "Greedy",
+    "description": "greedy",
+    "trigger_type": "passive",
+    "effect_value": 20,
+    "resource_type": "none",
+    "resource_cost": null
+  }
+}
+]

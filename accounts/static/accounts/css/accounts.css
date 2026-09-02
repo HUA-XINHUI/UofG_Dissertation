@@ -1,0 +1,12 @@
+.register-dialog {
+    width: min(90%, 24rem);
+    border: none;
+    border-radius: 1rem;
+    padding: 0;
+    margin: auto;
+}
+
+.register-dialog-content {
+    position: relative;
+    padding: 2rem;
+}

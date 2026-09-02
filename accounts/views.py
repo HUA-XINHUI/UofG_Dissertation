@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db import transaction
 
-from userprofile.models import UserProfile
+from userprofile.models import UserProfile, UserTaskData
 from dailyquest.models import UserDailyData
 from store.models import Character
 
@@ -26,6 +26,9 @@ def create_user_database(username, password):
         selected_character=default_character
     )
     UserDailyData.objects.create(
+        user=user
+    )
+    UserTaskData.objects.create(
         user=user
     )
     return user

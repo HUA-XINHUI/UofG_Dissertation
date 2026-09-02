@@ -91,13 +91,6 @@ button {
 
 /* 此处为codex修改 */
 .option-description {
-    padding: .72rem .82rem;
-    border: .125rem solid rgba(43, 33, 25, .24);
-    border-radius: .65rem;
-    background: rgba(255, 253, 247, .74);
-    color: var(--text-muted);
-    font-size: clamp(.9rem, 4vw, 1rem);
-    line-height: 1.35;
     font-weight: 800;
 }
 

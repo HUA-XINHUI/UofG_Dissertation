@@ -2267,8 +2267,8 @@
   "fields": {
     "character_class": "warrior",
     "name": "Warrior",
-    "description": "A warrior chasing a Ti champion",
-    "max_hp": 5,
+    "description": "This is a brave warrior with high health points who regains health upon successfully answering questions.",
+    "max_hp": 3,
     "max_mp": 0,
     "attack_type": "melee",
     "skill": 1,
@@ -2283,12 +2283,12 @@
   "fields": {
     "character_class": "archer",
     "name": "Archer",
-    "description": "it is a Archer",
-    "max_hp": 3,
+    "description": "This is a nimble archer who removes one incorrect option each time he uses his skill.",
+    "max_hp": 2,
     "max_mp": 3,
     "attack_type": "ranged",
     "skill": 2,
-    "unlock_price": 1000,
+    "unlock_price": 50,
     "is_default": false,
     "asset_key": "archerBlue"
   }
@@ -2299,12 +2299,12 @@
   "fields": {
     "character_class": "rogue",
     "name": "Rogue",
-    "description": "a rogue, walking in darking",
+    "description": "This is a swift rogue who can don a cloak to become immune to one instance of damage.",
     "max_hp": 2,
-    "max_mp": 3,
+    "max_mp": 2,
     "attack_type": "melee",
     "skill": 3,
-    "unlock_price": 300,
+    "unlock_price": 100,
     "is_default": false,
     "asset_key": "rogueGreen"
   }
@@ -2320,7 +2320,7 @@
     "max_mp": 0,
     "attack_type": "melee",
     "skill": 4,
-    "unlock_price": 1000,
+    "unlock_price": 200,
     "is_default": false,
     "asset_key": "alchemistPanda"
   }

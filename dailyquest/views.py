@@ -11,9 +11,9 @@ def home(request):
     quest2_target = 1
     quest3_target = 2
 
-    quest1_reward = 20
-    quest2_reward = 20
-    quest3_reward = 20
+    quest1_reward = 50
+    quest2_reward = 50
+    quest3_reward = 50
 
     user_daily_data, created = UserDailyData.objects.get_or_create(user=request.user)
 
